@@ -15,8 +15,6 @@ export interface SectionData {
 export interface GlobalContext {
     activeSectionId: string;
     changeActiveSection: React.Dispatch<React.SetStateAction<string>>;
-    lastActiveSectionId: string;
-    changeLastActiveSection: React.Dispatch<React.SetStateAction<string>>;
     sections: SectionData[];
     modifySections: React.Dispatch<React.SetStateAction<SectionData[]>>;
 }
@@ -29,8 +27,6 @@ const Provider = (props: { children: React.ReactChildren }) => {
     const globalContextData: GlobalContext = {
         activeSectionId: activeSectionId,
         changeActiveSection: changeActiveSection,
-        lastActiveSectionId: lastActiveSectionId,
-        changeLastActiveSection: changeLastActiveSection,
         sections: sections,
         modifySections: modifySections,
     };
