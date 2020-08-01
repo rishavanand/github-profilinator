@@ -1,8 +1,6 @@
 import React, { Component, useContext } from 'react';
 import { Row, Col, Divider, Layout, Menu, Typography, Button } from 'antd';
-import {
-    PlusOutlined,
-} from '@ant-design/icons';
+import { PlusOutlined } from '@ant-design/icons';
 import styles from '../styles/index.module.scss';
 import Sidebar from '../components/Sidebar';
 import Preview from '../components/Preview';
@@ -17,21 +15,17 @@ const IndexPage = () => {
         <Layout>
             <Sidebar />
             <Layout className={styles.section}>
-                <Content
-                    className={styles.siteLayout}
-                >
+                <Content className={styles.siteLayout}>
                     <Section id={context.activeSectionId} />
                 </Content>
             </Layout>
             <Layout className={styles.section}>
-                <Content
-                    className={[styles.siteLayout, styles.siteLayoutBackground].join(' ')}
-                >
+                <Content className={[styles.siteLayout, styles.siteLayoutBackground].join(' ')}>
                     <Preview />
                 </Content>
             </Layout>
         </Layout>
     );
-}
+};
 
 export default IndexPage;
