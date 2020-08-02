@@ -2,9 +2,10 @@ import React, { useState, useContext } from 'react';
 import { Form, Input, Select, Layout, Menu, Button, Divider, Modal } from 'antd';
 import { CloseCircleOutlined, PlusOutlined } from '@ant-design/icons';
 import styles from '../styles/sidebar.module.scss';
-import { globalContext, GlobalContext, SectionData } from '../context/GlobalContextProvider';
+import { globalContext, GlobalContext } from '../context/GlobalContextProvider';
 import { v4 as uuidv4 } from 'uuid';
 import { SECTION_TYPES } from '../config/global';
+import { SectionProps } from './Section';
 
 const { Sider } = Layout;
 const { Option } = Select;
@@ -23,7 +24,7 @@ export const Sidebar = () => {
         setAddSectionVisibility(false);
     };
 
-    const generateMenu = (activeSectionId: string, sections: SectionData[]) => {
+    const generateMenu = (activeSectionId: string, sections: SectionProps[]) => {
         return (
             <Menu
                 theme="dark"

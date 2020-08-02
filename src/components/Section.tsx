@@ -1,25 +1,32 @@
 import React, { Component, useState, useContext } from 'react';
 import { Row, Col, Divider, Layout, Card, Typography, Button } from 'antd';
 import { PlusOutlined, FireOutlined } from '@ant-design/icons';
-import { globalContext, GlobalContext, SectionData } from '../context/GlobalContextProvider';
-import * as Fields from './Fields/Fields';
-import { SECTION_TYPES } from '../config/global';
+import { globalContext, GlobalContext } from '../context/GlobalContextProvider';
+import Field, { FieldProps } from '../components/Field';
+import { SECTION_TYPES, FIELD_TYPES } from '../config/global';
 
 const { Header, Sider, Content } = Layout;
 const { Title, Paragraph } = Typography;
 
-export interface Props {
+export interface SectionProps {
     id: string;
     name: string;
     columnCount: number;
     type: SECTION_TYPES;
+    fields?: FieldProps[];
 }
 
-const Section = ({ id, name, columnCount, type }: Props) => {
+const Section = ({ id, name, columnCount, type, fields }: SectionProps) => {
     const [error, setError] = useState('');
     const context = useContext(globalContext) as GlobalContext;
 
-    const generateColumnCards = (section: SectionData) => {
+    const generateFields = (fields: FieldProps[]) => {
+        if (!fields || !fields.length)
+            return <>You have not added any fields in this section. Please add a new field to view it here.</>;
+        return fields.map(field => <Field {...field} sectionId={id} key={field.id} />);
+    };
+
+    const generateColumnCards = (section: SectionProps) => {
         return new Array(section.columnCount).fill(1).map((i, j) => {
             return (
                 <Card
@@ -32,8 +39,7 @@ const Section = ({ id, name, columnCount, type }: Props) => {
                         </Button>
                     }
                 >
-                    <Paragraph>{JSON.stringify(section)}</Paragraph>
-                    <Divider />
+                    {generateFields(section.fields)}
                 </Card>
             );
         });

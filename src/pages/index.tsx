@@ -11,13 +11,12 @@ const { Content } = Layout;
 
 const IndexPage = () => {
     const context = useContext<GlobalContext>(globalContext);
-
     return (
         <Layout>
             <Sidebar />
             <Layout className={styles.section}>
                 <Content className={styles.siteLayout}>
-                    <Section {...context.sections[context.activeSectionId]} />
+                    <Section {...context.findSectionById(context.activeSectionId)} />
                 </Content>
             </Layout>
             <Layout className={styles.section}>
