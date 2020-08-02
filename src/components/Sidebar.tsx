@@ -15,13 +15,11 @@ export const Sidebar = () => {
     const context = useContext(globalContext) as GlobalContext;
 
     const addSection = (formValues: { name: string; type: SECTION_TYPES }) => {
-        const sections = context.sections;
-        sections.push({
+        context.addSection({
             ...formValues,
             id: uuidv4(),
             columnCount: 1,
         });
-        context.modifySections(sections);
         setAddSectionVisibility(false);
     };
 
