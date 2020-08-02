@@ -10,13 +10,14 @@ import { globalContext, GlobalContext } from '../context/GlobalContextProvider';
 const { Content } = Layout;
 
 const IndexPage = () => {
-    const context = useContext(globalContext) as GlobalContext;
+    const context = useContext<GlobalContext>(globalContext);
+
     return (
         <Layout>
             <Sidebar />
             <Layout className={styles.section}>
                 <Content className={styles.siteLayout}>
-                    <Section id={context.activeSectionId} />
+                    <Section {...context.sections[context.activeSectionId]} />
                 </Content>
             </Layout>
             <Layout className={styles.section}>

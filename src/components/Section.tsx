@@ -1,16 +1,21 @@
 import React, { Component, useState, useContext } from 'react';
 import { Row, Col, Divider, Layout, Card, Typography, Button } from 'antd';
 import { PlusOutlined, FireOutlined } from '@ant-design/icons';
-import Field from './Field';
-import { SECTION_TYPES } from '../config/global';
 import { globalContext, GlobalContext, SectionData } from '../context/GlobalContextProvider';
+import * as Fields from './Fields/Fields';
+import { SECTION_TYPES } from '../config/global';
 
 const { Header, Sider, Content } = Layout;
 const { Title, Paragraph } = Typography;
 
-const Section = (props: { id: string }) => {
-    const { id } = props;
-    const [columnCount, setColumnCount] = useState(2);
+export interface Props {
+    id: string;
+    name: string;
+    columnCount: number;
+    type: SECTION_TYPES;
+}
+
+const Section = ({ id, name, columnCount, type }: Props) => {
     const [error, setError] = useState('');
     const context = useContext(globalContext) as GlobalContext;
 
@@ -28,6 +33,7 @@ const Section = (props: { id: string }) => {
                     }
                 >
                     <Paragraph>{JSON.stringify(section)}</Paragraph>
+                    <Divider />
                 </Card>
             );
         });
