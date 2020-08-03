@@ -26,7 +26,6 @@ export const Preview = () => {
             })
             .join('');
         const markdownText = marked(markdown);
-        console.log(markdownText);
         const html = renderHTML(markdownText);
         return html;
     };
