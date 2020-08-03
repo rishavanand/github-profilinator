@@ -48,6 +48,6 @@ module.exports = {
                 storageKey: 'darkMode',
                 minify: true,
             },
-        },
+        }
     ],
 };
