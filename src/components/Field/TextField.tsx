@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { Input, Row, Col, Button, Dropdown, Menu } from 'antd';
-import { CloseCircleOutlined, DownOutlined, UserOutlined } from '@ant-design/icons';
+import { DownOutlined } from '@ant-design/icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import styles from '../../styles/fields.module.scss';
-import { faBold, faItalic, faUnderline, faHeading, faTimes } from '@fortawesome/free-solid-svg-icons';
+import { faBold, faItalic, faUnderline, faHeading, faTimes, faAlignLeft } from '@fortawesome/free-solid-svg-icons';
 
 export enum TEXT_SIZE {
     H1 = 'h1',
@@ -15,9 +15,15 @@ export enum TEXT_SIZE {
     REGULAR = '',
 }
 
+export enum TEXT_ALIGNMENT {
+    LEFT = 'left',
+    CENTRE = 'center',
+    RIGHT = 'right',
+}
+
 export interface TextFieldOptions {
     size?: TEXT_SIZE;
-    alignment?: 'left' | 'centre' | 'right';
+    alignment?: TEXT_ALIGNMENT;
     bold?: boolean;
     italics?: boolean;
     underLine?: boolean;
@@ -35,6 +41,12 @@ export interface TextFieldProps {
     deleteField?: (fieldProps: Required<Pick<TextFieldProps, 'id' | 'sectionId'>>) => void;
     modifyField?: (fieldProps: Required<Pick<TextFieldProps, 'id' | 'sectionId'>> & Partial<TextFieldProps>) => void;
 }
+
+export const generateAlignmentTags = (alignment: TEXT_ALIGNMENT, type: 'start' | 'end') => {
+    if ((TEXT_ALIGNMENT.CENTRE || TEXT_ALIGNMENT.RIGHT) && type === 'start') return `<div align="${alignment}">`;
+    else if ((TEXT_ALIGNMENT.CENTRE || TEXT_ALIGNMENT.RIGHT) && type === 'end') return `</div>`;
+    else return '';
+};
 
 export const generateSizeTags = (size: TEXT_SIZE, type: 'start' | 'end') => {
     const end = type === 'end' ? '/' : '';
@@ -64,7 +76,9 @@ export const generateTextFieldMarkdown = ({ options, data }: TextFieldProps) => 
         `${options.italics ? '*' : ''}` +
         `${options.underLine ? '<ins>' : ''}` +
         `${generateSizeTags(options.size, 'start')}` +
+        `${generateAlignmentTags(options.alignment, 'start')}` +
         `${data.value}` +
+        `${generateAlignmentTags(options.alignment, 'end')}` +
         `${generateSizeTags(options.size, 'end')}` +
         `${options.underLine ? '</ins>' : ''}` +
         `${options.italics ? '*' : ''}` +
@@ -95,7 +109,30 @@ export const TextField = ({ id, sectionId, data, options, modifyField, deleteFie
         });
     };
 
-    const menu = (
+    const changeAlignment = (aligment: typeof options.alignment) => {
+        options.alignment = aligment;
+        modifyField({
+            id,
+            sectionId,
+            options,
+        });
+    };
+
+    const aligmentMenu = (
+        <Menu>
+            <Menu.Item key="1" onClick={() => changeAlignment(TEXT_ALIGNMENT.LEFT)}>
+                Left
+            </Menu.Item>
+            <Menu.Item key="2" onClick={() => changeAlignment(TEXT_ALIGNMENT.CENTRE)}>
+                Centre
+            </Menu.Item>
+            <Menu.Item key="3" onClick={() => changeAlignment(TEXT_ALIGNMENT.RIGHT)}>
+                Right
+            </Menu.Item>
+        </Menu>
+    );
+
+    const fontSizeMenu = (
         <Menu>
             <Menu.Item key="1" onClick={() => changeFontSize(TEXT_SIZE.H1)}>
                 Heading 1
@@ -176,12 +213,22 @@ export const TextField = ({ id, sectionId, data, options, modifyField, deleteFie
                             options && options.underLine ? styles.selected : styles.unselected,
                         ].join(' ')}
                     />
-                    <Dropdown overlay={menu}>
+                    <Dropdown overlay={fontSizeMenu}>
                         <Button
                             style={{ paddingLeft: 5, paddingRight: 5, width: 50 }}
                             icon={
                                 <>
                                     <FontAwesomeIcon icon={faHeading} /> <DownOutlined />
+                                </>
+                            }
+                        />
+                    </Dropdown>
+                    <Dropdown overlay={aligmentMenu}>
+                        <Button
+                            style={{ paddingLeft: 5, paddingRight: 5, width: 50 }}
+                            icon={
+                                <>
+                                    <FontAwesomeIcon icon={faAlignLeft} /> <DownOutlined />
                                 </>
                             }
                         />
