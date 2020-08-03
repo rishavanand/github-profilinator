@@ -19,21 +19,20 @@ export const Sidebar = () => {
         context.addSection({
             ...formValues,
             id: uuidv4(),
-            columnCount: 1,
         });
         setAddSectionVisibility(false);
     };
 
-    const generateMenu = (activeSectionId: string, sections: SectionProps[]) => {
+    const generateMenu = (activeSectionIndex: number, sections: SectionProps[]) => {
         return (
             <Menu
                 theme="dark"
                 mode="inline"
-                defaultSelectedKeys={[activeSectionId + 'MenuItem']}
-                onSelect={({ item, key }) => context.changeActiveSection((key as string).replace('MenuItem', ''))}
+                defaultSelectedKeys={[activeSectionIndex.toString()]}
+                onSelect={({ item, key }) => context.changeActiveSection(parseInt(key.toString()))}
             >
-                {sections.map(section => {
-                    return <Menu.Item key={`${section.id}MenuItem`}>{section.name}</Menu.Item>;
+                {sections.map((section, sectionIndex) => {
+                    return <Menu.Item key={sectionIndex}>{section.name}</Menu.Item>;
                 })}
             </Menu>
         );
@@ -85,7 +84,7 @@ export const Sidebar = () => {
                 <h2>GITHUB</h2>
                 <h1>PROFILINATOR</h1>
             </div>
-            {generateMenu(context.activeSectionId, context.sections)}
+            {generateMenu(context.activeSectionIndex, context.sections)}
             <Divider />
             <div className={styles.buttonContainer}>
                 <Button

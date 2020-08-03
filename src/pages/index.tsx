@@ -16,7 +16,10 @@ const IndexPage = () => {
             <Sidebar />
             <Layout className={styles.section}>
                 <Content className={styles.siteLayout}>
-                    <Section {...context.findSectionById(context.activeSectionId)} />
+                    <Section
+                        {...context.sections[context.activeSectionIndex]}
+                        sectionIndex={context.activeSectionIndex}
+                    />
                 </Content>
             </Layout>
             <Layout className={styles.section}>

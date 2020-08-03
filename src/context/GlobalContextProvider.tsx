@@ -4,82 +4,72 @@ import { DEMO_SECTION_DATA } from '../config/demo';
 import { FieldProps } from '../components/Field';
 
 export interface GlobalContext {
-    activeSectionId?: string;
+    activeSectionIndex?: number;
     sections?: SectionProps[];
-    changeActiveSection?: React.Dispatch<React.SetStateAction<string>>;
+    changeActiveSection?: React.Dispatch<React.SetStateAction<number>>;
     addSection?: (sectionProps: SectionProps) => void;
     findSectionById?: (id: string) => SectionProps;
     modifySection?: (sectionProps: Required<Pick<SectionProps, 'id'>>) => void;
-    addField?: (fieldProps: Required<Pick<FieldProps, 'id' | 'sectionId' | 'type'>>) => void;
-    modifyField?: (fieldProps: Required<Pick<FieldProps, 'id' | 'sectionId'>> & FieldProps) => void;
-    deleteField?: (fieldProps: Required<Pick<FieldProps, 'id' | 'sectionId'>>) => void;
+    addField?: (
+        fieldProps: FieldProps & Required<Pick<FieldProps, 'id' | 'type'>>,
+        sectionIndex: number,
+        columnIndex: number,
+    ) => void;
+    modifyField?: (
+        fieldProps: FieldProps & Required<Pick<FieldProps, 'columnIndex' | 'fieldIndex' | 'sectionIndex'>>,
+    ) => void;
+    deleteField?: (
+        fieldProps: FieldProps & Required<Pick<FieldProps, 'columnIndex' | 'fieldIndex' | 'sectionIndex'>>,
+    ) => void;
 }
 
 export const globalContext = React.createContext<GlobalContext>({});
 
 const Provider = (props: { children: React.ReactChildren }) => {
-    const [activeSectionId, changeActiveSection] = useState(DEMO_SECTION_DATA[0].id);
+    const [activeSectionIndex, changeActiveSection] = useState(0);
     const [sections, modifySections] = useState(DEMO_SECTION_DATA);
 
-    const findSectionById = (id: string) => {
-        return sections.find(section => section.id === id);
-    };
-
-    const addSection = (sectionData: SectionProps) => {
+    const addSection = (sectionData: SectionProps & Required<Pick<SectionProps, 'id'>>) => {
         sections.push(sectionData);
-        modifySections(sections);
+        modifySections(sections.map(section => section));
     };
 
-    const modifySection = (sectiondata: Required<Pick<SectionProps, 'id'>>) => {
-        const updatedSections = sections.map((section, i) => {
-            if (section.id === sectiondata.id)
-                return {
-                    ...section,
-                    ...sectiondata,
-                };
-            else return section;
-        });
-        modifySections(updatedSections);
+    const addField = (
+        fieldProps: FieldProps & Required<Pick<FieldProps, 'id' | 'type'>>,
+        sectionIndex: number,
+        columnIndex: number,
+    ) => {
+        if (!sections[sectionIndex].fields) sections[sectionIndex].fields = [[]];
+        sections[sectionIndex].fields[columnIndex].push(fieldProps);
+        modifySections(sections.map(section => section));
     };
 
-    const addField = (fieldProps: Required<Pick<FieldProps, 'id' | 'sectionId' | 'type'>>) => {
-        // const section = sections.find(section => section.id === fieldProps.sectionId);
-        // section.fields.push(fieldProps);
-        // modifySection(section);
+    const modifyField = (
+        fieldProps: FieldProps & Required<Pick<FieldProps, 'columnIndex' | 'fieldIndex' | 'sectionIndex'>>,
+    ) => {
+        const { sectionIndex, columnIndex, fieldIndex } = fieldProps;
+        if (!sections[sectionIndex].fields || !sections[sectionIndex].fields.length)
+            sections[sectionIndex].fields = [[]];
+        sections[sectionIndex].fields[columnIndex][fieldIndex] = {
+            ...sections[sectionIndex].fields[columnIndex][fieldIndex],
+            ...fieldProps,
+        };
+        modifySections(sections.map(section => section));
     };
 
-    const modifyField = (fieldProps: Required<Pick<FieldProps, 'id' | 'sectionId'>>) => {
-        const section = sections.find(section => section.id === fieldProps.sectionId);
-        const updatedFields = section.fields.map((field, i) => {
-            if (field.id === fieldProps.id)
-                return {
-                    ...field,
-                    ...fieldProps,
-                };
-            else return field;
-        });
-        section.fields = updatedFields;
-        modifySection(section);
-    };
-
-    const deleteField = (fieldProps: Required<Pick<FieldProps, 'id' | 'sectionId'>>) => {
-        const section = sections.find(section => section.id === fieldProps.sectionId);
-        let updatedFields = section.fields.map((field, i) => {
-            if (field.id === fieldProps.id) return undefined;
-            else return field;
-        });
-        updatedFields = updatedFields.filter(field => field !== undefined);
-        section.fields = updatedFields;
-        modifySection(section);
+    const deleteField = (
+        fieldProps: FieldProps & Required<Pick<FieldProps, 'columnIndex' | 'fieldIndex' | 'sectionIndex'>>,
+    ) => {
+        const { sectionIndex, columnIndex, fieldIndex } = fieldProps;
+        sections[sectionIndex].fields[columnIndex] = sections[sectionIndex].fields[columnIndex].splice(fieldIndex, 1);
+        modifySections(sections.map(section => section));
     };
 
     const globalContextData: GlobalContext = {
-        activeSectionId: activeSectionId,
+        activeSectionIndex: activeSectionIndex,
         changeActiveSection: changeActiveSection,
         sections: sections,
         addSection: addSection,
-        findSectionById: findSectionById,
-        modifySection: modifySection,
         addField: addField,
         modifyField: modifyField,
         deleteField: deleteField,

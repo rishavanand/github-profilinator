@@ -7,40 +7,39 @@ export const DEMO_SECTION_DATA: SectionProps[] = [
     {
         type: SECTION_TYPES.BANNER,
         name: 'Banner',
-        columnCount: 1,
         id: 'section001',
         fields: [
-            {
-                id: 'field001',
-                data: {
-                    value: 'Hello, World!',
+            [
+                {
+                    id: 'field001',
+                    data: {
+                        value: 'Hello, World!',
+                    },
+                    type: FIELD_TYPES.TEXT,
+                    sectionId: 'section001',
+                    options: {
+                        bold: true,
+                    },
                 },
-                type: FIELD_TYPES.TEXT,
-                sectionId: 'section001',
-                options: {
-                    bold: true,
+                {
+                    id: 'field002',
+                    data: {
+                        value: 'Hello, World!',
+                    },
+                    type: FIELD_TYPES.TEXT,
+                    sectionId: 'section001',
                 },
-            },
-            {
-                id: 'field002',
-                data: {
-                    value: 'Hello, World!',
-                },
-                type: FIELD_TYPES.TEXT,
-                sectionId: 'section001',
-            },
+            ],
         ],
     },
     {
         type: SECTION_TYPES.ABOUT_ME,
         name: 'About Me',
-        columnCount: 2,
         id: uuidv4(),
     },
     {
         type: SECTION_TYPES.SKILLS,
         name: 'Skills',
-        columnCount: 1,
         id: uuidv4(),
     },
 ];

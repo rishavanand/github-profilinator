@@ -4,7 +4,6 @@ import { DownOutlined } from '@ant-design/icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import styles from '../../styles/fields.module.scss';
 import { faBold, faItalic, faUnderline, faHeading, faTimes, faAlignLeft } from '@fortawesome/free-solid-svg-icons';
-import { FieldProps } from '.';
 
 export enum TEXT_SIZE {
     H1 = 'h1',
@@ -34,40 +33,37 @@ export interface TextFieldData {
     value: string;
 }
 
-export interface TextFieldProps extends FieldProps {
+export interface TextFieldProps {
+    id: string;
+    sectionId: string;
     data?: TextFieldData;
     options?: TextFieldOptions;
-    deleteField?: (
-        fieldProps: Required<Pick<TextFieldProps, 'id' | 'sectionId' | 'sectionIndex' | 'columnIndex' | 'fieldIndex'>>,
-    ) => void;
-    modifyField?: (
-        fieldProps: Required<Pick<TextFieldProps, 'id' | 'sectionId' | 'sectionIndex' | 'columnIndex' | 'fieldIndex'>> &
-            TextFieldProps,
-    ) => void;
+    deleteField?: (fieldProps: Required<Pick<TextFieldProps, 'id' | 'sectionId'>>) => void;
+    modifyField?: (fieldProps: Required<Pick<TextFieldProps, 'id' | 'sectionId'>> & Partial<TextFieldProps>) => void;
 }
 
 export const generateAlignmentTags = (alignment: TEXT_ALIGNMENT, type: 'start' | 'end') => {
-    if ((alignment === TEXT_ALIGNMENT.CENTRE || alignment === TEXT_ALIGNMENT.RIGHT) && type === 'start')
-        return `<div align="${alignment}">`;
-    else if ((alignment === TEXT_ALIGNMENT.CENTRE || alignment === TEXT_ALIGNMENT.RIGHT) && type === 'end')
-        return `</div>`;
+    if ((TEXT_ALIGNMENT.CENTRE || TEXT_ALIGNMENT.RIGHT) && type === 'start') return `<div align="${alignment}">`;
+    else if ((TEXT_ALIGNMENT.CENTRE || TEXT_ALIGNMENT.RIGHT) && type === 'end') return `</div>`;
     else return '';
 };
 
-export const generateSizeTags = (size: TEXT_SIZE) => {
+export const generateSizeTags = (size: TEXT_SIZE, type: 'start' | 'end') => {
+    const end = type === 'end' ? '/' : '';
+
     switch (size) {
         case TEXT_SIZE.H1:
-            return `# `;
+            return `<${end}h1>`;
         case TEXT_SIZE.H2:
-            return `## `;
+            return `<${end}h2>`;
         case TEXT_SIZE.H3:
-            return `### `;
+            return `<${end}h3>`;
         case TEXT_SIZE.H4:
-            return `#### `;
+            return `<${end}h4>`;
         case TEXT_SIZE.H5:
-            return `##### `;
+            return `<${end}h5>`;
         case TEXT_SIZE.H6:
-            return `###### `;
+            return `<${end}h6>`;
         default:
             return '';
     }
@@ -76,46 +72,50 @@ export const generateSizeTags = (size: TEXT_SIZE) => {
 export const generateTextFieldMarkdown = ({ options, data }: TextFieldProps) => {
     if (!options) options = {};
     return (
-        `${generateSizeTags(options.size)}` +
         `${options.bold ? '**' : ''}` +
         `${options.italics ? '*' : ''}` +
         `${options.underLine ? '<ins>' : ''}` +
+        `${generateSizeTags(options.size, 'start')}` +
         `${generateAlignmentTags(options.alignment, 'start')}` +
         `${data.value}` +
         `${generateAlignmentTags(options.alignment, 'end')}` +
+        `${generateSizeTags(options.size, 'end')}` +
         `${options.underLine ? '</ins>' : ''}` +
         `${options.italics ? '*' : ''}` +
         `${options.bold ? '**' : ''}`
     );
 };
 
-export const TextField = (
-    textFieldProps: TextFieldProps &
-        Required<Pick<TextFieldProps, 'id' | 'sectionId' | 'sectionIndex' | 'columnIndex' | 'fieldIndex' | 'type'>>,
-) => {
+export const TextField = ({ id, sectionId, data, options, modifyField, deleteField }: TextFieldProps) => {
+    if (!options) options = { size: TEXT_SIZE.REGULAR };
+
     const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const value = event.target.value;
-        textFieldProps.modifyField({
-            ...textFieldProps,
+        modifyField({
+            id,
+            sectionId,
             data: {
-                ...textFieldProps.data,
                 value: value,
             },
         });
     };
 
-    const changeFontSize = (size: typeof textFieldProps.options.size) => {
-        const localProps = { ...textFieldProps };
-        if (!localProps.options) localProps.options = {};
-        localProps.options.size = size;
-        textFieldProps.modifyField(localProps);
+    const changeFontSize = (size: typeof options.size) => {
+        options.size = size;
+        modifyField({
+            id,
+            sectionId,
+            options,
+        });
     };
 
-    const changeAlignment = (aligment: typeof textFieldProps.options.alignment) => {
-        const localProps = { ...textFieldProps };
-        if (!localProps.options) localProps.options = {};
-        localProps.options.alignment = aligment;
-        textFieldProps.modifyField(localProps);
+    const changeAlignment = (aligment: typeof options.alignment) => {
+        options.alignment = aligment;
+        modifyField({
+            id,
+            sectionId,
+            options,
+        });
     };
 
     const aligmentMenu = (
@@ -159,24 +159,30 @@ export const TextField = (
     );
 
     const toggleBold = () => {
-        const localProps = { ...textFieldProps };
-        if (!localProps.options) localProps.options = {};
-        localProps.options.bold = localProps.options.bold ? false : true;
-        textFieldProps.modifyField(localProps);
+        options.bold = options.bold ? false : true;
+        modifyField({
+            id,
+            sectionId,
+            options,
+        });
     };
 
     const toggleItalics = () => {
-        const localProps = { ...textFieldProps };
-        if (!localProps.options) localProps.options = {};
-        localProps.options.italics = localProps.options.italics ? false : true;
-        textFieldProps.modifyField(localProps);
+        options.italics = options.italics ? false : true;
+        modifyField({
+            id,
+            sectionId,
+            options,
+        });
     };
 
     const toggleUnderLine = () => {
-        const localProps = { ...textFieldProps };
-        if (!localProps.options) localProps.options = {};
-        localProps.options.underLine = localProps.options.underLine ? false : true;
-        textFieldProps.modifyField(localProps);
+        options.underLine = options.underLine ? false : true;
+        modifyField({
+            id,
+            sectionId,
+            options,
+        });
     };
 
     return (
@@ -188,7 +194,7 @@ export const TextField = (
                         onClick={() => toggleBold()}
                         className={[
                             styles.optionButton,
-                            textFieldProps.options && textFieldProps.options.bold ? styles.selected : styles.unselected,
+                            options && options.bold ? styles.selected : styles.unselected,
                         ].join(' ')}
                     />
                     <Button
@@ -196,9 +202,7 @@ export const TextField = (
                         onClick={() => toggleItalics()}
                         className={[
                             styles.optionButton,
-                            textFieldProps.options && textFieldProps.options.italics
-                                ? styles.selected
-                                : styles.unselected,
+                            options && options.italics ? styles.selected : styles.unselected,
                         ].join(' ')}
                     />
                     <Button
@@ -206,9 +210,7 @@ export const TextField = (
                         onClick={() => toggleUnderLine()}
                         className={[
                             styles.optionButton,
-                            textFieldProps.options && textFieldProps.options.underLine
-                                ? styles.selected
-                                : styles.unselected,
+                            options && options.underLine ? styles.selected : styles.unselected,
                         ].join(' ')}
                     />
                     <Dropdown overlay={fontSizeMenu}>
@@ -233,10 +235,10 @@ export const TextField = (
                     </Dropdown>
                 </Col>
                 <Col>
-                    <FontAwesomeIcon icon={faTimes} onClick={() => textFieldProps.deleteField(textFieldProps)} />
+                    <FontAwesomeIcon icon={faTimes} onClick={() => deleteField({ id, sectionId })} />
                 </Col>
             </Row>
-            <Input name="input" value={textFieldProps.data.value} onChange={onChange} />
+            <Input name="input" value={data.value} onChange={onChange} />
         </>
     );
 };

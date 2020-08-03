@@ -6,13 +6,16 @@ import { globalContext } from '../../context/GlobalContextProvider';
 
 export interface FieldProps {
     id: string;
+    sectionIndex?: number;
+    columnIndex?: number;
+    fieldIndex?: number;
     type: FIELD_TYPES;
-    data?: TextFieldData;
-    options?: TextFieldOptions;
     sectionId: string;
 }
 
-export const Field = (props: FieldProps & Required<Pick<FieldProps, 'id' | 'sectionId' | 'type'>>) => {
+export const Field = (
+    props: FieldProps & Required<Pick<FieldProps, 'id' | 'type' | 'sectionIndex' | 'columnIndex' | 'fieldIndex'>>,
+) => {
     const context = useContext(globalContext);
 
     if (props.type === FIELD_TYPES.TEXT)

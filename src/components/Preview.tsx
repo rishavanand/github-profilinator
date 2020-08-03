@@ -18,11 +18,13 @@ export const Preview = () => {
         const markdown = context.sections
             .map(section => {
                 if (!section.fields) return;
-                return section.fields
-                    .map(field => {
-                        if (field.type === FIELD_TYPES.TEXT) return generateTextFieldMarkdown(field);
-                    })
-                    .join('  \n');
+                return section.fields.map(column => {
+                    return column
+                        .map(field => {
+                            if (field.type === FIELD_TYPES.TEXT) return generateTextFieldMarkdown(field);
+                        })
+                        .join('  \n');
+                });
             })
             .join('');
         const markdownText = marked(markdown);
