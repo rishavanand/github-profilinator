@@ -61,7 +61,7 @@ const Provider = (props: { children: React.ReactChildren }) => {
         fieldProps: FieldProps & Required<Pick<FieldProps, 'columnIndex' | 'fieldIndex' | 'sectionIndex'>>,
     ) => {
         const { sectionIndex, columnIndex, fieldIndex } = fieldProps;
-        sections[sectionIndex].fields[columnIndex] = sections[sectionIndex].fields[columnIndex].splice(fieldIndex, 1);
+        sections[sectionIndex].fields[columnIndex].splice(fieldIndex, 1);
         modifySections(sections.map(section => section));
     };
 

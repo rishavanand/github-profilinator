@@ -1,228 +1,152 @@
 import React from 'react';
-import { Input, Row, Col, Button, Dropdown, Menu } from 'antd';
+import { Input, Row, Col, Button, Dropdown, Menu, Form } from 'antd';
 import { DownOutlined } from '@ant-design/icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import styles from '../../styles/fields.module.scss';
 import { faBold, faItalic, faUnderline, faHeading, faTimes, faAlignLeft } from '@fortawesome/free-solid-svg-icons';
+import { FieldProps } from '.';
 
-export enum TEXT_SIZE {
-    H1 = 'h1',
-    H2 = 'h2',
-    H3 = 'h3',
-    H4 = 'h4',
-    H5 = 'h5',
-    H6 = 'h6',
-    REGULAR = '',
-}
-
-export enum TEXT_ALIGNMENT {
+export enum IMAGE_ALIGNMENT {
     LEFT = 'left',
     CENTRE = 'center',
     RIGHT = 'right',
 }
 
-export interface TextFieldOptions {
-    size?: TEXT_SIZE;
-    alignment?: TEXT_ALIGNMENT;
-    bold?: boolean;
-    italics?: boolean;
-    underLine?: boolean;
+export interface ImageFieldOptions {
+    height?: string;
+    width?: string;
+    alignment?: IMAGE_ALIGNMENT;
 }
 
-export interface TextFieldData {
-    value: string;
+export interface ImageFieldData {
+    url?: string;
+    alt?: string;
+    title?: string;
 }
 
-export interface TextFieldProps {
+export interface ImageFieldProps extends FieldProps {
     id: string;
-    sectionId: string;
-    data?: TextFieldData;
-    options?: TextFieldOptions;
-    deleteField?: (fieldProps: Required<Pick<TextFieldProps, 'id' | 'sectionId'>>) => void;
-    modifyField?: (fieldProps: Required<Pick<TextFieldProps, 'id' | 'sectionId'>> & Partial<TextFieldProps>) => void;
+    data?: ImageFieldData;
+    options?: ImageFieldOptions;
+    deleteField?: (
+        fieldProps: ImageFieldProps & Required<Pick<FieldProps, 'columnIndex' | 'fieldIndex' | 'sectionIndex'>>,
+    ) => void;
+    modifyField?: (
+        fieldProps: ImageFieldProps & Required<Pick<ImageFieldProps, 'columnIndex' | 'fieldIndex' | 'sectionIndex'>>,
+    ) => void;
 }
 
-export const generateAlignmentTags = (alignment: TEXT_ALIGNMENT, type: 'start' | 'end') => {
-    if ((TEXT_ALIGNMENT.CENTRE || TEXT_ALIGNMENT.RIGHT) && type === 'start') return `<div align="${alignment}">`;
-    else if ((TEXT_ALIGNMENT.CENTRE || TEXT_ALIGNMENT.RIGHT) && type === 'end') return `</div>`;
+export const generateAlignmentTags = (alignment: IMAGE_ALIGNMENT, type: 'start' | 'end') => {
+    if ((alignment === IMAGE_ALIGNMENT.CENTRE || alignment === IMAGE_ALIGNMENT.RIGHT) && type === 'start')
+        return `<div align="${alignment}">`;
+    else if ((alignment === IMAGE_ALIGNMENT.CENTRE || alignment === IMAGE_ALIGNMENT.RIGHT) && type === 'end')
+        return `</div>`;
     else return '';
 };
 
-export const generateSizeTags = (size: TEXT_SIZE, type: 'start' | 'end') => {
-    const end = type === 'end' ? '/' : '';
-
-    switch (size) {
-        case TEXT_SIZE.H1:
-            return `<${end}h1>`;
-        case TEXT_SIZE.H2:
-            return `<${end}h2>`;
-        case TEXT_SIZE.H3:
-            return `<${end}h3>`;
-        case TEXT_SIZE.H4:
-            return `<${end}h4>`;
-        case TEXT_SIZE.H5:
-            return `<${end}h5>`;
-        case TEXT_SIZE.H6:
-            return `<${end}h6>`;
-        default:
-            return '';
-    }
+export const generateImageTag = (data: ImageFieldData, options: ImageFieldOptions) => {
+    if (
+        (options.alignment &&
+            (options.alignment === IMAGE_ALIGNMENT.CENTRE || options.alignment === IMAGE_ALIGNMENT.RIGHT)) ||
+        options.height ||
+        options.width
+    )
+        return `<img src="${data.url}" align="${options.alignment ? options.alignment : 'left'}" height="${
+            options.height
+        }" width="${options.width}"/>`;
+    else return `![${data.alt ? data.alt : ''}](${data.url})`;
 };
 
-export const generateTextFieldMarkdown = ({ options, data }: TextFieldProps) => {
+export const generateImageFieldMarkdown = ({ data, options }: ImageFieldProps) => {
     if (!options) options = {};
     return (
-        `${options.bold ? '**' : ''}` +
-        `${options.italics ? '*' : ''}` +
-        `${options.underLine ? '<ins>' : ''}` +
-        `${generateSizeTags(options.size, 'start')}` +
+        `  \n` +
         `${generateAlignmentTags(options.alignment, 'start')}` +
-        `${data.value}` +
-        `${generateAlignmentTags(options.alignment, 'end')}` +
-        `${generateSizeTags(options.size, 'end')}` +
-        `${options.underLine ? '</ins>' : ''}` +
-        `${options.italics ? '*' : ''}` +
-        `${options.bold ? '**' : ''}`
+        `${generateImageTag(data, options)}` +
+        `${generateAlignmentTags(options.alignment, 'end')}`
     );
 };
 
-export const TextField = ({ id, sectionId, data, options, modifyField, deleteField }: TextFieldProps) => {
-    if (!options) options = { size: TEXT_SIZE.REGULAR };
+export const ImageField = (
+    imageFieldProps: ImageFieldProps &
+        Required<Pick<ImageFieldProps, 'id' | 'sectionId' | 'sectionIndex' | 'columnIndex' | 'fieldIndex' | 'type'>>,
+) => {
+    // Set defaults
+    imageFieldProps = {
+        options: {
+            height: '',
+            width: '',
+        },
+        data: {
+            url: '',
+            alt: '',
+            title: '',
+        },
+        ...imageFieldProps,
+    };
 
     const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const name = event.target.name;
         const value = event.target.value;
-        modifyField({
-            id,
-            sectionId,
-            data: {
-                value: value,
-            },
-        });
+        if (name === 'url')
+            imageFieldProps.modifyField({
+                ...imageFieldProps,
+                data: {
+                    ...imageFieldProps.data,
+                    url: value,
+                },
+            });
+        else if (name === 'alt')
+            imageFieldProps.modifyField({
+                ...imageFieldProps,
+                data: {
+                    ...imageFieldProps.data,
+                    alt: value,
+                },
+            });
+        else if (name === 'height')
+            imageFieldProps.modifyField({
+                ...imageFieldProps,
+                options: {
+                    ...imageFieldProps.options,
+                    height: value,
+                },
+            });
+        else if (name === 'width')
+            imageFieldProps.modifyField({
+                ...imageFieldProps,
+                options: {
+                    ...imageFieldProps.options,
+                    height: value,
+                },
+            });
     };
 
-    const changeFontSize = (size: typeof options.size) => {
-        options.size = size;
-        modifyField({
-            id,
-            sectionId,
-            options,
-        });
-    };
-
-    const changeAlignment = (aligment: typeof options.alignment) => {
-        options.alignment = aligment;
-        modifyField({
-            id,
-            sectionId,
-            options,
-        });
+    const changeAlignment = (aligment: typeof imageFieldProps.options.alignment) => {
+        const localProps = { ...imageFieldProps };
+        if (!localProps.options) localProps.options = {};
+        localProps.options.alignment = aligment;
+        imageFieldProps.modifyField(localProps);
     };
 
     const aligmentMenu = (
         <Menu>
-            <Menu.Item key="1" onClick={() => changeAlignment(TEXT_ALIGNMENT.LEFT)}>
+            <Menu.Item key="1" onClick={() => changeAlignment(IMAGE_ALIGNMENT.LEFT)}>
                 Left
             </Menu.Item>
-            <Menu.Item key="2" onClick={() => changeAlignment(TEXT_ALIGNMENT.CENTRE)}>
+            <Menu.Item key="2" onClick={() => changeAlignment(IMAGE_ALIGNMENT.CENTRE)}>
                 Centre
             </Menu.Item>
-            <Menu.Item key="3" onClick={() => changeAlignment(TEXT_ALIGNMENT.RIGHT)}>
+            <Menu.Item key="3" onClick={() => changeAlignment(IMAGE_ALIGNMENT.RIGHT)}>
                 Right
             </Menu.Item>
         </Menu>
     );
 
-    const fontSizeMenu = (
-        <Menu>
-            <Menu.Item key="1" onClick={() => changeFontSize(TEXT_SIZE.H1)}>
-                Heading 1
-            </Menu.Item>
-            <Menu.Item key="2" onClick={() => changeFontSize(TEXT_SIZE.H2)}>
-                Heading 2
-            </Menu.Item>
-            <Menu.Item key="3" onClick={() => changeFontSize(TEXT_SIZE.H3)}>
-                Heading 3
-            </Menu.Item>
-            <Menu.Item key="4" onClick={() => changeFontSize(TEXT_SIZE.H4)}>
-                Heading 4
-            </Menu.Item>
-            <Menu.Item key="5" onClick={() => changeFontSize(TEXT_SIZE.H5)}>
-                Heading 5
-            </Menu.Item>
-            <Menu.Item key="6" onClick={() => changeFontSize(TEXT_SIZE.H6)}>
-                Heading 6
-            </Menu.Item>
-            <Menu.Item key="7" onClick={() => changeFontSize(TEXT_SIZE.REGULAR)}>
-                Regular
-            </Menu.Item>
-        </Menu>
-    );
-
-    const toggleBold = () => {
-        options.bold = options.bold ? false : true;
-        modifyField({
-            id,
-            sectionId,
-            options,
-        });
-    };
-
-    const toggleItalics = () => {
-        options.italics = options.italics ? false : true;
-        modifyField({
-            id,
-            sectionId,
-            options,
-        });
-    };
-
-    const toggleUnderLine = () => {
-        options.underLine = options.underLine ? false : true;
-        modifyField({
-            id,
-            sectionId,
-            options,
-        });
-    };
-
     return (
         <>
             <Row justify="space-between" style={{ marginBottom: 10 }}>
                 <Col>
-                    <Button
-                        icon={<FontAwesomeIcon icon={faBold} />}
-                        onClick={() => toggleBold()}
-                        className={[
-                            styles.optionButton,
-                            options && options.bold ? styles.selected : styles.unselected,
-                        ].join(' ')}
-                    />
-                    <Button
-                        icon={<FontAwesomeIcon icon={faItalic} />}
-                        onClick={() => toggleItalics()}
-                        className={[
-                            styles.optionButton,
-                            options && options.italics ? styles.selected : styles.unselected,
-                        ].join(' ')}
-                    />
-                    <Button
-                        icon={<FontAwesomeIcon icon={faUnderline} />}
-                        onClick={() => toggleUnderLine()}
-                        className={[
-                            styles.optionButton,
-                            options && options.underLine ? styles.selected : styles.unselected,
-                        ].join(' ')}
-                    />
-                    <Dropdown overlay={fontSizeMenu}>
-                        <Button
-                            style={{ paddingLeft: 5, paddingRight: 5, width: 50 }}
-                            icon={
-                                <>
-                                    <FontAwesomeIcon icon={faHeading} /> <DownOutlined />
-                                </>
-                            }
-                        />
-                    </Dropdown>
                     <Dropdown overlay={aligmentMenu}>
                         <Button
                             style={{ paddingLeft: 5, paddingRight: 5, width: 50 }}
@@ -235,12 +159,25 @@ export const TextField = ({ id, sectionId, data, options, modifyField, deleteFie
                     </Dropdown>
                 </Col>
                 <Col>
-                    <FontAwesomeIcon icon={faTimes} onClick={() => deleteField({ id, sectionId })} />
+                    <FontAwesomeIcon icon={faTimes} onClick={() => imageFieldProps.deleteField(imageFieldProps)} />
                 </Col>
             </Row>
-            <Input name="input" value={data.value} onChange={onChange} />
+            <Form layout="vertical">
+                <Form.Item label="Image Alt Text">
+                    <Input name="alt" value={imageFieldProps.data.alt} onChange={onChange} />
+                </Form.Item>
+                <Form.Item label="Image URL">
+                    <Input name="url" value={imageFieldProps.data.url} onChange={onChange} />
+                </Form.Item>
+                <Form.Item label="Height">
+                    <Input name="height" value={imageFieldProps.options.height} onChange={onChange} />
+                </Form.Item>
+                <Form.Item label="Width">
+                    <Input name="width" value={imageFieldProps.options.width} onChange={onChange} />
+                </Form.Item>
+            </Form>
         </>
     );
 };
 
-export default TextField;
+export default ImageField;

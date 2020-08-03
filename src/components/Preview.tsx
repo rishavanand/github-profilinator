@@ -7,6 +7,7 @@ import { generateTextFieldMarkdown } from './Field/TextField';
 import marked from 'marked';
 import renderHTML from 'react-render-html';
 import styles from '../styles/preview.module.scss';
+import { generateImageFieldMarkdown } from './Field/ImageField';
 
 const { Header, Sider, Content } = Layout;
 const { Title, Paragraph } = Typography;
@@ -22,12 +23,15 @@ export const Preview = () => {
                     return column
                         .map(field => {
                             if (field.type === FIELD_TYPES.TEXT) return generateTextFieldMarkdown(field);
+                            if (field.type === FIELD_TYPES.IMAGE) return generateImageFieldMarkdown(field);
                         })
                         .join('  \n');
                 });
             })
             .join('');
+        console.log(markdown);
         const markdownText = marked(markdown);
+        console.log(markdownText);
         const html = renderHTML(markdownText);
         return html;
     };

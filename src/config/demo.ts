@@ -29,6 +29,14 @@ export const DEMO_SECTION_DATA: SectionProps[] = [
                     type: FIELD_TYPES.TEXT,
                     sectionId: 'section001',
                 },
+                {
+                    id: 'field003',
+                    data: {
+                        url: 'https://cdn.pixabay.com/photo/2018/07/16/16/55/banner-3542404_960_720.jpg',
+                    },
+                    type: FIELD_TYPES.IMAGE,
+                    sectionId: 'section001',
+                },
             ],
         ],
     },

@@ -3,6 +3,7 @@ import { FIELD_TYPES } from '../../config/global';
 import TextField, { TextFieldData, TextFieldOptions } from './TextField';
 import { Card } from 'antd';
 import { globalContext } from '../../context/GlobalContextProvider';
+import ImageField from './ImageField';
 
 export interface FieldProps {
     id: string;
@@ -11,6 +12,8 @@ export interface FieldProps {
     fieldIndex?: number;
     type: FIELD_TYPES;
     sectionId: string;
+    data?: any;
+    options?: any;
 }
 
 export const Field = (
@@ -22,6 +25,17 @@ export const Field = (
         return (
             <Card style={{ marginBottom: 20 }}>
                 <TextField
+                    {...props}
+                    sectionId={props.sectionId}
+                    deleteField={context.deleteField}
+                    modifyField={context.modifyField}
+                />
+            </Card>
+        );
+    else if (props.type === FIELD_TYPES.IMAGE)
+        return (
+            <Card style={{ marginBottom: 20 }}>
+                <ImageField
                     {...props}
                     sectionId={props.sectionId}
                     deleteField={context.deleteField}
