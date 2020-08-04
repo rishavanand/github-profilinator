@@ -1,9 +1,9 @@
 import React from 'react';
-import { Input, Row, Col, Button, Dropdown, Menu, Form } from 'antd';
+import { Input, Row, Col, Button, Dropdown, Menu, Form, Switch } from 'antd';
 import { DownOutlined } from '@ant-design/icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import styles from '../../styles/fields.module.scss';
-import { faCaretDown, faCaretUp, faTimes, faAlignLeft } from '@fortawesome/free-solid-svg-icons';
+import { faCaretDown, faCaretUp, faTimes, faAlignLeft, faExpandArrowsAlt } from '@fortawesome/free-solid-svg-icons';
 import { FieldProps } from '.';
 
 export enum IMAGE_ALIGNMENT {
@@ -16,6 +16,7 @@ export interface ImageFieldOptions {
     height?: string;
     width?: string;
     alignment?: IMAGE_ALIGNMENT;
+    fitImage?: boolean;
 }
 
 export interface ImageFieldData {
@@ -49,7 +50,11 @@ export const generateAlignmentTags = (alignment: IMAGE_ALIGNMENT, type: 'start' 
 };
 
 export const generateImageTag = (data: ImageFieldData, options: ImageFieldOptions) => {
-    if (
+    if (options.fitImage)
+        return `<img src="${data.url}" align="${
+            options.alignment ? options.alignment : 'left'
+        }" style="width: 100%" />`;
+    else if (
         (options.alignment &&
             (options.alignment === IMAGE_ALIGNMENT.CENTRE || options.alignment === IMAGE_ALIGNMENT.RIGHT)) ||
         options.height ||
@@ -127,6 +132,16 @@ export const ImageField = (
             });
     };
 
+    const toggleFitImage = () => {
+        localImageFieldProps.modifyField({
+            ...localImageFieldProps,
+            options: {
+                ...localImageFieldProps.options,
+                fitImage: localImageFieldProps.options.fitImage ? false : true,
+            },
+        });
+    };
+
     const changeAlignment = (aligment: typeof localImageFieldProps.options.alignment) => {
         const localProps = { ...localImageFieldProps };
         if (!localProps.options) localProps.options = {};
@@ -162,6 +177,20 @@ export const ImageField = (
                             }
                         />
                     </Dropdown>
+                    <Button
+                        icon={
+                            <>
+                                <FontAwesomeIcon icon={faExpandArrowsAlt} />
+                            </>
+                        }
+                        onClick={() => toggleFitImage()}
+                        className={[
+                            styles.optionButton,
+                            localImageFieldProps.options && localImageFieldProps.options.fitImage
+                                ? styles.selected
+                                : styles.unselected,
+                        ].join(' ')}
+                    />
                 </Col>
                 <Col>
                     <Button
