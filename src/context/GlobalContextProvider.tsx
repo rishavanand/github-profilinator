@@ -23,6 +23,7 @@ export interface GlobalContext {
         fieldProps: FieldProps & Required<Pick<FieldProps, 'columnIndex' | 'fieldIndex' | 'sectionIndex'>>,
         location: 'up' | 'down',
     ) => void;
+    changeColumnCount: (sectionIndex: number, columnCount: number) => void;
 }
 
 export const globalContext = React.createContext<GlobalContext>({});
@@ -82,6 +83,18 @@ const Provider = (props: { children: React.ReactChildren }) => {
         modifySections(sections.map(section => section));
     };
 
+    const changeColumnCount = (sectionIndex: number, columnCount: number) => {
+        if (!sections[sectionIndex].fields) sections[sectionIndex].fields = [[]];
+        const currentColumnCount = sections[sectionIndex].fields.length;
+        if (columnCount === 1 && currentColumnCount === 2)
+            // Remove last column
+            sections[sectionIndex].fields.splice(currentColumnCount - 1, 1);
+        else if (columnCount === 2 && currentColumnCount === 1)
+            // Add empty section
+            sections[sectionIndex].fields.push([]);
+        modifySections(sections.map(section => section));
+    };
+
     const globalContextData: GlobalContext = {
         activeSectionIndex: activeSectionIndex,
         changeActiveSection: changeActiveSection,
@@ -91,6 +104,7 @@ const Provider = (props: { children: React.ReactChildren }) => {
         modifyField: modifyField,
         deleteField: deleteField,
         shiftField: shiftField,
+        changeColumnCount: changeColumnCount,
     };
 
     return <globalContext.Provider value={globalContextData as GlobalContext}>{props.children}</globalContext.Provider>;

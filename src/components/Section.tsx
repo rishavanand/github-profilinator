@@ -1,10 +1,12 @@
 import React, { Component, useState, useContext } from 'react';
-import { Row, Col, Divider, Layout, Card, Typography, Button, Modal, Form, Input, Select } from 'antd';
-import { PlusOutlined, FireOutlined } from '@ant-design/icons';
+import { Row, Col, Divider, Layout, Card, Typography, Button, Modal, Form, Dropdown, Select, Menu } from 'antd';
+import { PlusOutlined, FireOutlined, DownOutlined } from '@ant-design/icons';
 import { globalContext, GlobalContext } from '../context/GlobalContextProvider';
 import Field, { FieldProps } from '../components/Field';
 import { SECTION_TYPES, FIELD_TYPES } from '../config/global';
 import { v4 as uuidv4 } from 'uuid';
+import { faColumns } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { FormProps } from 'antd/lib/form';
 
 const { Option } = Select;
@@ -17,6 +19,7 @@ export interface SectionProps {
     name: string;
     type: SECTION_TYPES;
     fields?: Array<Array<FieldProps>>;
+    changeColumnCount: (sectionIndex: number, columnCount: number) => void;
 }
 
 const Section = (section: SectionProps) => {
@@ -109,6 +112,17 @@ const Section = (section: SectionProps) => {
         });
     };
 
+    const columnCountMenu = (
+        <Menu>
+            <Menu.Item key="1" onClick={() => section.changeColumnCount(section.sectionIndex, 1)}>
+                1
+            </Menu.Item>
+            <Menu.Item key="2" onClick={() => section.changeColumnCount(section.sectionIndex, 2)}>
+                2
+            </Menu.Item>
+        </Menu>
+    );
+
     if (!section)
         return (
             <>You have not added any sections yet. Please add a new section from the left sidebar to view it here.</>
@@ -121,11 +135,28 @@ const Section = (section: SectionProps) => {
                         <Title level={3}>{section.name} Section</Title>
                     </Col>
                     <Col>
-                        <Button type="primary" ghost block>
-                            <FireOutlined /> Use template
-                        </Button>
+                        <Row>
+                            <Col>
+                                <Dropdown overlay={columnCountMenu}>
+                                    <Button
+                                        style={{ paddingLeft: 5, paddingRight: 5, width: 50, marginRight: 10 }}
+                                        icon={
+                                            <>
+                                                <FontAwesomeIcon icon={faColumns} /> <DownOutlined />
+                                            </>
+                                        }
+                                    />
+                                </Dropdown>
+                            </Col>
+                            <Col>
+                                <Button type="primary" ghost block>
+                                    <FireOutlined /> Use template
+                                </Button>
+                            </Col>
+                        </Row>
                     </Col>
                 </Row>
+
                 <Divider />
                 {generateColumnCards(section.fields, section.sectionIndex)}
             </>

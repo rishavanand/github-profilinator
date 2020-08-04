@@ -19,6 +19,7 @@ const IndexPage = () => {
                     <Section
                         {...context.sections[context.activeSectionIndex]}
                         sectionIndex={context.activeSectionIndex}
+                        changeColumnCount={context.changeColumnCount}
                     />
                 </Content>
             </Layout>
