@@ -122,7 +122,7 @@ const Section = (section: SectionProps) => {
                     </Col>
                     <Col>
                         <Button type="primary" ghost block>
-                            <FireOutlined /> Populate example fields
+                            <FireOutlined /> Use template
                         </Button>
                     </Col>
                 </Row>
