@@ -37,6 +37,8 @@ export const generateColumnMarkdown = (columns: Partial<FieldProps[][]>, type: '
 };
 
 const Section = (section: SectionProps) => {
+    const [activeSectionIndex, setActiveSectionIndex] = useState(0);
+    const [activeColumnIndex, setActiveColumnIndex] = useState(0);
     const [addFieldVisible, setAddFieldVisibility] = useState(false);
     const [form] = Form.useForm();
     const context = useContext(globalContext) as GlobalContext;
@@ -76,7 +78,7 @@ const Section = (section: SectionProps) => {
         setAddFieldVisibility(false);
     };
 
-    const generateAddFieldModal = (sectionIndex: number, columnIndex: number) => {
+    const generateAddFieldModal = () => {
         return (
             <Modal
                 title="New Field Options"
@@ -86,7 +88,7 @@ const Section = (section: SectionProps) => {
                     form.validateFields()
                         .then((values: FieldProps & Required<Pick<FieldProps, 'type'>>) => {
                             form.resetFields();
-                            addField({ ...values, sectionIndex, columnIndex });
+                            addField({ ...values, sectionIndex: activeSectionIndex, columnIndex: activeColumnIndex });
                         })
                         .catch(info => {
                             console.log('Validate Failed:', info);
@@ -101,29 +103,37 @@ const Section = (section: SectionProps) => {
 
     const generateColumnCards = (fields: FieldProps[][], sectionIndex: number) => {
         if (!fields || !fields.length) fields = [[]];
-        return fields.map((field, columnIndex) => {
-            return (
-                <Card
-                    key={columnIndex}
-                    title={`Column #${columnIndex + 1}`}
-                    style={{ marginBottom: '25px' }}
-                    extra={
-                        <Button
-                            type="primary"
-                            ghost
-                            block
-                            style={{ borderStyle: 'dashed' }}
-                            onClick={() => setAddFieldVisibility(true)}
+        return (
+            <>
+                {fields.map((field, columnIndex) => {
+                    return (
+                        <Card
+                            key={columnIndex}
+                            title={`Column #${columnIndex + 1}`}
+                            style={{ marginBottom: '25px' }}
+                            extra={
+                                <Button
+                                    type="primary"
+                                    ghost
+                                    block
+                                    style={{ borderStyle: 'dashed' }}
+                                    onClick={() => {
+                                        setActiveColumnIndex(columnIndex);
+                                        setActiveSectionIndex(sectionIndex);
+                                        setAddFieldVisibility(true);
+                                    }}
+                                >
+                                    <PlusOutlined /> Field
+                                </Button>
+                            }
                         >
-                            <PlusOutlined /> Field
-                        </Button>
-                    }
-                >
-                    {generateFields(field, sectionIndex, columnIndex)}
-                    {generateAddFieldModal(sectionIndex, columnIndex)}
-                </Card>
-            );
-        });
+                            {generateFields(field, sectionIndex, columnIndex)}
+                        </Card>
+                    );
+                })}
+                {generateAddFieldModal()}
+            </>
+        );
     };
 
     const columnCountMenu = (

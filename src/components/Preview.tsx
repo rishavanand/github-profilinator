@@ -40,7 +40,7 @@ export const Preview = () => {
                     generateColumnMardownExt(columns, 'end')
                 );
             })
-            .join('  \n\n');
+            .join('');
     };
 
     const generateSectionMarkdown = (sections: SectionProps[]) => {
