@@ -11,9 +11,7 @@ export interface GlobalContext {
     findSectionById?: (id: string) => SectionProps;
     modifySection?: (sectionProps: Required<Pick<SectionProps, 'id'>>) => void;
     addField?: (
-        fieldProps: FieldProps & Required<Pick<FieldProps, 'id' | 'type'>>,
-        sectionIndex: number,
-        columnIndex: number,
+        fieldProps: FieldProps & Required<Pick<FieldProps, 'id' | 'type' | 'sectionIndex' | 'columnIndex'>>,
     ) => void;
     modifyField?: (
         fieldProps: FieldProps & Required<Pick<FieldProps, 'columnIndex' | 'fieldIndex' | 'sectionIndex'>>,
@@ -35,10 +33,9 @@ const Provider = (props: { children: React.ReactChildren }) => {
     };
 
     const addField = (
-        fieldProps: FieldProps & Required<Pick<FieldProps, 'id' | 'type'>>,
-        sectionIndex: number,
-        columnIndex: number,
+        fieldProps: FieldProps & Required<Pick<FieldProps, 'id' | 'type' | 'sectionIndex' | 'columnIndex'>>,
     ) => {
+        const { sectionIndex, columnIndex } = fieldProps;
         if (!sections[sectionIndex].fields) sections[sectionIndex].fields = [[]];
         sections[sectionIndex].fields[columnIndex].push(fieldProps);
         modifySections(sections.map(section => section));

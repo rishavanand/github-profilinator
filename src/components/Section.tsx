@@ -41,51 +41,46 @@ const Section = (section: SectionProps) => {
     const generateAddFieldForm = () => {
         return (
             <Form form={form} layout="vertical">
-                <Form.Item name="name" label="Name" rules={[{ required: true }]}>
-                    <Input />
-                </Form.Item>
                 <Form.Item name="type" label="Type" rules={[{ required: true }]}>
                     <Select placeholder="Select an option">
-                        <Option value={SECTION_TYPES.BANNER}>Banner</Option>
-                        <Option value={SECTION_TYPES.ABOUT_ME}> About Me</Option>
-                        <Option value={SECTION_TYPES.SKILLS}> Skills</Option>
+                        <Option value={FIELD_TYPES.TEXT}>Text</Option>
+                        <Option value={FIELD_TYPES.IMAGE}> Image</Option>
                     </Select>
                 </Form.Item>
             </Form>
         );
     };
 
-    // const addField = (formProps: FieldProps & Required<Pick<FieldProps, 'type'>>) => {
-    //     context.addField({
-    //         ...formProps,
-    //         id: uuidv4(),
-    //         sectionId: id
-    //     });
-    //     setAddFieldVisibility(false);
-    // };
+    const addField = (formProps: FieldProps & Required<Pick<FieldProps, 'type' | 'sectionIndex' | 'columnIndex'>>) => {
+        context.addField({
+            ...formProps,
+            id: uuidv4(),
+        });
+        setAddFieldVisibility(false);
+    };
 
-    // const generateAddFieldModal = (columnId: number) => {
-    //     return (
-    //         <Modal
-    //             title="New Section Options"
-    //             visible={addFieldVisible}
-    //             okText="Add Field"
-    //             onOk={() => {
-    //                 form.validateFields()
-    //                     .then((values: FieldProps & Required<Pick<FieldProps, 'type'>>) => {
-    //                         form.resetFields();
-    //                         addField(values);
-    //                     })
-    //                     .catch(info => {
-    //                         console.log('Validate Failed:', info);
-    //                     });
-    //             }}
-    //             onCancel={() => setAddFieldVisibility(false)}
-    //         >
-    //             {generateAddFieldForm()}
-    //         </Modal>
-    //     );
-    // };
+    const generateAddFieldModal = (sectionIndex: number, columnIndex: number) => {
+        return (
+            <Modal
+                title="New Field Options"
+                visible={addFieldVisible}
+                okText="Add Field"
+                onOk={() => {
+                    form.validateFields()
+                        .then((values: FieldProps & Required<Pick<FieldProps, 'type'>>) => {
+                            form.resetFields();
+                            addField({ ...values, sectionIndex, columnIndex });
+                        })
+                        .catch(info => {
+                            console.log('Validate Failed:', info);
+                        });
+                }}
+                onCancel={() => setAddFieldVisibility(false)}
+            >
+                {generateAddFieldForm()}
+            </Modal>
+        );
+    };
 
     const generateColumnCards = (fields: FieldProps[][], sectionIndex: number) => {
         if (!fields || !fields.length) fields = [[]];
@@ -95,13 +90,20 @@ const Section = (section: SectionProps) => {
                     key={columnIndex}
                     title={`Column #${columnIndex + 1}`}
                     style={{ marginBottom: '25px' }}
-                    // extra={
-                    //     <Button type="primary" ghost block style={{ borderStyle: 'dashed' }} onClick={() => generateAddFieldModal(j)}>
-                    //         <PlusOutlined /> Field
-                    //     </Button>
-                    // }
+                    extra={
+                        <Button
+                            type="primary"
+                            ghost
+                            block
+                            style={{ borderStyle: 'dashed' }}
+                            onClick={() => setAddFieldVisibility(true)}
+                        >
+                            <PlusOutlined /> Field
+                        </Button>
+                    }
                 >
                     {generateFields(field, sectionIndex, columnIndex)}
+                    {generateAddFieldModal(sectionIndex, columnIndex)}
                 </Card>
             );
         });
