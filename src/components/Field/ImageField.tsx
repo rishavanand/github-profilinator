@@ -57,7 +57,7 @@ export const generateImageTag = (data: ImageFieldData, options: ImageFieldOption
     )
         return `<img src="${data.url}" align="${options.alignment ? options.alignment : 'left'}" height="${
             options.height
-        }" width="${options.width}"/>`;
+        }" width="${options.width}" />`;
     else return `![${data.alt ? data.alt : ''}](${data.url})`;
 };
 

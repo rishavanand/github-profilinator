@@ -22,6 +22,20 @@ export interface SectionProps {
     changeColumnCount: (sectionIndex: number, columnCount: number) => void;
 }
 
+export const generateSectionMarkdown = ({ fields }: Partial<SectionProps>, type: 'start' | 'end') => {
+    const columnCount = fields && fields.length ? fields.length : 0;
+    if (columnCount > 1 && type === 'start') return `<table><tr>`;
+    else if (columnCount > 1 && type === 'end') return `</tr></table>`;
+    else return '';
+};
+
+export const generateColumnMarkdown = (columns: Partial<FieldProps[][]>, type: 'start' | 'end') => {
+    const columnCount = columns && columns.length ? columns.length : 0;
+    if (columnCount > 1 && type === 'start') return `<td valign="top" width="50%">  \n\n`;
+    else if (columnCount > 1 && type === 'end') return `</td>`;
+    else return '';
+};
+
 const Section = (section: SectionProps) => {
     const [addFieldVisible, setAddFieldVisibility] = useState(false);
     const [form] = Form.useForm();
