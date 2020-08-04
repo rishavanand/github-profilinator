@@ -58,7 +58,17 @@ export const generateImageTag = (data: ImageFieldData, options: ImageFieldOption
 };
 
 export const generateImageFieldMarkdown = ({ data, options }: ImageFieldProps) => {
-    if (!options) options = {};
+    if (!options)
+        options = {
+            height: '',
+            width: '',
+        };
+    if (!data)
+        data = {
+            url: '',
+            alt: '',
+            title: '',
+        };
     return (
         `  \n` +
         `${generateAlignmentTags(options.alignment, 'start')}` +
@@ -71,17 +81,9 @@ export const ImageField = (
     imageFieldProps: ImageFieldProps &
         Required<Pick<ImageFieldProps, 'id' | 'sectionId' | 'sectionIndex' | 'columnIndex' | 'fieldIndex' | 'type'>>,
 ) => {
-    // Set defaults
-    imageFieldProps = {
-        options: {
-            height: '',
-            width: '',
-        },
-        data: {
-            url: '',
-            alt: '',
-            title: '',
-        },
+    const localImageFieldProps: typeof imageFieldProps = {
+        options: {},
+        data: {},
         ...imageFieldProps,
     };
 
@@ -89,44 +91,44 @@ export const ImageField = (
         const name = event.target.name;
         const value = event.target.value;
         if (name === 'url')
-            imageFieldProps.modifyField({
-                ...imageFieldProps,
+            localImageFieldProps.modifyField({
+                ...localImageFieldProps,
                 data: {
-                    ...imageFieldProps.data,
+                    ...localImageFieldProps.data,
                     url: value,
                 },
             });
         else if (name === 'alt')
-            imageFieldProps.modifyField({
-                ...imageFieldProps,
+            localImageFieldProps.modifyField({
+                ...localImageFieldProps,
                 data: {
-                    ...imageFieldProps.data,
+                    ...localImageFieldProps.data,
                     alt: value,
                 },
             });
         else if (name === 'height')
-            imageFieldProps.modifyField({
-                ...imageFieldProps,
+            localImageFieldProps.modifyField({
+                ...localImageFieldProps,
                 options: {
-                    ...imageFieldProps.options,
+                    ...localImageFieldProps.options,
                     height: value,
                 },
             });
         else if (name === 'width')
-            imageFieldProps.modifyField({
-                ...imageFieldProps,
+            localImageFieldProps.modifyField({
+                ...localImageFieldProps,
                 options: {
-                    ...imageFieldProps.options,
-                    height: value,
+                    ...localImageFieldProps.options,
+                    width: value,
                 },
             });
     };
 
-    const changeAlignment = (aligment: typeof imageFieldProps.options.alignment) => {
-        const localProps = { ...imageFieldProps };
+    const changeAlignment = (aligment: typeof localImageFieldProps.options.alignment) => {
+        const localProps = { ...localImageFieldProps };
         if (!localProps.options) localProps.options = {};
         localProps.options.alignment = aligment;
-        imageFieldProps.modifyField(localProps);
+        localImageFieldProps.modifyField(localProps);
     };
 
     const aligmentMenu = (
@@ -159,21 +161,24 @@ export const ImageField = (
                     </Dropdown>
                 </Col>
                 <Col>
-                    <FontAwesomeIcon icon={faTimes} onClick={() => imageFieldProps.deleteField(imageFieldProps)} />
+                    <FontAwesomeIcon
+                        icon={faTimes}
+                        onClick={() => localImageFieldProps.deleteField(localImageFieldProps)}
+                    />
                 </Col>
             </Row>
             <Form layout="vertical">
                 <Form.Item label="Image Alt Text">
-                    <Input name="alt" value={imageFieldProps.data.alt} onChange={onChange} />
+                    <Input name="alt" value={localImageFieldProps.data.alt} onChange={onChange} />
                 </Form.Item>
                 <Form.Item label="Image URL">
-                    <Input name="url" value={imageFieldProps.data.url} onChange={onChange} />
+                    <Input name="url" value={localImageFieldProps.data.url} onChange={onChange} />
                 </Form.Item>
                 <Form.Item label="Height">
-                    <Input name="height" value={imageFieldProps.options.height} onChange={onChange} />
+                    <Input name="height" value={localImageFieldProps.options.height} onChange={onChange} />
                 </Form.Item>
                 <Form.Item label="Width">
-                    <Input name="width" value={imageFieldProps.options.width} onChange={onChange} />
+                    <Input name="width" value={localImageFieldProps.options.width} onChange={onChange} />
                 </Form.Item>
             </Form>
         </>

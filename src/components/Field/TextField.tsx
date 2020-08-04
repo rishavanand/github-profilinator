@@ -31,7 +31,7 @@ export interface TextFieldOptions {
 }
 
 export interface TextFieldData {
-    value: string;
+    value?: string;
 }
 
 export interface TextFieldProps extends FieldProps {
@@ -75,6 +75,10 @@ export const generateSizeTags = (size: TEXT_SIZE) => {
 
 export const generateTextFieldMarkdown = ({ options, data }: TextFieldProps) => {
     if (!options) options = {};
+    if (!data)
+        data = {
+            value: '',
+        };
     return (
         `${generateSizeTags(options.size)}` +
         `${options.bold ? '**' : ''}` +
@@ -93,29 +97,35 @@ export const TextField = (
     textFieldProps: TextFieldProps &
         Required<Pick<TextFieldProps, 'id' | 'sectionId' | 'sectionIndex' | 'columnIndex' | 'fieldIndex' | 'type'>>,
 ) => {
+    const localTextFieldProps: typeof textFieldProps = {
+        data: {},
+        options: {},
+        ...textFieldProps,
+    };
+
     const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const value = event.target.value;
-        textFieldProps.modifyField({
-            ...textFieldProps,
+        localTextFieldProps.modifyField({
+            ...localTextFieldProps,
             data: {
-                ...textFieldProps.data,
+                ...localTextFieldProps.data,
                 value: value,
             },
         });
     };
 
-    const changeFontSize = (size: typeof textFieldProps.options.size) => {
-        const localProps = { ...textFieldProps };
+    const changeFontSize = (size: typeof localTextFieldProps.options.size) => {
+        const localProps = { ...localTextFieldProps };
         if (!localProps.options) localProps.options = {};
         localProps.options.size = size;
-        textFieldProps.modifyField(localProps);
+        localTextFieldProps.modifyField(localProps);
     };
 
-    const changeAlignment = (aligment: typeof textFieldProps.options.alignment) => {
-        const localProps = { ...textFieldProps };
+    const changeAlignment = (aligment: typeof localTextFieldProps.options.alignment) => {
+        const localProps = { ...localTextFieldProps };
         if (!localProps.options) localProps.options = {};
         localProps.options.alignment = aligment;
-        textFieldProps.modifyField(localProps);
+        localTextFieldProps.modifyField(localProps);
     };
 
     const aligmentMenu = (
@@ -159,24 +169,24 @@ export const TextField = (
     );
 
     const toggleBold = () => {
-        const localProps = { ...textFieldProps };
+        const localProps = { ...localTextFieldProps };
         if (!localProps.options) localProps.options = {};
         localProps.options.bold = localProps.options.bold ? false : true;
-        textFieldProps.modifyField(localProps);
+        localTextFieldProps.modifyField(localProps);
     };
 
     const toggleItalics = () => {
-        const localProps = { ...textFieldProps };
+        const localProps = { ...localTextFieldProps };
         if (!localProps.options) localProps.options = {};
         localProps.options.italics = localProps.options.italics ? false : true;
-        textFieldProps.modifyField(localProps);
+        localTextFieldProps.modifyField(localProps);
     };
 
     const toggleUnderLine = () => {
-        const localProps = { ...textFieldProps };
+        const localProps = { ...localTextFieldProps };
         if (!localProps.options) localProps.options = {};
         localProps.options.underLine = localProps.options.underLine ? false : true;
-        textFieldProps.modifyField(localProps);
+        localTextFieldProps.modifyField(localProps);
     };
 
     return (
@@ -188,7 +198,9 @@ export const TextField = (
                         onClick={() => toggleBold()}
                         className={[
                             styles.optionButton,
-                            textFieldProps.options && textFieldProps.options.bold ? styles.selected : styles.unselected,
+                            localTextFieldProps.options && localTextFieldProps.options.bold
+                                ? styles.selected
+                                : styles.unselected,
                         ].join(' ')}
                     />
                     <Button
@@ -196,7 +208,7 @@ export const TextField = (
                         onClick={() => toggleItalics()}
                         className={[
                             styles.optionButton,
-                            textFieldProps.options && textFieldProps.options.italics
+                            localTextFieldProps.options && localTextFieldProps.options.italics
                                 ? styles.selected
                                 : styles.unselected,
                         ].join(' ')}
@@ -206,7 +218,7 @@ export const TextField = (
                         onClick={() => toggleUnderLine()}
                         className={[
                             styles.optionButton,
-                            textFieldProps.options && textFieldProps.options.underLine
+                            localTextFieldProps.options && localTextFieldProps.options.underLine
                                 ? styles.selected
                                 : styles.unselected,
                         ].join(' ')}
@@ -233,10 +245,13 @@ export const TextField = (
                     </Dropdown>
                 </Col>
                 <Col>
-                    <FontAwesomeIcon icon={faTimes} onClick={() => textFieldProps.deleteField(textFieldProps)} />
+                    <FontAwesomeIcon
+                        icon={faTimes}
+                        onClick={() => localTextFieldProps.deleteField(localTextFieldProps)}
+                    />
                 </Col>
             </Row>
-            <Input name="input" value={textFieldProps.data.value} onChange={onChange} />
+            <Input name="input" value={localTextFieldProps.data.value} onChange={onChange} />
         </>
     );
 };
