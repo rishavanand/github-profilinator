@@ -6,6 +6,7 @@ import Sidebar from '../components/Sidebar';
 import Preview from '../components/Preview';
 import Section from '../components/Section';
 import { globalContext, GlobalContext } from '../context/GlobalContextProvider';
+import { Helmet } from 'react-helmet';
 
 const { Content } = Layout;
 
@@ -19,6 +20,11 @@ const IndexPage = () => {
 
     return (
         <>
+            <Helmet>
+                <meta charSet="utf-8" />
+                <title>Github Profilinator</title>
+                <link rel="canonical" href="https://profilinator.rishav.dev/" />
+            </Helmet>
             <div className={styles.loading} style={{ display: initialLoad ? 'none' : 'flex' }}>
                 <Spin size="large" />
             </div>
