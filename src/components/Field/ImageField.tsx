@@ -3,7 +3,7 @@ import { Input, Row, Col, Button, Dropdown, Menu, Form } from 'antd';
 import { DownOutlined } from '@ant-design/icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import styles from '../../styles/fields.module.scss';
-import { faBold, faItalic, faUnderline, faHeading, faTimes, faAlignLeft } from '@fortawesome/free-solid-svg-icons';
+import { faCaretDown, faCaretUp, faTimes, faAlignLeft } from '@fortawesome/free-solid-svg-icons';
 import { FieldProps } from '.';
 
 export enum IMAGE_ALIGNMENT {
@@ -33,6 +33,10 @@ export interface ImageFieldProps extends FieldProps {
     ) => void;
     modifyField?: (
         fieldProps: ImageFieldProps & Required<Pick<ImageFieldProps, 'columnIndex' | 'fieldIndex' | 'sectionIndex'>>,
+    ) => void;
+    shiftField?: (
+        fieldProps: FieldProps & Required<Pick<FieldProps, 'columnIndex' | 'fieldIndex' | 'sectionIndex'>>,
+        location: 'up' | 'down',
     ) => void;
 }
 
@@ -70,7 +74,6 @@ export const generateImageFieldMarkdown = ({ data, options }: ImageFieldProps) =
             title: '',
         };
     return (
-        `  \n` +
         `${generateAlignmentTags(options.alignment, 'start')}` +
         `${generateImageTag(data, options)}` +
         `${generateAlignmentTags(options.alignment, 'end')}`
@@ -161,9 +164,29 @@ export const ImageField = (
                     </Dropdown>
                 </Col>
                 <Col>
-                    <FontAwesomeIcon
-                        icon={faTimes}
+                    <Button
+                        icon={
+                            <>
+                                <FontAwesomeIcon icon={faCaretUp} />
+                            </>
+                        }
+                        onClick={() => localImageFieldProps.shiftField(localImageFieldProps, 'up')}
+                    />
+                    <Button
+                        icon={
+                            <>
+                                <FontAwesomeIcon icon={faCaretDown} />
+                            </>
+                        }
+                        onClick={() => localImageFieldProps.shiftField(localImageFieldProps, 'down')}
+                    />
+                    <Button
                         onClick={() => localImageFieldProps.deleteField(localImageFieldProps)}
+                        icon={
+                            <>
+                                <FontAwesomeIcon icon={faTimes} />
+                            </>
+                        }
                     />
                 </Col>
             </Row>

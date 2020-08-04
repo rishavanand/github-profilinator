@@ -25,7 +25,7 @@ export const Preview = () => {
                             if (field.type === FIELD_TYPES.TEXT) return generateTextFieldMarkdown(field);
                             if (field.type === FIELD_TYPES.IMAGE) return generateImageFieldMarkdown(field);
                         })
-                        .join('  \n');
+                        .join('  \n\n');
                 });
             })
             .join('');

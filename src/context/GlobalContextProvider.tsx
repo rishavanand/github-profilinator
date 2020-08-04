@@ -19,6 +19,10 @@ export interface GlobalContext {
     deleteField?: (
         fieldProps: FieldProps & Required<Pick<FieldProps, 'columnIndex' | 'fieldIndex' | 'sectionIndex'>>,
     ) => void;
+    shiftField?: (
+        fieldProps: FieldProps & Required<Pick<FieldProps, 'columnIndex' | 'fieldIndex' | 'sectionIndex'>>,
+        location: 'up' | 'down',
+    ) => void;
 }
 
 export const globalContext = React.createContext<GlobalContext>({});
@@ -54,6 +58,22 @@ const Provider = (props: { children: React.ReactChildren }) => {
         modifySections(sections.map(section => section));
     };
 
+    const shiftField = (
+        fieldProps: FieldProps & Required<Pick<FieldProps, 'columnIndex' | 'fieldIndex' | 'sectionIndex'>>,
+        direction: 'up' | 'down',
+    ) => {
+        const { sectionIndex, columnIndex, fieldIndex } = fieldProps;
+        if (
+            (fieldIndex <= 0 && direction === 'up') ||
+            (fieldIndex >= sections[sectionIndex].fields[columnIndex].length - 1 && direction === 'down')
+        )
+            return;
+        const field = sections[sectionIndex].fields[columnIndex].splice(fieldIndex, 1);
+        if (direction === 'up') sections[sectionIndex].fields[columnIndex].splice(fieldIndex - 1, 0, ...field);
+        else sections[sectionIndex].fields[columnIndex].splice(fieldIndex + 1, 0, ...field);
+        modifySections(sections.map(section => section));
+    };
+
     const deleteField = (
         fieldProps: FieldProps & Required<Pick<FieldProps, 'columnIndex' | 'fieldIndex' | 'sectionIndex'>>,
     ) => {
@@ -70,6 +90,7 @@ const Provider = (props: { children: React.ReactChildren }) => {
         addField: addField,
         modifyField: modifyField,
         deleteField: deleteField,
+        shiftField: shiftField,
     };
 
     return <globalContext.Provider value={globalContextData as GlobalContext}>{props.children}</globalContext.Provider>;

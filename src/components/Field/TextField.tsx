@@ -3,7 +3,16 @@ import { Input, Row, Col, Button, Dropdown, Menu } from 'antd';
 import { DownOutlined } from '@ant-design/icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import styles from '../../styles/fields.module.scss';
-import { faBold, faItalic, faUnderline, faHeading, faTimes, faAlignLeft } from '@fortawesome/free-solid-svg-icons';
+import {
+    faCaretUp,
+    faCaretDown,
+    faBold,
+    faItalic,
+    faUnderline,
+    faHeading,
+    faTimes,
+    faAlignLeft,
+} from '@fortawesome/free-solid-svg-icons';
 import { FieldProps } from '.';
 
 export enum TEXT_SIZE {
@@ -43,6 +52,10 @@ export interface TextFieldProps extends FieldProps {
     modifyField?: (
         fieldProps: Required<Pick<TextFieldProps, 'id' | 'sectionId' | 'sectionIndex' | 'columnIndex' | 'fieldIndex'>> &
             TextFieldProps,
+    ) => void;
+    shiftField?: (
+        fieldProps: FieldProps & Required<Pick<FieldProps, 'columnIndex' | 'fieldIndex' | 'sectionIndex'>>,
+        location: 'up' | 'down',
     ) => void;
 }
 
@@ -245,9 +258,29 @@ export const TextField = (
                     </Dropdown>
                 </Col>
                 <Col>
-                    <FontAwesomeIcon
-                        icon={faTimes}
+                    <Button
+                        icon={
+                            <>
+                                <FontAwesomeIcon icon={faCaretUp} />
+                            </>
+                        }
+                        onClick={() => localTextFieldProps.shiftField(localTextFieldProps, 'up')}
+                    />
+                    <Button
+                        icon={
+                            <>
+                                <FontAwesomeIcon icon={faCaretDown} />
+                            </>
+                        }
+                        onClick={() => localTextFieldProps.shiftField(localTextFieldProps, 'down')}
+                    />
+                    <Button
                         onClick={() => localTextFieldProps.deleteField(localTextFieldProps)}
+                        icon={
+                            <>
+                                <FontAwesomeIcon icon={faTimes} />
+                            </>
+                        }
                     />
                 </Col>
             </Row>

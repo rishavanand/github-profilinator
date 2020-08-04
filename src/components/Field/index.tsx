@@ -29,6 +29,7 @@ export const Field = (
                     sectionId={props.sectionId}
                     deleteField={context.deleteField}
                     modifyField={context.modifyField}
+                    shiftField={context.shiftField}
                 />
             </Card>
         );
@@ -40,6 +41,7 @@ export const Field = (
                     sectionId={props.sectionId}
                     deleteField={context.deleteField}
                     modifyField={context.modifyField}
+                    shiftField={context.shiftField}
                 />
             </Card>
         );
