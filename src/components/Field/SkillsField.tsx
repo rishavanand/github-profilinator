@@ -2,7 +2,6 @@ import React from 'react';
 import { Input, Row, Col, Button, Dropdown, Menu, Form, Checkbox } from 'antd';
 import { DownOutlined } from '@ant-design/icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import styles from '../../styles/fields.module.scss';
 import {
     faCaretDown,
     faCaretUp,
