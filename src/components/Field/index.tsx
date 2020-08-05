@@ -7,14 +7,24 @@ import ImageField from './ImageField';
 import GithubReadmeStatsField from './GithubReadmeStatsField';
 
 export interface FieldProps {
-    id: string;
+    id?: string;
     sectionIndex?: number;
     columnIndex?: number;
     fieldIndex?: number;
-    type: FIELD_TYPES;
-    sectionId: string;
+    type?: FIELD_TYPES;
+    sectionId?: string;
     data?: any;
     options?: any;
+    deleteField?: (
+        fieldProps: FieldProps & Required<Pick<FieldProps, 'columnIndex' | 'fieldIndex' | 'sectionIndex'>>,
+    ) => void;
+    modifyField?: (
+        fieldProps: FieldProps & Required<Pick<FieldProps, 'columnIndex' | 'fieldIndex' | 'sectionIndex'>>,
+    ) => void;
+    shiftField?: (
+        fieldProps: FieldProps & Required<Pick<FieldProps, 'columnIndex' | 'fieldIndex' | 'sectionIndex'>>,
+        location: 'up' | 'down',
+    ) => void;
 }
 
 export const Field = (

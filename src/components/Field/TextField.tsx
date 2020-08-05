@@ -46,17 +46,6 @@ export interface TextFieldData {
 export interface TextFieldProps extends FieldProps {
     data?: TextFieldData;
     options?: TextFieldOptions;
-    deleteField?: (
-        fieldProps: Required<Pick<TextFieldProps, 'id' | 'sectionId' | 'sectionIndex' | 'columnIndex' | 'fieldIndex'>>,
-    ) => void;
-    modifyField?: (
-        fieldProps: Required<Pick<TextFieldProps, 'id' | 'sectionId' | 'sectionIndex' | 'columnIndex' | 'fieldIndex'>> &
-            TextFieldProps,
-    ) => void;
-    shiftField?: (
-        fieldProps: FieldProps & Required<Pick<FieldProps, 'columnIndex' | 'fieldIndex' | 'sectionIndex'>>,
-        location: 'up' | 'down',
-    ) => void;
 }
 
 export const generateAlignmentTags = (alignment: TEXT_ALIGNMENT, type: 'start' | 'end') => {

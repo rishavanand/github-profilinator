@@ -26,19 +26,9 @@ export interface ImageFieldData {
 }
 
 export interface ImageFieldProps extends FieldProps {
-    id: string;
+    id?: string;
     data?: ImageFieldData;
     options?: ImageFieldOptions;
-    deleteField?: (
-        fieldProps: ImageFieldProps & Required<Pick<FieldProps, 'columnIndex' | 'fieldIndex' | 'sectionIndex'>>,
-    ) => void;
-    modifyField?: (
-        fieldProps: ImageFieldProps & Required<Pick<ImageFieldProps, 'columnIndex' | 'fieldIndex' | 'sectionIndex'>>,
-    ) => void;
-    shiftField?: (
-        fieldProps: FieldProps & Required<Pick<FieldProps, 'columnIndex' | 'fieldIndex' | 'sectionIndex'>>,
-        location: 'up' | 'down',
-    ) => void;
 }
 
 export const generateAlignmentTags = (alignment: IMAGE_ALIGNMENT, type: 'start' | 'end') => {
