@@ -15,6 +15,7 @@ import {
     generateColumnMarkdown as generateColumnMardownExt,
 } from './Section';
 import { generateGithubReadmeStatsMarkdown } from './Field/GithubReadmeStatsField';
+import { generateSkillsFieldMarkdown } from './Field/SkillsField';
 
 const { Title } = Typography;
 
@@ -28,6 +29,7 @@ export const Preview = () => {
                 if (field.type === FIELD_TYPES.TEXT) return generateTextFieldMarkdown(field);
                 if (field.type === FIELD_TYPES.IMAGE) return generateImageFieldMarkdown(field);
                 if (field.type === FIELD_TYPES.GITHUB_STATS) return generateGithubReadmeStatsMarkdown(field);
+                if (field.type === FIELD_TYPES.SKILLS) return generateSkillsFieldMarkdown(field);
             })
             .join('  \n\n');
     };

@@ -24,7 +24,7 @@ export interface GithubReadmeStatsData {
 }
 
 export interface GithubReadmeStatsProps extends FieldProps {
-    id: string;
+    id?: string;
     data?: GithubReadmeStatsData;
     options?: GithubReadmeStatsOptions;
     deleteField?: (

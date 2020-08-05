@@ -66,6 +66,7 @@ const Section = (section: SectionProps) => {
                         <Option value={FIELD_TYPES.TEXT}>Text</Option>
                         <Option value={FIELD_TYPES.IMAGE}> Image</Option>
                         <Option value={FIELD_TYPES.GITHUB_STATS}> Github Readme Stats</Option>
+                        <Option value={FIELD_TYPES.SKILLS}> Skills</Option>
                     </Select>
                 </Form.Item>
             </Form>
