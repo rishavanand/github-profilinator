@@ -3,6 +3,7 @@ import { SECTION_TYPES, FIELD_TYPES } from './global';
 import { FieldProps } from '../components/Field';
 import { SectionProps } from '../components/Section';
 import { TEXT_ALIGNMENT, TEXT_SIZE } from '../components/Field/TextField';
+import { IMAGE_ALIGNMENT } from '../components/Field/ImageField';
 
 export const DEMO_SECTION_DATA: SectionProps[] = [
     {
@@ -13,15 +14,15 @@ export const DEMO_SECTION_DATA: SectionProps[] = [
             [
                 {
                     id: 'field001',
-                    data: {
-                        value: "Hi! 👋 I'm Rishav",
-                    },
                     options: {
-                        size: TEXT_SIZE.H1,
-                        alignment: TEXT_ALIGNMENT.CENTRE,
+                        width: 600,
+                        alignment: IMAGE_ALIGNMENT.CENTRE,
                     },
-                    type: FIELD_TYPES.TEXT,
-                    sectionId: 'section001',
+                    data: {
+                        url: 'https://i.imgur.com/TZGDZUB.gif',
+                        alt: 'Greetings',
+                    },
+                    type: FIELD_TYPES.IMAGE,
                 },
                 {
                     id: 'field002',
@@ -30,17 +31,9 @@ export const DEMO_SECTION_DATA: SectionProps[] = [
                         alignment: TEXT_ALIGNMENT.CENTRE,
                     },
                     data: {
-                        value: 'A full-time full-stack freelancer 👨‍💻 working remotely since 2013 🚀',
+                        value: `👋 I'm Rishav, a full-time full-stack freelancer 👨‍💻 working remotely since 2013 🚀`,
                     },
                     type: FIELD_TYPES.TEXT,
-                    sectionId: 'section001',
-                },
-                {
-                    id: 'field003',
-                    data: {
-                        url: 'https://cdn.pixabay.com/photo/2018/07/16/16/55/banner-3542404_960_720.jpg',
-                    },
-                    type: FIELD_TYPES.IMAGE,
                     sectionId: 'section001',
                 },
             ],
