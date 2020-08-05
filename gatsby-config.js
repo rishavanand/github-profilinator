@@ -48,6 +48,13 @@ module.exports = {
                 storageKey: 'darkMode',
                 minify: true,
             },
-        }
+        },
+        {
+            resolve: `gatsby-plugin-google-analytics`,
+            options: {
+                trackingId: "UA-174597578-1",
+                head: false,
+            },
+        },
     ],
 };
