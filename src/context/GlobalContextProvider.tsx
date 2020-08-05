@@ -86,12 +86,12 @@ const Provider = (props: { children: React.ReactChildren }) => {
     const changeColumnCount = (sectionIndex: number, columnCount: number) => {
         if (!sections[sectionIndex].fields) sections[sectionIndex].fields = [[]];
         const currentColumnCount = sections[sectionIndex].fields.length;
-        if (columnCount === 1 && currentColumnCount === 2)
+        if (columnCount < currentColumnCount)
             // Remove last column
-            sections[sectionIndex].fields.splice(currentColumnCount - 1, 1);
-        else if (columnCount === 2 && currentColumnCount === 1)
+            new Array(currentColumnCount - columnCount).fill(1).map(() => sections[sectionIndex].fields.pop());
+        else if (columnCount > currentColumnCount)
             // Add empty section
-            sections[sectionIndex].fields.push([]);
+            new Array(columnCount - currentColumnCount).fill(1).map(() => sections[sectionIndex].fields.push([]));
         modifySections(sections.map(section => section));
     };
 

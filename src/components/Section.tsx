@@ -31,7 +31,8 @@ export const generateSectionMarkdown = ({ fields }: Partial<SectionProps>, type:
 
 export const generateColumnMarkdown = (columns: Partial<FieldProps[][]>, type: 'start' | 'end') => {
     const columnCount = columns && columns.length ? columns.length : 0;
-    if (columnCount > 1 && type === 'start') return `<td valign="top" width="50%">  \n\n`;
+    if (columnCount > 1 && type === 'start')
+        return `<td valign="top" width="${parseInt((100 / columnCount).toString())}%">  \n\n`;
     else if (columnCount > 1 && type === 'end') return `</td>`;
     else return '';
 };
@@ -143,6 +144,9 @@ const Section = (section: SectionProps) => {
             </Menu.Item>
             <Menu.Item key="2" onClick={() => section.changeColumnCount(section.sectionIndex, 2)}>
                 2
+            </Menu.Item>
+            <Menu.Item key="3" onClick={() => section.changeColumnCount(section.sectionIndex, 3)}>
+                3
             </Menu.Item>
         </Menu>
     );
