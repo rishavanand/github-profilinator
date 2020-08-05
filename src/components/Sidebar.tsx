@@ -4,7 +4,6 @@ import { CloseCircleOutlined, PlusOutlined } from '@ant-design/icons';
 import styles from '../styles/sidebar.module.scss';
 import { globalContext, GlobalContext } from '../context/GlobalContextProvider';
 import { v4 as uuidv4 } from 'uuid';
-import { SECTION_TYPES } from '../config/global';
 import { SectionProps } from './Section';
 
 const { Sider } = Layout;
@@ -15,7 +14,7 @@ export const Sidebar = () => {
     const [form] = Form.useForm();
     const context = useContext(globalContext) as GlobalContext;
 
-    const addSection = (formValues: { name: string; type: SECTION_TYPES }) => {
+    const addSection = (formValues: { name: string }) => {
         context.addSection({
             ...formValues,
             id: uuidv4(),
@@ -44,13 +43,6 @@ export const Sidebar = () => {
                 <Form.Item name="name" label="Name" rules={[{ required: true }]}>
                     <Input />
                 </Form.Item>
-                <Form.Item name="type" label="Type" rules={[{ required: true }]}>
-                    <Select placeholder="Select an option">
-                        <Option value={SECTION_TYPES.BANNER}>Banner</Option>
-                        <Option value={SECTION_TYPES.ABOUT_ME}> About Me</Option>
-                        <Option value={SECTION_TYPES.SKILLS}> Skills</Option>
-                    </Select>
-                </Form.Item>
             </Form>
         );
     };
@@ -63,7 +55,7 @@ export const Sidebar = () => {
                 okText="Add section"
                 onOk={() => {
                     form.validateFields()
-                        .then((values: { name: string; type: SECTION_TYPES }) => {
+                        .then((values: { name: string }) => {
                             form.resetFields();
                             addSection(values);
                         })

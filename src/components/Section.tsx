@@ -3,7 +3,7 @@ import { Row, Col, Divider, Layout, Card, Typography, Button, Modal, Form, Dropd
 import { PlusOutlined, FireOutlined, DownOutlined } from '@ant-design/icons';
 import { globalContext, GlobalContext } from '../context/GlobalContextProvider';
 import Field, { FieldProps } from '../components/Field';
-import { SECTION_TYPES, FIELD_TYPES } from '../config/global';
+import { FIELD_TYPES } from '../config/global';
 import { v4 as uuidv4 } from 'uuid';
 import { faColumns } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -17,7 +17,6 @@ export interface SectionProps {
     id?: string;
     sectionIndex?: number;
     name?: string;
-    type?: SECTION_TYPES;
     fields?: Array<Array<FieldProps>>;
     changeColumnCount?: (sectionIndex: number, columnCount: number) => void;
 }
@@ -37,14 +36,20 @@ export const generateColumnMarkdown = (columns: Partial<FieldProps[][]>, type: '
     else return '';
 };
 
-const Section = (section: SectionProps) => {
+const Section = (section: SectionProps & Required<Pick<SectionProps, 'id'>>) => {
     const [activeSectionIndex, setActiveSectionIndex] = useState(0);
     const [activeColumnIndex, setActiveColumnIndex] = useState(0);
     const [addFieldVisible, setAddFieldVisibility] = useState(false);
     const [form] = Form.useForm();
     const context = useContext(globalContext) as GlobalContext;
 
-    const generateFields = (fields: FieldProps[], sectionIndex: number, columnIndex: number) => {
+    const generateFields = (
+        fields: [
+            Required<Pick<FieldProps, 'id' | 'type' | 'sectionIndex' | 'columnIndex' | 'fieldIndex'>> & FieldProps,
+        ],
+        sectionIndex: number,
+        columnIndex: number,
+    ) => {
         if (!fields || !fields.length)
             return <>You have not added any fields in this section. Please add a new field to view it here.</>;
         return fields.map((field, fieldIndex) => (
@@ -104,8 +109,19 @@ const Section = (section: SectionProps) => {
         );
     };
 
-    const generateColumnCards = (fields: FieldProps[][], sectionIndex: number) => {
-        if (!fields || !fields.length) fields = [[]];
+    const generateColumnCards = (
+        fields: [
+            [Required<Pick<FieldProps, 'id' | 'type' | 'sectionIndex' | 'columnIndex' | 'fieldIndex'>> & FieldProps],
+        ],
+        sectionIndex: number,
+    ) => {
+        if (!fields || !fields.length)
+            fields = [
+                ([] as unknown) as [
+                    Required<Pick<FieldProps, 'type' | 'id' | 'sectionIndex' | 'columnIndex' | 'fieldIndex'>> &
+                        FieldProps,
+                ],
+            ];
         return (
             <>
                 {fields.map((field, columnIndex) => {
@@ -188,7 +204,15 @@ const Section = (section: SectionProps) => {
                 </Row>
 
                 <Divider />
-                {generateColumnCards(section.fields, section.sectionIndex)}
+                {generateColumnCards(
+                    section.fields as [
+                        [
+                            Required<Pick<FieldProps, 'id' | 'type' | 'sectionIndex' | 'columnIndex' | 'fieldIndex'>> &
+                                FieldProps,
+                        ],
+                    ],
+                    section.sectionIndex,
+                )}
             </>
         );
 };

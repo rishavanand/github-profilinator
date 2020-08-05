@@ -1,5 +1,5 @@
 import { v4 as uuidv4 } from 'uuid';
-import { SECTION_TYPES, FIELD_TYPES } from './global';
+import { FIELD_TYPES } from './global';
 import { FieldProps } from '../components/Field';
 import { SectionProps } from '../components/Section';
 import { TEXT_ALIGNMENT, TEXT_SIZE } from '../components/Field/TextField';
@@ -7,8 +7,7 @@ import { IMAGE_ALIGNMENT } from '../components/Field/ImageField';
 
 export const DEMO_SECTION_DATA: SectionProps[] = [
     {
-        type: SECTION_TYPES.BANNER,
-        name: 'Banner',
+        name: 'Intro',
         id: 'section001',
         fields: [
             [
@@ -16,13 +15,17 @@ export const DEMO_SECTION_DATA: SectionProps[] = [
                     id: 'field001',
                     options: {
                         width: 600,
-                        alignment: IMAGE_ALIGNMENT.CENTRE,
+                        alignment: TEXT_ALIGNMENT.CENTRE,
+                        fitImage: false,
                     },
                     data: {
                         url: 'https://i.imgur.com/RqGgBEZ.gif',
                         alt: 'Greetings',
                     },
                     type: FIELD_TYPES.IMAGE,
+                    sectionIndex: 0,
+                    columnIndex: 0,
+                    fieldIndex: 0,
                 },
                 {
                     id: 'field002',
@@ -31,22 +34,13 @@ export const DEMO_SECTION_DATA: SectionProps[] = [
                         alignment: TEXT_ALIGNMENT.CENTRE,
                     },
                     data: {
-                        value: `I'm Rishav, a full-time full-stack freelancer 👨‍💻 working remotely since 2013 🚀`,
+                        value:
+                            "I'm Rishav, a full-time full-stack freelance developer 👨‍💻 working remotely since 2013 🚀",
                     },
                     type: FIELD_TYPES.TEXT,
                     sectionId: 'section001',
                 },
             ],
         ],
-    },
-    {
-        type: SECTION_TYPES.ABOUT_ME,
-        name: 'About Me',
-        id: uuidv4(),
-    },
-    {
-        type: SECTION_TYPES.SKILLS,
-        name: 'Skills',
-        id: uuidv4(),
     },
 ];
