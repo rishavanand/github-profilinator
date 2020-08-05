@@ -28,17 +28,11 @@ export enum SIZE {
 
 export interface SkillsFieldOptions {
     size?: SIZE;
+    setTitle?: string;
 }
 
 export interface SkillsFieldData {
-    list?: {
-        label: string;
-        value: string;
-        checked?: boolean;
-        iconUrl?: string;
-        alt?: string;
-        title?: string;
-    }[];
+    list?: string[];
 }
 
 export interface SkillsFieldProps extends FieldProps {
@@ -48,13 +42,13 @@ export interface SkillsFieldProps extends FieldProps {
 }
 
 export const generateImageTag = (data: SkillsFieldData, options: SkillsFieldOptions) => {
+    const titleTag = options.setTitle ? `#### ${options.setTitle}` : '';
     return (
+        titleTag +
         `<div align="center">` +
         data.list
             .map(skill => {
-                if (skill.checked)
-                    return `<img style="margin: 10px" src="${skill.iconUrl}" alt="${skill.label}" height="${options.size}" />`;
-                else return '';
+                return `<img style="margin: 10px" src="${SKILLS[skill].iconUrl}" alt="${SKILLS[skill].label}" height="${options.size}" />`;
             })
             .join('') +
         '</div>'
@@ -79,32 +73,30 @@ export const SkillsField = (
             size: SIZE.MEDIUM,
         },
         data: {
-            list: SKILLS,
+            list: [],
         },
         ...skillsFieldProps,
     };
 
-    const onChange = (event: CheckboxChangeEvent) => {
-        const value = event.target.value;
-        const checked = event.target.checked;
-        localSkillsFieldProps.data.list = localSkillsFieldProps.data.list.map(skill => {
-            if (skill.value === value)
-                return {
-                    ...skill,
-                    checked: checked,
-                };
-            else return skill;
-        });
+    const onChange = checkedSkills => {
+        localSkillsFieldProps.data.list = checkedSkills as string[];
         localSkillsFieldProps.modifyField({
             ...localSkillsFieldProps,
         });
-        console.log(skillsFieldProps);
     };
 
     const changeSize = (size: typeof localSkillsFieldProps.options.size) => {
         const localProps = { ...localSkillsFieldProps };
         if (!localProps.options) localProps.options = {};
         localProps.options.size = size;
+        localSkillsFieldProps.modifyField(localProps);
+    };
+
+    const changeSkillSetTitle = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const value = event.target.value;
+        const localProps = { ...localSkillsFieldProps };
+        if (!localProps.options) localProps.options = {};
+        localProps.options.setTitle = value;
         localSkillsFieldProps.modifyField(localProps);
     };
 
@@ -125,18 +117,27 @@ export const SkillsField = (
     return (
         <>
             <Row justify="space-between" style={{ marginBottom: 10 }}>
-                <Col>
-                    <Dropdown overlay={sizeMenu}>
-                        <Button
-                            style={{ paddingLeft: 5, paddingRight: 5, width: 50 }}
-                            icon={
-                                <>
-                                    <FontAwesomeIcon icon={faArrowsAltV} /> <DownOutlined />
-                                </>
-                            }
+                <Row>
+                    <Col>
+                        <Dropdown overlay={sizeMenu}>
+                            <Button
+                                style={{ paddingLeft: 5, paddingRight: 5, width: 50 }}
+                                icon={
+                                    <>
+                                        <FontAwesomeIcon icon={faArrowsAltV} /> <DownOutlined />
+                                    </>
+                                }
+                            />
+                        </Dropdown>
+                    </Col>
+                    <Col>
+                        <Input
+                            placeholder="Skill set title (optional)"
+                            value={localSkillsFieldProps.options.setTitle}
+                            onChange={changeSkillSetTitle}
                         />
-                    </Dropdown>
-                </Col>
+                    </Col>
+                </Row>
                 <Col>
                     <Button
                         icon={
@@ -164,18 +165,16 @@ export const SkillsField = (
                     />
                 </Col>
             </Row>
-            <Checkbox.Group style={{ width: '100%' }}>
+            <Checkbox.Group
+                defaultValue={localSkillsFieldProps.data.list}
+                style={{ width: '100%' }}
+                onChange={onChange}
+            >
                 <Row>
-                    {localSkillsFieldProps.data.list.map(skill => {
+                    {Object.keys(SKILLS).map(skill => {
                         return (
-                            <Col span={6} key={skill.value}>
-                                <Checkbox
-                                    value={skill.value}
-                                    checked={skill.checked ? true : false}
-                                    onChange={onChange}
-                                >
-                                    {skill.label}
-                                </Checkbox>
+                            <Col span={6} key={SKILLS[skill].value}>
+                                <Checkbox value={SKILLS[skill].value}>{SKILLS[skill].label}</Checkbox>
                             </Col>
                         );
                     })}
