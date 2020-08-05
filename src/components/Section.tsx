@@ -19,7 +19,7 @@ export interface SectionProps {
     name: string;
     type: SECTION_TYPES;
     fields?: Array<Array<FieldProps>>;
-    changeColumnCount: (sectionIndex: number, columnCount: number) => void;
+    changeColumnCount?: (sectionIndex: number, columnCount: number) => void;
 }
 
 export const generateSectionMarkdown = ({ fields }: Partial<SectionProps>, type: 'start' | 'end') => {
@@ -65,6 +65,7 @@ const Section = (section: SectionProps) => {
                     <Select placeholder="Select an option">
                         <Option value={FIELD_TYPES.TEXT}>Text</Option>
                         <Option value={FIELD_TYPES.IMAGE}> Image</Option>
+                        <Option value={FIELD_TYPES.GITHUB_STATS}> Github Readme Stats</Option>
                     </Select>
                 </Form.Item>
             </Form>

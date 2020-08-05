@@ -4,6 +4,7 @@ import TextField, { TextFieldData, TextFieldOptions } from './TextField';
 import { Card } from 'antd';
 import { globalContext } from '../../context/GlobalContextProvider';
 import ImageField from './ImageField';
+import GithubReadmeStatsField from './GithubReadmeStatsField';
 
 export interface FieldProps {
     id: string;
@@ -37,6 +38,18 @@ export const Field = (
         return (
             <Card style={{ marginBottom: 20 }}>
                 <ImageField
+                    {...props}
+                    sectionId={props.sectionId}
+                    deleteField={context.deleteField}
+                    modifyField={context.modifyField}
+                    shiftField={context.shiftField}
+                />
+            </Card>
+        );
+    else if (props.type === FIELD_TYPES.GITHUB_STATS)
+        return (
+            <Card style={{ marginBottom: 20 }}>
+                <GithubReadmeStatsField
                     {...props}
                     sectionId={props.sectionId}
                     deleteField={context.deleteField}

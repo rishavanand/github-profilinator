@@ -14,6 +14,7 @@ import {
     generateSectionMarkdown as generateSectionMarkdownExt,
     generateColumnMarkdown as generateColumnMardownExt,
 } from './Section';
+import { generateGithubReadmeStatsMarkdown } from './Field/GithubReadmeStatsField';
 
 const { Title } = Typography;
 
@@ -26,6 +27,7 @@ export const Preview = () => {
             .map(field => {
                 if (field.type === FIELD_TYPES.TEXT) return generateTextFieldMarkdown(field);
                 if (field.type === FIELD_TYPES.IMAGE) return generateImageFieldMarkdown(field);
+                if (field.type === FIELD_TYPES.GITHUB_STATS) return generateGithubReadmeStatsMarkdown(field);
             })
             .join('  \n\n');
     };
