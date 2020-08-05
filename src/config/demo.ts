@@ -19,7 +19,7 @@ export const DEMO_SECTION_DATA: SectionProps[] = [
                         alignment: IMAGE_ALIGNMENT.CENTRE,
                     },
                     data: {
-                        url: 'https://i.imgur.com/TZGDZUB.gif',
+                        url: 'https://i.imgur.com/RqGgBEZ.gif',
                         alt: 'Greetings',
                     },
                     type: FIELD_TYPES.IMAGE,
@@ -31,7 +31,7 @@ export const DEMO_SECTION_DATA: SectionProps[] = [
                         alignment: TEXT_ALIGNMENT.CENTRE,
                     },
                     data: {
-                        value: `👋 I'm Rishav, a full-time full-stack freelancer 👨‍💻 working remotely since 2013 🚀`,
+                        value: `I'm Rishav, a full-time full-stack freelancer 👨‍💻 working remotely since 2013 🚀`,
                     },
                     type: FIELD_TYPES.TEXT,
                     sectionId: 'section001',
