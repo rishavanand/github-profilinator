@@ -14,10 +14,10 @@ const { Header, Sider, Content } = Layout;
 const { Title, Paragraph } = Typography;
 
 export interface SectionProps {
-    id: string;
+    id?: string;
     sectionIndex?: number;
-    name: string;
-    type: SECTION_TYPES;
+    name?: string;
+    type?: SECTION_TYPES;
     fields?: Array<Array<FieldProps>>;
     changeColumnCount?: (sectionIndex: number, columnCount: number) => void;
 }
