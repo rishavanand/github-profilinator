@@ -22,6 +22,7 @@ const IndexPage = () => {
         <>
             <Helmet>
                 <meta charSet="utf-8" />
+                <meta name="viewport" content="width=1024" />
                 <title>Github Profilinator</title>
                 <link rel="canonical" href="https://profilinator.rishav.dev/" />
             </Helmet>
