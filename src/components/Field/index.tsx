@@ -6,6 +6,7 @@ import { globalContext } from '../../context/GlobalContextProvider';
 import ImageField from './ImageField';
 import GithubReadmeStatsField from './GithubReadmeStatsField';
 import SkillsField from './SkillsField';
+import SocialField from './SocialField';
 
 export interface FieldProps {
     id?: string;
@@ -73,6 +74,18 @@ export const Field = (
         return (
             <Card style={{ marginBottom: 20 }}>
                 <SkillsField
+                    {...props}
+                    sectionId={props.sectionId}
+                    deleteField={context.deleteField}
+                    modifyField={context.modifyField}
+                    shiftField={context.shiftField}
+                />
+            </Card>
+        );
+    else if (props.type === FIELD_TYPES.SOCIAL)
+        return (
+            <Card style={{ marginBottom: 20 }}>
+                <SocialField
                     {...props}
                     sectionId={props.sectionId}
                     deleteField={context.deleteField}

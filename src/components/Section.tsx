@@ -72,6 +72,7 @@ const Section = (section: SectionProps & Required<Pick<SectionProps, 'id'>>) => 
                         <Option value={FIELD_TYPES.IMAGE}> Image</Option>
                         <Option value={FIELD_TYPES.GITHUB_STATS}> Github Readme Stats</Option>
                         <Option value={FIELD_TYPES.SKILLS}> Skills</Option>
+                        <Option value={FIELD_TYPES.SOCIAL}> Social</Option>
                     </Select>
                 </Form.Item>
             </Form>

@@ -3,4 +3,5 @@ export enum FIELD_TYPES {
     IMAGE = 'image',
     GITHUB_STATS = 'github-stats',
     SKILLS = 'skills',
+    SOCIAL = 'social',
 }

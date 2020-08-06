@@ -16,6 +16,7 @@ import {
 } from './Section';
 import { generateGithubReadmeStatsMarkdown } from './Field/GithubReadmeStatsField';
 import { generateSkillsFieldMarkdown } from './Field/SkillsField';
+import { generateSocialFieldMarkdown } from './Field/SocialField';
 
 const { Title } = Typography;
 
@@ -30,6 +31,7 @@ export const Preview = () => {
                 if (field.type === FIELD_TYPES.IMAGE) return generateImageFieldMarkdown(field);
                 if (field.type === FIELD_TYPES.GITHUB_STATS) return generateGithubReadmeStatsMarkdown(field);
                 if (field.type === FIELD_TYPES.SKILLS) return generateSkillsFieldMarkdown(field);
+                if (field.type === FIELD_TYPES.SOCIAL) return generateSocialFieldMarkdown(field);
             })
             .join('  \n\n');
     };
