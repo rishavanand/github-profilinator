@@ -5,7 +5,7 @@ import { FieldProps } from '../components/Field';
 
 export interface GlobalContext {
     activeSectionIndex?: number;
-    sections?: SectionProps[];
+    sections?: Array<SectionProps & Required<Pick<SectionProps, 'id'>>>;
     changeActiveSection?: React.Dispatch<React.SetStateAction<number>>;
     addSection?: (sectionProps: SectionProps) => void;
     findSectionById?: (id: string) => SectionProps;
@@ -23,7 +23,7 @@ export interface GlobalContext {
         fieldProps: FieldProps & Required<Pick<FieldProps, 'columnIndex' | 'fieldIndex' | 'sectionIndex'>>,
         location: 'up' | 'down',
     ) => void;
-    changeColumnCount: (sectionIndex: number, columnCount: number) => void;
+    changeColumnCount?: (sectionIndex: number, columnCount: number) => void;
 }
 
 export const globalContext = React.createContext<GlobalContext>({});
