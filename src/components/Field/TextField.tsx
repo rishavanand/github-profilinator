@@ -12,6 +12,7 @@ import {
     faHeading,
     faTimes,
     faAlignLeft,
+    faList,
 } from '@fortawesome/free-solid-svg-icons';
 import { FieldProps } from '.';
 
@@ -37,6 +38,7 @@ export interface TextFieldOptions {
     bold?: boolean;
     italics?: boolean;
     underLine?: boolean;
+    isList?: boolean;
 }
 
 export interface TextFieldData {
@@ -82,6 +84,7 @@ export const generateTextFieldMarkdown = ({ options, data }: TextFieldProps) => 
             value: '',
         };
     return (
+        `${options.isList ? '- ' : ''}` +
         `${generateSizeTags(options.size)}` +
         `${options.bold ? '**' : ''}` +
         `${options.italics ? '*' : ''}` +
@@ -191,6 +194,13 @@ export const TextField = (
         localTextFieldProps.modifyField(localProps);
     };
 
+    const toggleListType = () => {
+        const localProps = { ...localTextFieldProps };
+        if (!localProps.options) localProps.options = {};
+        localProps.options.isList = localProps.options.isList ? false : true;
+        localTextFieldProps.modifyField(localProps);
+    };
+
     return (
         <>
             <Row justify="space-between" style={{ marginBottom: 10 }}>
@@ -221,6 +231,16 @@ export const TextField = (
                         className={[
                             styles.optionButton,
                             localTextFieldProps.options && localTextFieldProps.options.underLine
+                                ? styles.selected
+                                : styles.unselected,
+                        ].join(' ')}
+                    />
+                    <Button
+                        icon={<FontAwesomeIcon icon={faList} />}
+                        onClick={() => toggleListType()}
+                        className={[
+                            styles.optionButton,
+                            localTextFieldProps.options && localTextFieldProps.options.isList
                                 ? styles.selected
                                 : styles.unselected,
                         ].join(' ')}
