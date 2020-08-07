@@ -1,5 +1,5 @@
 import React from 'react';
-import { Input, Row, Col, Button, Dropdown, Menu } from 'antd';
+import { Input, Row, Col, Button, Dropdown, Menu, Popover } from 'antd';
 import { DownOutlined } from '@ant-design/icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import styles from '../../styles/fields.module.scss';
@@ -14,8 +14,11 @@ import {
     faAlignLeft,
     faList,
     faLink,
+    faSmile,
 } from '@fortawesome/free-solid-svg-icons';
 import { FieldProps } from '.';
+import 'emoji-mart/css/emoji-mart.css';
+import { Picker } from 'emoji-mart';
 
 export enum TEXT_SIZE {
     H1 = 'h1',
@@ -148,6 +151,18 @@ export const TextField = (
         </Menu>
     );
 
+    const addEmoji = emoji => {
+        localTextFieldProps.data.value += emoji.native;
+        localTextFieldProps.modifyField(localTextFieldProps);
+    };
+
+    const emojiMenu = (
+        <Button
+            icon={<Picker onSelect={addEmoji} native={true} />}
+            className={[styles.optionButton, localTextFieldProps.options && styles.unselected].join(' ')}
+        />
+    );
+
     const fontSizeMenu = (
         <Menu>
             <Menu.Item key="1" onClick={() => changeFontSize(TEXT_SIZE.H1)}>
@@ -275,6 +290,22 @@ export const TextField = (
                             }
                         />
                     </Dropdown>
+                    <Popover
+                        content={<Picker onSelect={addEmoji} native={true} />}
+                        title="Emoji Selector"
+                        trigger="hover"
+                    >
+                        <Button
+                            className={[styles.optionButton, localTextFieldProps.options && styles.unselected].join(
+                                ' ',
+                            )}
+                            icon={
+                                <>
+                                    <FontAwesomeIcon icon={faSmile} />
+                                </>
+                            }
+                        />
+                    </Popover>
                 </Col>
                 <Col>
                     <Button
