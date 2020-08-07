@@ -19,7 +19,7 @@ export const DEMO_SECTION_DATA: Array<SectionProps & Required<Pick<SectionProps,
                         fitImage: false,
                     },
                     data: {
-                        url: 'https://i.imgur.com/RqGgBEZ.gif',
+                        url: 'https://rishavanand.github.io/static/images/greetings.gif',
                         alt: 'Greetings',
                     },
                     type: FIELD_TYPES.IMAGE,
