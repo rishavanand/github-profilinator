@@ -1,11 +1,11 @@
-import React from 'react';
-import { Input, Row, Col, Button, Dropdown, Menu, Form, Switch } from 'antd';
+import React, { useContext } from 'react';
+import { Input, Row, Col, Button, Dropdown, Menu, Form } from 'antd';
 import { DownOutlined } from '@ant-design/icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import styles from '../../styles/fields.module.scss';
-import { faCaretDown, faCaretUp, faTimes, faAlignLeft, faExpandArrowsAlt } from '@fortawesome/free-solid-svg-icons';
+import { faAlignLeft } from '@fortawesome/free-solid-svg-icons';
 import { FieldProps } from '.';
 import { SOCIAL_SITE_IDS, SOCIAL_SITES } from '../../config/social';
+import { globalContext } from '../../context/GlobalContextProvider';
 
 export enum SOCIAL_FIELD_ALIGNMENT {
     LEFT = 'left',
@@ -51,9 +51,10 @@ export const generateAlignmentTags = (alignment: SOCIAL_FIELD_ALIGNMENT, type: '
 };
 
 export const generateSocialTags = (data: SocialFieldData = { sites: {} }, options: SocialFieldOptions = {}) => {
+    const sites = data.sites ? Object.keys(data.sites) : [];
     return (
         `<div align="${options.alignment}">` +
-        Object.keys(data.sites)
+        sites
             .map(
                 siteId =>
                     `<a href="${SOCIAL_SITES[siteId].href(data.sites[siteId].username)}" target="_blank"><img src=${
@@ -69,7 +70,8 @@ export const generateSocialFieldMarkdown = ({ data, options = {} }: SocialFieldP
     return (
         `${generateAlignmentTags(options.alignment, 'start')}` +
         `${generateSocialTags(data, options)}` +
-        `${generateAlignmentTags(options.alignment, 'end')}`
+        `${generateAlignmentTags(options.alignment, 'end')}` +
+        `  \n`
     );
 };
 
@@ -77,6 +79,8 @@ export const SocialField = (
     socialFieldProps: SocialFieldProps &
         Required<Pick<SocialFieldProps, 'id' | 'sectionId' | 'sectionIndex' | 'columnIndex' | 'fieldIndex' | 'type'>>,
 ) => {
+    const { modifyField } = useContext(globalContext);
+
     const localSocialFieldProps: typeof socialFieldProps = {
         options: {},
         data: {
@@ -95,7 +99,7 @@ export const SocialField = (
                 username: value,
             };
         else delete localSocialFieldProps.data.sites[id];
-        localSocialFieldProps.modifyField({
+        modifyField({
             ...localSocialFieldProps,
         });
     };
@@ -104,7 +108,7 @@ export const SocialField = (
         const localProps = { ...localSocialFieldProps };
         if (!localProps.options) localProps.options = {};
         localProps.options.alignment = alignment;
-        localSocialFieldProps.modifyField(localProps);
+        modifyField(localProps);
     };
 
     const generateSocialInputs = () => {
@@ -155,32 +159,6 @@ export const SocialField = (
                             }
                         />
                     </Dropdown>
-                </Col>
-                <Col>
-                    <Button
-                        icon={
-                            <>
-                                <FontAwesomeIcon icon={faCaretUp} />
-                            </>
-                        }
-                        onClick={() => localSocialFieldProps.shiftField(localSocialFieldProps, 'up')}
-                    />
-                    <Button
-                        icon={
-                            <>
-                                <FontAwesomeIcon icon={faCaretDown} />
-                            </>
-                        }
-                        onClick={() => localSocialFieldProps.shiftField(localSocialFieldProps, 'down')}
-                    />
-                    <Button
-                        onClick={() => localSocialFieldProps.deleteField(localSocialFieldProps)}
-                        icon={
-                            <>
-                                <FontAwesomeIcon icon={faTimes} />
-                            </>
-                        }
-                    />
                 </Col>
             </Row>
             <Form>{generateSocialInputs()}</Form>

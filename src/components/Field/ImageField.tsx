@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Input, Row, Col, Button, Dropdown, Menu, Form, Switch } from 'antd';
 import { DownOutlined } from '@ant-design/icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import styles from '../../styles/fields.module.scss';
-import { faCaretDown, faCaretUp, faTimes, faAlignLeft, faExpandArrowsAlt } from '@fortawesome/free-solid-svg-icons';
+import { faAlignLeft, faExpandArrowsAlt } from '@fortawesome/free-solid-svg-icons';
 import { FieldProps } from '.';
+import { globalContext } from '../../context/GlobalContextProvider';
 
 export enum IMAGE_ALIGNMENT {
     LEFT = 'left',
@@ -71,7 +72,8 @@ export const generateImageFieldMarkdown = ({ data, options }: ImageFieldProps) =
     return (
         `${generateAlignmentTags(options.alignment, 'start')}` +
         `${generateImageTag(data, options)}` +
-        `${generateAlignmentTags(options.alignment, 'end')}`
+        `${generateAlignmentTags(options.alignment, 'end')}` +
+        `  \n`
     );
 };
 
@@ -79,6 +81,8 @@ export const ImageField = (
     imageFieldProps: ImageFieldProps &
         Required<Pick<ImageFieldProps, 'id' | 'sectionId' | 'sectionIndex' | 'columnIndex' | 'fieldIndex' | 'type'>>,
 ) => {
+    const { modifyField } = useContext(globalContext);
+
     const localImageFieldProps: typeof imageFieldProps = {
         options: {},
         data: {},
@@ -86,10 +90,10 @@ export const ImageField = (
     };
 
     const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const name = event.target.name;
-        const value = event.target.value;
+        const { name, value } = event.target;
+
         if (name === 'url')
-            localImageFieldProps.modifyField({
+            modifyField({
                 ...localImageFieldProps,
                 data: {
                     ...localImageFieldProps.data,
@@ -97,7 +101,7 @@ export const ImageField = (
                 },
             });
         else if (name === 'alt')
-            localImageFieldProps.modifyField({
+            modifyField({
                 ...localImageFieldProps,
                 data: {
                     ...localImageFieldProps.data,
@@ -105,7 +109,7 @@ export const ImageField = (
                 },
             });
         else if (name === 'height')
-            localImageFieldProps.modifyField({
+            modifyField({
                 ...localImageFieldProps,
                 options: {
                     ...localImageFieldProps.options,
@@ -113,7 +117,7 @@ export const ImageField = (
                 },
             });
         else if (name === 'width')
-            localImageFieldProps.modifyField({
+            modifyField({
                 ...localImageFieldProps,
                 options: {
                     ...localImageFieldProps.options,
@@ -123,7 +127,7 @@ export const ImageField = (
     };
 
     const toggleFitImage = () => {
-        localImageFieldProps.modifyField({
+        modifyField({
             ...localImageFieldProps,
             options: {
                 ...localImageFieldProps.options,
@@ -136,7 +140,7 @@ export const ImageField = (
         const localProps = { ...localImageFieldProps };
         if (!localProps.options) localProps.options = {};
         localProps.options.alignment = aligment;
-        localImageFieldProps.modifyField(localProps);
+        modifyField(localProps);
     };
 
     const aligmentMenu = (
@@ -180,32 +184,6 @@ export const ImageField = (
                                 ? styles.selected
                                 : styles.unselected,
                         ].join(' ')}
-                    />
-                </Col>
-                <Col>
-                    <Button
-                        icon={
-                            <>
-                                <FontAwesomeIcon icon={faCaretUp} />
-                            </>
-                        }
-                        onClick={() => localImageFieldProps.shiftField(localImageFieldProps, 'up')}
-                    />
-                    <Button
-                        icon={
-                            <>
-                                <FontAwesomeIcon icon={faCaretDown} />
-                            </>
-                        }
-                        onClick={() => localImageFieldProps.shiftField(localImageFieldProps, 'down')}
-                    />
-                    <Button
-                        onClick={() => localImageFieldProps.deleteField(localImageFieldProps)}
-                        icon={
-                            <>
-                                <FontAwesomeIcon icon={faTimes} />
-                            </>
-                        }
                     />
                 </Col>
             </Row>

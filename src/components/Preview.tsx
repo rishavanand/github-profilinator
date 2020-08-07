@@ -8,11 +8,11 @@ import marked from 'marked';
 import renderHTML from 'react-render-html';
 import styles from '../styles/preview.module.scss';
 import { generateImageFieldMarkdown } from './Field/ImageField';
-import { FieldProps } from './Field';
+import { FieldProps, generateTitleMarkdown } from './Field';
 import {
     SectionProps,
     generateSectionMarkdown as generateSectionMarkdownExt,
-    generateColumnMarkdown as generateColumnMardownExt,
+    generateColumnMarkdown as generateColumnMarkdownExt,
 } from './Section';
 import { generateGithubReadmeStatsMarkdown } from './Field/GithubReadmeStatsField';
 import { generateSkillsFieldMarkdown } from './Field/SkillsField';
@@ -27,11 +27,26 @@ export const Preview = () => {
         if (!fields || !fields.length) return '';
         return fields
             .map(field => {
-                if (field.type === FIELD_TYPES.TEXT) return generateTextFieldMarkdown(field);
-                if (field.type === FIELD_TYPES.IMAGE) return generateImageFieldMarkdown(field);
-                if (field.type === FIELD_TYPES.GITHUB_STATS) return generateGithubReadmeStatsMarkdown(field);
-                if (field.type === FIELD_TYPES.SKILLS) return generateSkillsFieldMarkdown(field);
-                if (field.type === FIELD_TYPES.SOCIAL) return generateSocialFieldMarkdown(field);
+                const { type } = field;
+                let returnField: string = generateTitleMarkdown(field);
+                switch (type) {
+                    case FIELD_TYPES.TEXT:
+                        returnField += generateTextFieldMarkdown(field);
+                        break;
+                    case FIELD_TYPES.IMAGE:
+                        returnField += generateImageFieldMarkdown(field);
+                        break;
+                    case FIELD_TYPES.GITHUB_STATS:
+                        returnField += generateGithubReadmeStatsMarkdown(field);
+                        break;
+                    case FIELD_TYPES.SKILLS:
+                        returnField += generateSkillsFieldMarkdown(field);
+                        break;
+                    case FIELD_TYPES.SOCIAL:
+                        returnField += generateSocialFieldMarkdown(field);
+                        break;
+                }
+                return returnField;
             })
             .join('  \n\n');
     };
@@ -41,9 +56,9 @@ export const Preview = () => {
         return columns
             .map(column => {
                 return (
-                    generateColumnMardownExt(columns, 'start') +
+                    generateColumnMarkdownExt(columns, 'start') +
                     generateFieldsMarkdown(column) +
-                    generateColumnMardownExt(columns, 'end')
+                    generateColumnMarkdownExt(columns, 'end')
                 );
             })
             .join('');

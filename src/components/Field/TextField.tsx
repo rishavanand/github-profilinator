@@ -1,16 +1,13 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Input, Row, Col, Button, Dropdown, Menu, Popover } from 'antd';
 import { DownOutlined } from '@ant-design/icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import styles from '../../styles/fields.module.scss';
 import {
-    faCaretUp,
-    faCaretDown,
     faBold,
     faItalic,
     faUnderline,
     faHeading,
-    faTimes,
     faAlignLeft,
     faList,
     faLink,
@@ -19,6 +16,7 @@ import {
 import { FieldProps } from '.';
 import 'emoji-mart/css/emoji-mart.css';
 import { Picker } from 'emoji-mart';
+import { globalContext } from '../../context/GlobalContextProvider';
 
 export enum TEXT_SIZE {
     H1 = 'h1',
@@ -98,7 +96,8 @@ export const generateTextFieldMarkdown = ({ options, data }: TextFieldProps) => 
         `${generateAlignmentTags(options.alignment, 'end')}` +
         `${options.underLine ? '</ins>' : ''}` +
         `${options.italics ? '*' : ''}` +
-        `${options.bold ? '**' : ''}`
+        `${options.bold ? '**' : ''}` +
+        `  \n`
     );
 };
 
@@ -106,6 +105,8 @@ export const TextField = (
     textFieldProps: TextFieldProps &
         Required<Pick<TextFieldProps, 'id' | 'sectionId' | 'sectionIndex' | 'columnIndex' | 'fieldIndex' | 'type'>>,
 ) => {
+    const { modifyField } = useContext(globalContext);
+
     const localTextFieldProps: typeof textFieldProps = {
         data: {},
         options: {},
@@ -114,7 +115,7 @@ export const TextField = (
 
     const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const value = event.target.value;
-        localTextFieldProps.modifyField({
+        modifyField({
             ...localTextFieldProps,
             data: {
                 ...localTextFieldProps.data,
@@ -127,14 +128,14 @@ export const TextField = (
         const localProps = { ...localTextFieldProps };
         if (!localProps.options) localProps.options = {};
         localProps.options.size = size;
-        localTextFieldProps.modifyField(localProps);
+        modifyField(localProps);
     };
 
     const changeAlignment = (aligment: typeof localTextFieldProps.options.alignment) => {
         const localProps = { ...localTextFieldProps };
         if (!localProps.options) localProps.options = {};
         localProps.options.alignment = aligment;
-        localTextFieldProps.modifyField(localProps);
+        modifyField(localProps);
     };
 
     const aligmentMenu = (
@@ -153,7 +154,7 @@ export const TextField = (
 
     const addEmoji = emoji => {
         localTextFieldProps.data.value += emoji.native;
-        localTextFieldProps.modifyField(localTextFieldProps);
+        modifyField(localTextFieldProps);
     };
 
     const emojiMenu = (
@@ -193,32 +194,32 @@ export const TextField = (
         const localProps = { ...localTextFieldProps };
         if (!localProps.options) localProps.options = {};
         localProps.options.bold = localProps.options.bold ? false : true;
-        localTextFieldProps.modifyField(localProps);
+        modifyField(localProps);
     };
 
     const toggleItalics = () => {
         const localProps = { ...localTextFieldProps };
         if (!localProps.options) localProps.options = {};
         localProps.options.italics = localProps.options.italics ? false : true;
-        localTextFieldProps.modifyField(localProps);
+        modifyField(localProps);
     };
 
     const toggleUnderLine = () => {
         const localProps = { ...localTextFieldProps };
         if (!localProps.options) localProps.options = {};
         localProps.options.underLine = localProps.options.underLine ? false : true;
-        localTextFieldProps.modifyField(localProps);
+        modifyField(localProps);
     };
 
     const toggleListType = () => {
         if (!localTextFieldProps.options) localTextFieldProps.options = {};
         localTextFieldProps.options.isList = localTextFieldProps.options.isList ? false : true;
-        localTextFieldProps.modifyField(localTextFieldProps);
+        modifyField(localTextFieldProps);
     };
 
     const addLinkTemplate = () => {
         localTextFieldProps.data.value += `[example link text](http://example/com)`;
-        localTextFieldProps.modifyField(localTextFieldProps);
+        modifyField(localTextFieldProps);
     };
 
     return (
@@ -306,32 +307,6 @@ export const TextField = (
                             }
                         />
                     </Popover>
-                </Col>
-                <Col>
-                    <Button
-                        icon={
-                            <>
-                                <FontAwesomeIcon icon={faCaretUp} />
-                            </>
-                        }
-                        onClick={() => localTextFieldProps.shiftField(localTextFieldProps, 'up')}
-                    />
-                    <Button
-                        icon={
-                            <>
-                                <FontAwesomeIcon icon={faCaretDown} />
-                            </>
-                        }
-                        onClick={() => localTextFieldProps.shiftField(localTextFieldProps, 'down')}
-                    />
-                    <Button
-                        onClick={() => localTextFieldProps.deleteField(localTextFieldProps)}
-                        icon={
-                            <>
-                                <FontAwesomeIcon icon={faTimes} />
-                            </>
-                        }
-                    />
                 </Col>
             </Row>
             <Input name="input" value={localTextFieldProps.data.value} onChange={onChange} />

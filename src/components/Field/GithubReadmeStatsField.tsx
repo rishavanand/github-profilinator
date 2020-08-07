@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Input, Row, Col, Button, Dropdown, Menu, Form, Switch } from 'antd';
 import { DownOutlined } from '@ant-design/icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import styles from '../../styles/fields.module.scss';
 import { faCaretDown, faCaretUp, faTimes, faAlignLeft, faExpandArrowsAlt } from '@fortawesome/free-solid-svg-icons';
 import { FieldProps } from '.';
+import { globalContext } from '../../context/GlobalContextProvider';
 
 export enum STATS_ALIGNMENT {
     LEFT = 'left',
@@ -71,7 +72,8 @@ export const generateGithubReadmeStatsMarkdown = ({ data, options }: GithubReadm
     return (
         `${generateAlignmentTags(options.alignment, 'start')}` +
         `${generateImageTag(data, options)}` +
-        `${generateAlignmentTags(options.alignment, 'end')}`
+        `${generateAlignmentTags(options.alignment, 'end')}` +
+        `  \n`
     );
 };
 
@@ -81,6 +83,8 @@ export const GithubReadmeStatsField = (
             Pick<GithubReadmeStatsProps, 'id' | 'sectionId' | 'sectionIndex' | 'columnIndex' | 'fieldIndex' | 'type'>
         >,
 ) => {
+    const { modifyField } = useContext(globalContext);
+
     const localGithubReadmeStatsProps: typeof imageFieldProps = {
         options: {},
         data: {},
@@ -91,7 +95,7 @@ export const GithubReadmeStatsField = (
         const name = event.target.name;
         const value = event.target.value;
         if (name === 'username')
-            localGithubReadmeStatsProps.modifyField({
+            modifyField({
                 ...localGithubReadmeStatsProps,
                 data: {
                     ...localGithubReadmeStatsProps.data,
@@ -101,7 +105,7 @@ export const GithubReadmeStatsField = (
     };
 
     const toggleFitImage = () => {
-        localGithubReadmeStatsProps.modifyField({
+        modifyField({
             ...localGithubReadmeStatsProps,
             options: {
                 ...localGithubReadmeStatsProps.options,
@@ -114,7 +118,7 @@ export const GithubReadmeStatsField = (
         const localProps = { ...localGithubReadmeStatsProps };
         if (!localProps.options) localProps.options = {};
         localProps.options.alignment = aligment;
-        localGithubReadmeStatsProps.modifyField(localProps);
+        modifyField(localProps);
     };
 
     const aligmentMenu = (
@@ -158,32 +162,6 @@ export const GithubReadmeStatsField = (
                                 ? styles.selected
                                 : styles.unselected,
                         ].join(' ')}
-                    />
-                </Col>
-                <Col>
-                    <Button
-                        icon={
-                            <>
-                                <FontAwesomeIcon icon={faCaretUp} />
-                            </>
-                        }
-                        onClick={() => localGithubReadmeStatsProps.shiftField(localGithubReadmeStatsProps, 'up')}
-                    />
-                    <Button
-                        icon={
-                            <>
-                                <FontAwesomeIcon icon={faCaretDown} />
-                            </>
-                        }
-                        onClick={() => localGithubReadmeStatsProps.shiftField(localGithubReadmeStatsProps, 'down')}
-                    />
-                    <Button
-                        onClick={() => localGithubReadmeStatsProps.deleteField(localGithubReadmeStatsProps)}
-                        icon={
-                            <>
-                                <FontAwesomeIcon icon={faTimes} />
-                            </>
-                        }
                     />
                 </Col>
             </Row>

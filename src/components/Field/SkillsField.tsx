@@ -1,18 +1,11 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Input, Row, Col, Button, Dropdown, Menu, Form, Checkbox } from 'antd';
 import { DownOutlined } from '@ant-design/icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {
-    faCaretDown,
-    faCaretUp,
-    faTimes,
-    faTable,
-    faExpandArrowsAlt,
-    faArrowsAltV,
-} from '@fortawesome/free-solid-svg-icons';
+import { faCaretDown, faCaretUp, faTimes, faArrowsAltV } from '@fortawesome/free-solid-svg-icons';
 import { FieldProps } from '.';
 import { SKILLS } from '../../config/skills';
-import { CheckboxChangeEvent } from 'antd/lib/checkbox';
+import { globalContext } from '../../context/GlobalContextProvider';
 
 export enum ALIGNMENT {
     LEFT = 'left',
@@ -28,7 +21,6 @@ export enum SIZE {
 
 export interface SkillsFieldOptions {
     size?: SIZE;
-    setTitle?: string;
 }
 
 export interface SkillsFieldData {
@@ -42,9 +34,7 @@ export interface SkillsFieldProps extends FieldProps {
 }
 
 export const generateImageTag = (data: SkillsFieldData, options: SkillsFieldOptions) => {
-    const titleTag = options.setTitle ? `#### ${options.setTitle}` : '';
     return (
-        titleTag +
         `<div align="center">` +
         data.list
             .map(skill => {
@@ -57,8 +47,9 @@ export const generateImageTag = (data: SkillsFieldData, options: SkillsFieldOpti
 
 export const generateSkillsFieldMarkdown = ({ data, options }: SkillsFieldProps) => {
     if (!options) options = {};
-    if (!data)
+    if (!data || !data.list)
         data = {
+            ...data,
             list: [],
         };
     return `${generateImageTag(data, options)}`;
@@ -68,6 +59,8 @@ export const SkillsField = (
     skillsFieldProps: SkillsFieldProps &
         Required<Pick<SkillsFieldProps, 'id' | 'sectionId' | 'sectionIndex' | 'columnIndex' | 'fieldIndex' | 'type'>>,
 ) => {
+    const { modifyField } = useContext(globalContext);
+
     const localSkillsFieldProps: typeof skillsFieldProps = {
         options: {
             size: SIZE.MEDIUM,
@@ -80,7 +73,7 @@ export const SkillsField = (
 
     const onChange = checkedSkills => {
         localSkillsFieldProps.data.list = checkedSkills as string[];
-        localSkillsFieldProps.modifyField({
+        modifyField({
             ...localSkillsFieldProps,
         });
     };
@@ -89,15 +82,7 @@ export const SkillsField = (
         const localProps = { ...localSkillsFieldProps };
         if (!localProps.options) localProps.options = {};
         localProps.options.size = size;
-        localSkillsFieldProps.modifyField(localProps);
-    };
-
-    const changeSkillSetTitle = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const value = event.target.value;
-        const localProps = { ...localSkillsFieldProps };
-        if (!localProps.options) localProps.options = {};
-        localProps.options.setTitle = value;
-        localSkillsFieldProps.modifyField(localProps);
+        modifyField(localProps);
     };
 
     const sizeMenu = (
@@ -130,40 +115,7 @@ export const SkillsField = (
                             />
                         </Dropdown>
                     </Col>
-                    <Col>
-                        <Input
-                            placeholder="Skill set title (optional)"
-                            value={localSkillsFieldProps.options.setTitle}
-                            onChange={changeSkillSetTitle}
-                        />
-                    </Col>
                 </Row>
-                <Col>
-                    <Button
-                        icon={
-                            <>
-                                <FontAwesomeIcon icon={faCaretUp} />
-                            </>
-                        }
-                        onClick={() => localSkillsFieldProps.shiftField(localSkillsFieldProps, 'up')}
-                    />
-                    <Button
-                        icon={
-                            <>
-                                <FontAwesomeIcon icon={faCaretDown} />
-                            </>
-                        }
-                        onClick={() => localSkillsFieldProps.shiftField(localSkillsFieldProps, 'down')}
-                    />
-                    <Button
-                        onClick={() => localSkillsFieldProps.deleteField(localSkillsFieldProps)}
-                        icon={
-                            <>
-                                <FontAwesomeIcon icon={faTimes} />
-                            </>
-                        }
-                    />
-                </Col>
             </Row>
             <Checkbox.Group
                 defaultValue={localSkillsFieldProps.data.list}
