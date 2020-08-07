@@ -51,31 +51,18 @@ export const generateAlignmentTags = (alignment: SOCIAL_FIELD_ALIGNMENT, type: '
 };
 
 export const generateSocialTags = (data: SocialFieldData = { sites: {} }, options: SocialFieldOptions = {}) => {
-    if (
-        options.alignment &&
-        (options.alignment === SOCIAL_FIELD_ALIGNMENT.CENTRE || options.alignment === SOCIAL_FIELD_ALIGNMENT.RIGHT)
-    )
-        return (
-            `<div align="center">` +
-            Object.keys(data.sites)
-                .map(
-                    siteId =>
-                        `<a href="${SOCIAL_SITES[siteId].href(data.sites[siteId].username)}" target="_blank"><img src=${
-                            SOCIAL_SITES[siteId].shieldBadge
-                        } alt=${siteId} /></a>`,
-                )
-                .join(' ') +
-            `</div>`
-        );
-    else
-        return Object.keys(data.sites)
+    return (
+        `<div align="${options.alignment}">` +
+        Object.keys(data.sites)
             .map(
                 siteId =>
-                    `[![${siteId}](${SOCIAL_SITES[siteId].shieldBadge})](${SOCIAL_SITES[siteId].href(
-                        data.sites[siteId].username,
-                    )})`,
+                    `<a href="${SOCIAL_SITES[siteId].href(data.sites[siteId].username)}" target="_blank"><img src=${
+                        SOCIAL_SITES[siteId].shieldBadge
+                    } alt=${siteId} style="margin-bottom: 5px;" /></a>`,
             )
-            .join(' ');
+            .join(' ') +
+        `</div>`
+    );
 };
 
 export const generateSocialFieldMarkdown = ({ data, options = {} }: SocialFieldProps) => {
