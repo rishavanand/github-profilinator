@@ -13,6 +13,7 @@ import {
     faTimes,
     faAlignLeft,
     faList,
+    faLink,
 } from '@fortawesome/free-solid-svg-icons';
 import { FieldProps } from '.';
 
@@ -195,10 +196,14 @@ export const TextField = (
     };
 
     const toggleListType = () => {
-        const localProps = { ...localTextFieldProps };
-        if (!localProps.options) localProps.options = {};
-        localProps.options.isList = localProps.options.isList ? false : true;
-        localTextFieldProps.modifyField(localProps);
+        if (!localTextFieldProps.options) localTextFieldProps.options = {};
+        localTextFieldProps.options.isList = localTextFieldProps.options.isList ? false : true;
+        localTextFieldProps.modifyField(localTextFieldProps);
+    };
+
+    const addLinkTemplate = () => {
+        localTextFieldProps.data.value += `[example link text](http://example/com)`;
+        localTextFieldProps.modifyField(localTextFieldProps);
     };
 
     return (
@@ -244,6 +249,11 @@ export const TextField = (
                                 ? styles.selected
                                 : styles.unselected,
                         ].join(' ')}
+                    />
+                    <Button
+                        icon={<FontAwesomeIcon icon={faLink} />}
+                        onClick={() => addLinkTemplate()}
+                        className={[styles.optionButton, localTextFieldProps.options && styles.unselected].join(' ')}
                     />
                     <Dropdown overlay={fontSizeMenu}>
                         <Button
