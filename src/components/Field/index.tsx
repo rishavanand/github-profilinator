@@ -26,7 +26,7 @@ export interface FieldProps {
 
 export const generateFieldTitleMarkdown = (props: FieldProps) => {
     const { title } = props;
-    if (title) return `### ${title}  \n`;
+    if (title) return `\n\n### ${title}  \n`;
     else return '';
 };
 

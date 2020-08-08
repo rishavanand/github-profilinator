@@ -53,7 +53,7 @@ export const generateColumnMarkdown = (columns: Partial<FieldProps[][]>, type: '
 
 export const generateSectionTitleMarkdown = (props: SectionProps) => {
     const { name, nameToMarkdown } = props;
-    if (nameToMarkdown && name) return `## ${name}  \n`;
+    if (nameToMarkdown && name) return `\n## ${name}  \n`;
     else return '';
 };
 
