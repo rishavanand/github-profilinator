@@ -12,6 +12,7 @@ export interface GlobalContext {
         props: SectionProps & Required<Pick<SectionProps, 'sectionIndex'>>,
         direction: 'up' | 'down',
     ) => void;
+    deleteSection?: (sectionProps: SectionProps & Required<Pick<SectionProps, 'sectionIndex'>>) => void;
     findSectionById?: (id: string) => SectionProps;
     modifySection?: (sectionProps: SectionProps & Required<Pick<SectionProps, 'sectionIndex'>>) => void;
     addField?: (
@@ -57,6 +58,12 @@ const Provider = (props: { children: React.ReactChildren }) => {
         const section = sections.splice(sectionIndex, 1);
         if (direction === 'up') sections.splice(sectionIndex - 1, 0, ...section);
         else sections.splice(sectionIndex + 1, 0, ...section);
+        modifySections(sections.map(section => section));
+    };
+
+    const deleteSection = (sectionProps: SectionProps & Required<Pick<SectionProps, 'sectionIndex'>>) => {
+        const { sectionIndex } = sectionProps;
+        sections.splice(sectionIndex, 1);
         modifySections(sections.map(section => section));
     };
 
@@ -124,6 +131,7 @@ const Provider = (props: { children: React.ReactChildren }) => {
         sections: sections,
         addSection: addSection,
         modifySection: modifySection,
+        deleteSection: deleteSection,
         shiftSection: shiftSection,
         addField: addField,
         modifyField: modifyField,

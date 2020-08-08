@@ -21,7 +21,7 @@ import { globalContext, GlobalContext } from '../context/GlobalContextProvider';
 import Field, { FieldProps } from '../components/Field';
 import { FIELD_TYPES } from '../config/global';
 import { v4 as uuidv4 } from 'uuid';
-import { faColumns, faCog, faCaretUp, faCaretDown } from '@fortawesome/free-solid-svg-icons';
+import { faColumns, faCog, faCaretUp, faCaretDown, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const { Option } = Select;
@@ -256,6 +256,19 @@ const Section = (section: SectionProps & Required<Pick<SectionProps, 'sectionInd
                     </td>
                     <td>Re-order sections</td>
                 </tr>
+                <tr>
+                    <td>
+                        <Button
+                            icon={
+                                <>
+                                    <FontAwesomeIcon icon={faTimes} />
+                                </>
+                            }
+                            onClick={() => context.deleteSection(section)}
+                        />
+                    </td>
+                    <td>Remove section</td>
+                </tr>
             </table>
         );
     };
@@ -274,7 +287,7 @@ const Section = (section: SectionProps & Required<Pick<SectionProps, 'sectionInd
                     <Col>
                         <Row>
                             <Col>
-                                <Popover content={generateSectionSettings}>
+                                <Popover content={generateSectionSettings} title="Section Settings">
                                     <Button
                                         style={{ marginRight: 10 }}
                                         icon={
