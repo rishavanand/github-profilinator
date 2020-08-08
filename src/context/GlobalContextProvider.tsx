@@ -12,6 +12,8 @@ export interface GlobalContext {
         props: SectionProps & Required<Pick<SectionProps, 'sectionIndex'>>,
         direction: 'up' | 'down',
     ) => void;
+    resetSections?: () => void;
+    useTemplate?: () => void;
     deleteSection?: (sectionProps: SectionProps & Required<Pick<SectionProps, 'sectionIndex'>>) => void;
     findSectionById?: (id: string) => SectionProps;
     modifySection?: (sectionProps: SectionProps & Required<Pick<SectionProps, 'sectionIndex'>>) => void;
@@ -65,6 +67,21 @@ const Provider = (props: { children: React.ReactChildren }) => {
         const { sectionIndex } = sectionProps;
         sections.splice(sectionIndex, 1);
         modifySections(sections.map(section => section));
+    };
+
+    const resetSections = () => {
+        modifySections([
+            {
+                name: 'Intro',
+                sectionIndex: 0,
+            },
+        ]);
+        changeActiveSection(0);
+    };
+
+    const useTemplate = () => {
+        modifySections(DEMO_SECTION_DATA);
+        changeActiveSection(0);
     };
 
     const addField = (
@@ -131,6 +148,8 @@ const Provider = (props: { children: React.ReactChildren }) => {
         sections: sections,
         addSection: addSection,
         modifySection: modifySection,
+        resetSections: resetSections,
+        useTemplate: useTemplate,
         deleteSection: deleteSection,
         shiftSection: shiftSection,
         addField: addField,

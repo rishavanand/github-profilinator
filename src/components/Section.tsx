@@ -16,7 +16,7 @@ import {
     Popover,
     Table,
 } from 'antd';
-import { PlusOutlined, FireOutlined, DownOutlined } from '@ant-design/icons';
+import { PlusOutlined, FireOutlined, DownOutlined, RedoOutlined } from '@ant-design/icons';
 import { globalContext, GlobalContext } from '../context/GlobalContextProvider';
 import Field, { FieldProps } from '../components/Field';
 import { FIELD_TYPES } from '../config/global';
@@ -299,9 +299,14 @@ const Section = (section: SectionProps & Required<Pick<SectionProps, 'sectionInd
                                     />
                                 </Popover>
                             </Col>
-                            <Col>
-                                <Button type="primary" ghost block>
+                            <Col style={{ marginRight: 10 }}>
+                                <Button type="primary" ghost block onClick={context.useTemplate}>
                                     <FireOutlined /> Use template
+                                </Button>
+                            </Col>
+                            <Col>
+                                <Button type="primary" ghost block onClick={context.resetSections}>
+                                    <RedoOutlined /> Start fresh
                                 </Button>
                             </Col>
                         </Row>
