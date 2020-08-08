@@ -102,6 +102,13 @@ export const Preview = () => {
         setShowMarkdown(showMarkdown ? false : true);
     };
 
+    const generateAdvertisedMarkdown = (markdown: string) => {
+        return (
+            markdown +
+            `\n<br />\n\n----\n<div align="center">Generated using <a href="https://profilinator.rishav.dev/">Github Profilinator</a></div>`
+        );
+    };
+
     return (
         <>
             <Row justify="space-between">
@@ -144,7 +151,7 @@ export const Preview = () => {
                     </a>
                 </h3>
                 <br />
-                <TextArea autoSize={true} value={generateMarkdown().markdown} />
+                <TextArea autoSize={true} value={generateAdvertisedMarkdown(generateMarkdown().markdown)} />
             </Modal>
         </>
     );
