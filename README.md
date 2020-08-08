@@ -14,7 +14,7 @@ Generate creative GitHub profile readmes in few click!
 
 <img src="https://img.shields.io/github/issues/rishavanand/github-profilinator?style=for-the-badge">
 
-<img src="https://img.shields.io/github/issues-pr/rishavanand/github-profilinator?style=for-the-badge">
+<br />
 
 <a href="http://profilinator.rishav.dev/" target="_blank">View Generator</a> · <a href="http://github.com/rishavanand" target="_blank">View Generated Profile</a> · <a href="https://github.com/rishavanand/github-profilinator/issues/new/choose" target="_blank">Report Bug</a> · <a href="https://github.com/rishavanand/github-profilinator/issues/new/choose" target="_blank">Request Feature</a>
 
@@ -24,7 +24,7 @@ Loved the project? Show your love to the developer by starring this repo.
 
 ---
 
-This projects aims to simply your GitHub profile generation process by providing creative components from all over the web which can be added in a few click. In the end, with the click of a button, markdown is auto generated which you can directly added to your readmes.
+This projects is aimed to simply your GitHub profile generation process by providing creative components from all over the web which can be added in a few click. In the end, with the click of a button, markdown is auto generated which you can directly added to your readmes.
 
 ---
 
