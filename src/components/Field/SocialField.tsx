@@ -41,7 +41,7 @@ export interface SocialFieldProps extends FieldProps {
 
 export const generateAlignmentTags = (alignment: SOCIAL_FIELD_ALIGNMENT, type: 'start' | 'end') => {
     if ((alignment === SOCIAL_FIELD_ALIGNMENT.CENTRE || alignment === SOCIAL_FIELD_ALIGNMENT.RIGHT) && type === 'start')
-        return `<div align="${alignment}">  \n`;
+        return `<div align="${alignment}">\n`;
     else if (
         (alignment === SOCIAL_FIELD_ALIGNMENT.CENTRE || alignment === SOCIAL_FIELD_ALIGNMENT.RIGHT) &&
         type === 'end'
@@ -55,9 +55,9 @@ export const generateSocialTags = (data: SocialFieldData = { sites: {} }, option
     return sites
         .map(
             siteId =>
-                `<a href="${SOCIAL_SITES[siteId].href(data.sites[siteId].username)}" target="_blank"><img src=${
+                `<a href="${SOCIAL_SITES[siteId].href(data.sites[siteId].username)}" target="_blank">\n<img src=${
                     SOCIAL_SITES[siteId].shieldBadge
-                } alt=${siteId} style="margin-bottom: 5px;" /></a>`,
+                } alt=${siteId} style="margin-bottom: 5px;" />\n</a>`,
         )
         .join('\n');
 };
