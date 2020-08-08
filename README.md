@@ -19,7 +19,7 @@ Generate creative GitHub profile readmes in few click!
 <br />
 <br />
 
-<a href="http://profilinator.rishav.dev/" target="_blank">View Generator</a> · <a href="http://github.com/rishavanand" target="_blank">View Generated Profile</a> · <a href="https://github.com/rishavanand/github-profilinator/issues/new/choose" target="_blank">Report Bug</a> · <a href="https://github.com/rishavanand/github-profilinator/issues/new/choose" target="_blank">Request Feature</a>
+<a href="https://profilinator.rishav.dev/" target="_blank">View Generator</a> · <a href="http://github.com/rishavanand" target="_blank">View Generated Profile</a> · <a href="https://github.com/rishavanand/github-profilinator/issues/new/choose" target="_blank">Report Bug</a> · <a href="https://github.com/rishavanand/github-profilinator/issues/new/choose" target="_blank">Request Feature</a>
 
 _Loved the project? Show your love to the developer by starring this repo._
 
