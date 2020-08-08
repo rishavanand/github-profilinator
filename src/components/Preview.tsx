@@ -1,5 +1,5 @@
-import React, { useContext } from 'react';
-import { Row, Col, Divider, Typography, Button } from 'antd';
+import React, { useContext, useState } from 'react';
+import { Row, Col, Divider, Typography, Button, Modal, Input, Alert } from 'antd';
 import { FireOutlined } from '@ant-design/icons';
 import { globalContext } from '../context/GlobalContextProvider';
 import { FIELD_TYPES } from '../config/global';
@@ -20,11 +20,15 @@ import { generateSocialFieldMarkdown } from './Field/SocialField';
 import { generateSectionTitleMarkdown } from '../components/Section';
 import { generateProfileVisitorCounterMarkdown } from './Field/ProfileVisitorCounterField';
 import { generateBlogPostMarkdown } from './Field/BlogPostField';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faStar } from '@fortawesome/free-solid-svg-icons';
 
 const { Title } = Typography;
+const { TextArea } = Input;
 
 export const Preview = () => {
     const context = useContext(globalContext);
+    const [showMarkdown, setShowMarkdown] = useState(false);
 
     const generateFieldsMarkdown = (fields: FieldProps[]) => {
         if (!fields || !fields.length) return '';
@@ -52,7 +56,7 @@ export const Preview = () => {
                         returnField += generateProfileVisitorCounterMarkdown(field);
                         break;
                     case FIELD_TYPES.BLOG_POST:
-                        returnField += generateBlogPostMarkdown(field);
+                        returnField += generateBlogPostMarkdown();
                         break;
                 }
                 return returnField;
@@ -88,13 +92,14 @@ export const Preview = () => {
     };
 
     const generateMarkdown = () => {
-        console.log(JSON.stringify(context.sections));
         const markdown = generateSectionMarkdown(context.sections);
-        console.log(markdown);
         const markdownText = marked(markdown);
-        console.log(markdownText);
         const html = renderHTML(markdownText);
-        return html;
+        return { html, markdown, markdownText };
+    };
+
+    const toggleShowMarkdown = () => {
+        setShowMarkdown(showMarkdown ? false : true);
     };
 
     return (
@@ -104,13 +109,43 @@ export const Preview = () => {
                     <Title level={3}>Preview</Title>
                 </Col>
                 <Col>
-                    <Button type="primary">
+                    <Button type="primary" onClick={toggleShowMarkdown}>
                         <FireOutlined /> Generate README.md
                     </Button>
                 </Col>
             </Row>
             <Divider />
-            <div className={styles.markdown}>{generateMarkdown()}</div>
+            <div className={styles.markdown}>{generateMarkdown().html}</div>
+            <Modal
+                title="Generated Markdown"
+                width="70vw"
+                visible={showMarkdown}
+                onCancel={toggleShowMarkdown}
+                onOk={toggleShowMarkdown}
+            >
+                <h3
+                    style={{
+                        textAlign: 'center',
+                        backgroundColor: '#f6ffed',
+                        padding: 20,
+                        fontWeight: 'bold',
+                        borderRadius: 2,
+                        border: '1px solid #b7eb8f',
+                    }}
+                >
+                    If you found this tool to be helpful, or liked some feature, then show your support by hitting that{' '}
+                    <a href="https://github.com/rishavanand/github-profilinator" rel="noreferrer" target="_blank">
+                        <FontAwesomeIcon icon={faStar} />
+                    </a>{' '}
+                    star button on the GitHub repo. It helps the developer to stay motivated and add new features to the
+                    project .{' '}
+                    <a href="https://github.com/rishavanand/github-profilinator" rel="noreferrer" target="_blank">
+                        Link to Github Profilinator on GitHub
+                    </a>
+                </h3>
+                <br />
+                <TextArea autoSize={true} value={generateMarkdown().markdown} />
+            </Modal>
         </>
     );
 };

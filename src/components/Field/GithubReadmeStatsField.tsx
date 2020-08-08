@@ -72,8 +72,7 @@ export const generateGithubReadmeStatsMarkdown = ({ data, options }: GithubReadm
     return (
         `${generateAlignmentTags(options.alignment, 'start')}` +
         `${generateImageTag(data, options)}` +
-        `${generateAlignmentTags(options.alignment, 'end')}` +
-        `  \n`
+        `${generateAlignmentTags(options.alignment, 'end')}`
     );
 };
 

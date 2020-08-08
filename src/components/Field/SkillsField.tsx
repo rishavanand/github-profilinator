@@ -35,13 +35,13 @@ export interface SkillsFieldProps extends FieldProps {
 
 export const generateImageTag = (data: SkillsFieldData, options: SkillsFieldOptions) => {
     return (
-        `<div align="center">` +
+        `<div align="center">  \n` +
         data.list
             .map(skill => {
                 return `<img style="margin: 10px" src="${SKILLS[skill].iconUrl}" alt="${SKILLS[skill].label}" height="${options.size}" />`;
             })
-            .join('') +
-        '</div>'
+            .join('  \n') +
+        '  \n</div>'
     );
 };
 

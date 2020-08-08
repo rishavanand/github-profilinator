@@ -34,9 +34,9 @@ export interface ImageFieldProps extends FieldProps {
 
 export const generateAlignmentTags = (alignment: IMAGE_ALIGNMENT, type: 'start' | 'end') => {
     if ((alignment === IMAGE_ALIGNMENT.CENTRE || alignment === IMAGE_ALIGNMENT.RIGHT) && type === 'start')
-        return `<div align="${alignment}">`;
+        return `<div align="${alignment}">\n`;
     else if ((alignment === IMAGE_ALIGNMENT.CENTRE || alignment === IMAGE_ALIGNMENT.RIGHT) && type === 'end')
-        return `</div>`;
+        return `\n</div>`;
     else return '';
 };
 

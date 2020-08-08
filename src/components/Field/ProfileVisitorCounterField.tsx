@@ -29,9 +29,9 @@ export interface ProfileVisitorCounterProps extends FieldProps {
 
 export const generateAlignmentTags = (alignment: STATS_ALIGNMENT, type: 'start' | 'end') => {
     if ((alignment === STATS_ALIGNMENT.CENTRE || alignment === STATS_ALIGNMENT.RIGHT) && type === 'start')
-        return `<div align="${alignment}">`;
+        return `<div align="${alignment}">\n`;
     else if ((alignment === STATS_ALIGNMENT.CENTRE || alignment === STATS_ALIGNMENT.RIGHT) && type === 'end')
-        return `</div>`;
+        return `\n</div>`;
     else return '';
 };
 

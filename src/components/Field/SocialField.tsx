@@ -41,29 +41,25 @@ export interface SocialFieldProps extends FieldProps {
 
 export const generateAlignmentTags = (alignment: SOCIAL_FIELD_ALIGNMENT, type: 'start' | 'end') => {
     if ((alignment === SOCIAL_FIELD_ALIGNMENT.CENTRE || alignment === SOCIAL_FIELD_ALIGNMENT.RIGHT) && type === 'start')
-        return `<div align="${alignment}">`;
+        return `<div align="${alignment}">  \n`;
     else if (
         (alignment === SOCIAL_FIELD_ALIGNMENT.CENTRE || alignment === SOCIAL_FIELD_ALIGNMENT.RIGHT) &&
         type === 'end'
     )
-        return `</div>`;
+        return `  \n</div>`;
     else return '';
 };
 
 export const generateSocialTags = (data: SocialFieldData = { sites: {} }, options: SocialFieldOptions = {}) => {
     const sites = data.sites ? Object.keys(data.sites) : [];
-    return (
-        `<div align="${options.alignment}">` +
-        sites
-            .map(
-                siteId =>
-                    `<a href="${SOCIAL_SITES[siteId].href(data.sites[siteId].username)}" target="_blank"><img src=${
-                        SOCIAL_SITES[siteId].shieldBadge
-                    } alt=${siteId} style="margin-bottom: 5px;" /></a>`,
-            )
-            .join(' ') +
-        `</div>`
-    );
+    return sites
+        .map(
+            siteId =>
+                `<a href="${SOCIAL_SITES[siteId].href(data.sites[siteId].username)}" target="_blank"><img src=${
+                    SOCIAL_SITES[siteId].shieldBadge
+                } alt=${siteId} style="margin-bottom: 5px;" /></a>`,
+        )
+        .join('\n');
 };
 
 export const generateSocialFieldMarkdown = ({ data, options = {} }: SocialFieldProps) => {
