@@ -8,7 +8,7 @@ import marked from 'marked';
 import renderHTML from 'react-render-html';
 import styles from '../styles/preview.module.scss';
 import { generateImageFieldMarkdown } from './Field/ImageField';
-import { FieldProps, generateTitleMarkdown } from './Field';
+import { FieldProps, generateFieldTitleMarkdown } from './Field';
 import {
     SectionProps,
     generateSectionMarkdown as generateSectionMarkdownExt,
@@ -17,6 +17,7 @@ import {
 import { generateGithubReadmeStatsMarkdown } from './Field/GithubReadmeStatsField';
 import { generateSkillsFieldMarkdown } from './Field/SkillsField';
 import { generateSocialFieldMarkdown } from './Field/SocialField';
+import { generateSectionTitleMarkdown } from '../components/Section';
 
 const { Title } = Typography;
 
@@ -28,7 +29,7 @@ export const Preview = () => {
         return fields
             .map(field => {
                 const { type } = field;
-                let returnField: string = generateTitleMarkdown(field);
+                let returnField: string = generateFieldTitleMarkdown(field);
                 switch (type) {
                     case FIELD_TYPES.TEXT:
                         returnField += generateTextFieldMarkdown(field);
@@ -69,12 +70,13 @@ export const Preview = () => {
         return sections
             .map(section => {
                 return (
+                    generateSectionTitleMarkdown(section) +
                     generateSectionMarkdownExt(section, 'start') +
                     generateColumnMarkdown(section.fields) +
                     generateSectionMarkdownExt(section, 'end')
                 );
             })
-            .join('');
+            .join('  \n\n');
     };
 
     const generateMarkdown = () => {
