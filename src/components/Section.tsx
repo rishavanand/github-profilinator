@@ -1,13 +1,29 @@
 import React, { Component, useState, useContext } from 'react';
-import { Row, Col, Divider, Layout, Card, Typography, Button, Modal, Form, Dropdown, Select, Menu } from 'antd';
+import {
+    Row,
+    Col,
+    Divider,
+    Layout,
+    Card,
+    Typography,
+    Button,
+    Modal,
+    Form,
+    Dropdown,
+    Select,
+    Menu,
+    Switch,
+    Popover,
+} from 'antd';
 import { PlusOutlined, FireOutlined, DownOutlined } from '@ant-design/icons';
 import { globalContext, GlobalContext } from '../context/GlobalContextProvider';
 import Field, { FieldProps } from '../components/Field';
 import { FIELD_TYPES } from '../config/global';
 import { v4 as uuidv4 } from 'uuid';
-import { faColumns } from '@fortawesome/free-solid-svg-icons';
+import { faColumns, faCog } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { FormProps } from 'antd/lib/form';
+import { OmitProps } from 'antd/lib/transfer/ListBody';
 
 const { Option } = Select;
 const { Header, Sider, Content } = Layout;
@@ -17,6 +33,7 @@ export interface SectionProps {
     id?: string;
     sectionIndex?: number;
     name?: string;
+    nameToMarkdown?: boolean;
     fields?: Array<Array<FieldProps>>;
     changeColumnCount?: (sectionIndex: number, columnCount: number) => void;
 }
@@ -36,7 +53,13 @@ export const generateColumnMarkdown = (columns: Partial<FieldProps[][]>, type: '
     else return '';
 };
 
-const Section = (section: SectionProps & Required<Pick<SectionProps, 'id'>>) => {
+export const generateSectionTitleMarkdown = (props: SectionProps) => {
+    const { name, nameToMarkdown } = props;
+    if (nameToMarkdown && name) return `## ${name}  \n`;
+    else return '';
+};
+
+const Section = (section: SectionProps & Required<Pick<SectionProps, 'sectionIndex'>>) => {
     const [activeSectionIndex, setActiveSectionIndex] = useState(0);
     const [activeColumnIndex, setActiveColumnIndex] = useState(0);
     const [addFieldVisible, setAddFieldVisibility] = useState(false);
@@ -45,7 +68,8 @@ const Section = (section: SectionProps & Required<Pick<SectionProps, 'id'>>) => 
 
     const generateFields = (
         fields: [
-            Required<Pick<FieldProps, 'id' | 'type' | 'sectionIndex' | 'columnIndex' | 'fieldIndex'>> & FieldProps,
+            Required<Pick<FieldProps, 'id' | 'type' | 'sectionIndex' | 'columnIndex' | 'fieldIndex' | 'sectionId'>> &
+                FieldProps,
         ],
         sectionIndex: number,
         columnIndex: number,
@@ -112,14 +136,21 @@ const Section = (section: SectionProps & Required<Pick<SectionProps, 'id'>>) => 
 
     const generateColumnCards = (
         fields: [
-            [Required<Pick<FieldProps, 'id' | 'type' | 'sectionIndex' | 'columnIndex' | 'fieldIndex'>> & FieldProps],
+            [
+                Required<
+                    Pick<FieldProps, 'id' | 'type' | 'sectionIndex' | 'columnIndex' | 'fieldIndex' | 'sectionId'>
+                > &
+                    FieldProps,
+            ],
         ],
         sectionIndex: number,
     ) => {
         if (!fields || !fields.length)
             fields = [
                 ([] as unknown) as [
-                    Required<Pick<FieldProps, 'type' | 'id' | 'sectionIndex' | 'columnIndex' | 'fieldIndex'>> &
+                    Required<
+                        Pick<FieldProps, 'type' | 'id' | 'sectionIndex' | 'columnIndex' | 'fieldIndex' | 'sectionId'>
+                    > &
                         FieldProps,
                 ],
             ];
@@ -170,6 +201,45 @@ const Section = (section: SectionProps & Required<Pick<SectionProps, 'id'>>) => 
         </Menu>
     );
 
+    const toggleNameToMarkdown = () => {
+        context.modifySection({
+            ...section,
+            nameToMarkdown: section.nameToMarkdown ? false : true,
+        });
+    };
+
+    const generateSectionSettings = () => {
+        return (
+            <>
+                <Row justify="space-between">
+                    <Col>
+                        <Dropdown overlay={columnCountMenu}>
+                            <Button
+                                style={{ paddingLeft: 5, paddingRight: 5, width: 50 }}
+                                icon={
+                                    <>
+                                        <FontAwesomeIcon icon={faColumns} /> <DownOutlined />
+                                    </>
+                                }
+                            />
+                        </Dropdown>
+                    </Col>
+                    <Col>Number of columns</Col>
+                </Row>
+                <Row>
+                    <Col>
+                        <Switch
+                            style={{ paddingLeft: 5, paddingRight: 5, marginRight: 10, marginTop: 10 }}
+                            checked={section.nameToMarkdown}
+                            onChange={toggleNameToMarkdown}
+                        />
+                    </Col>
+                    <Col> Use section name in markdown</Col>
+                </Row>
+            </>
+        );
+    };
+
     if (!section)
         return (
             <>You have not added any sections yet. Please add a new section from the left sidebar to view it here.</>
@@ -184,16 +254,16 @@ const Section = (section: SectionProps & Required<Pick<SectionProps, 'id'>>) => 
                     <Col>
                         <Row>
                             <Col>
-                                <Dropdown overlay={columnCountMenu}>
+                                <Popover content={generateSectionSettings}>
                                     <Button
-                                        style={{ paddingLeft: 5, paddingRight: 5, width: 50, marginRight: 10 }}
+                                        style={{ marginRight: 10 }}
                                         icon={
                                             <>
-                                                <FontAwesomeIcon icon={faColumns} /> <DownOutlined />
+                                                <FontAwesomeIcon icon={faCog} />
                                             </>
                                         }
                                     />
-                                </Dropdown>
+                                </Popover>
                             </Col>
                             <Col>
                                 <Button type="primary" ghost block>
@@ -208,7 +278,12 @@ const Section = (section: SectionProps & Required<Pick<SectionProps, 'id'>>) => 
                 {generateColumnCards(
                     section.fields as [
                         [
-                            Required<Pick<FieldProps, 'id' | 'type' | 'sectionIndex' | 'columnIndex' | 'fieldIndex'>> &
+                            Required<
+                                Pick<
+                                    FieldProps,
+                                    'id' | 'type' | 'sectionIndex' | 'columnIndex' | 'fieldIndex' | 'sectionId'
+                                >
+                            > &
                                 FieldProps,
                         ],
                     ],

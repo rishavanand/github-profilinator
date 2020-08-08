@@ -5,11 +5,11 @@ import { FieldProps } from '../components/Field';
 
 export interface GlobalContext {
     activeSectionIndex?: number;
-    sections?: Array<SectionProps & Required<Pick<SectionProps, 'id'>>>;
+    sections?: Array<SectionProps & Required<Pick<SectionProps, 'sectionIndex'>>>;
     changeActiveSection?: React.Dispatch<React.SetStateAction<number>>;
     addSection?: (sectionProps: SectionProps) => void;
     findSectionById?: (id: string) => SectionProps;
-    modifySection?: (sectionProps: Required<Pick<SectionProps, 'id'>>) => void;
+    modifySection?: (sectionProps: SectionProps & Required<Pick<SectionProps, 'sectionIndex'>>) => void;
     addField?: (
         fieldProps: FieldProps & Required<Pick<FieldProps, 'id' | 'type' | 'sectionIndex' | 'columnIndex'>>,
     ) => void;
@@ -32,8 +32,14 @@ const Provider = (props: { children: React.ReactChildren }) => {
     const [activeSectionIndex, changeActiveSection] = useState(0);
     const [sections, modifySections] = useState(DEMO_SECTION_DATA);
 
-    const addSection = (sectionData: SectionProps & Required<Pick<SectionProps, 'id'>>) => {
+    const addSection = (sectionData: SectionProps & Required<Pick<SectionProps, 'sectionIndex'>>) => {
         sections.push(sectionData);
+        modifySections(sections.map(section => section));
+    };
+
+    const modifySection = (sectionProps: SectionProps & Required<Pick<SectionProps, 'sectionIndex'>>) => {
+        const { sectionIndex } = sectionProps;
+        sections[sectionIndex] = sectionProps;
         modifySections(sections.map(section => section));
     };
 
@@ -100,6 +106,7 @@ const Provider = (props: { children: React.ReactChildren }) => {
         changeActiveSection: changeActiveSection,
         sections: sections,
         addSection: addSection,
+        modifySection: modifySection,
         addField: addField,
         modifyField: modifyField,
         deleteField: deleteField,

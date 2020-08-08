@@ -5,7 +5,7 @@ import { SectionProps } from '../components/Section';
 import { TEXT_ALIGNMENT, TEXT_SIZE } from '../components/Field/TextField';
 import { IMAGE_ALIGNMENT } from '../components/Field/ImageField';
 
-export const DEMO_SECTION_DATA: Array<SectionProps & Required<Pick<SectionProps, 'id'>>> = [
+export const DEMO_SECTION_DATA: Array<SectionProps & Required<Pick<SectionProps, 'sectionIndex'>>> = [
     {
         name: 'Intro',
         id: 'section001',
