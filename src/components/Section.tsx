@@ -38,16 +38,16 @@ export interface SectionProps {
 
 export const generateSectionMarkdown = ({ fields }: Partial<SectionProps>, type: 'start' | 'end') => {
     const columnCount = fields && fields.length ? fields.length : 0;
-    if (columnCount > 1 && type === 'start') return `<table>\n<tr>\n`;
-    else if (columnCount > 1 && type === 'end') return `</tr>\n</table>`;
+    if (columnCount > 1 && type === 'start') return `<table><tr>`;
+    else if (columnCount > 1 && type === 'end') return `</tr></table>`;
     else return '';
 };
 
 export const generateColumnMarkdown = (columns: Partial<FieldProps[][]>, type: 'start' | 'end') => {
     const columnCount = columns && columns.length ? columns.length : 0;
     if (columnCount > 1 && type === 'start')
-        return `<td valign="top" width="${parseInt((100 / columnCount).toString())}%">\n\n`;
-    else if (columnCount > 1 && type === 'end') return `\n\n</td>\n`;
+        return `<td valign="top" width="${parseInt((100 / columnCount).toString())}%">`;
+    else if (columnCount > 1 && type === 'end') return `</td>`;
     else return '';
 };
 
