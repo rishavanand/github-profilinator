@@ -19,6 +19,7 @@ import { generateSkillsFieldMarkdown } from './Field/SkillsField';
 import { generateSocialFieldMarkdown } from './Field/SocialField';
 import { generateSectionTitleMarkdown } from '../components/Section';
 import { generateProfileVisitorCounterMarkdown } from './Field/ProfileVisitorCounterField';
+import { generateBlogPostMarkdown } from './Field/BlogPostField';
 
 const { Title } = Typography;
 
@@ -49,6 +50,10 @@ export const Preview = () => {
                         break;
                     case FIELD_TYPES.PROFILE_VISITOR_COUNTER:
                         returnField += generateProfileVisitorCounterMarkdown(field);
+                        break;
+                    case FIELD_TYPES.BLOG_POST:
+                        returnField += generateBlogPostMarkdown(field);
+                        break;
                 }
                 return returnField;
             })

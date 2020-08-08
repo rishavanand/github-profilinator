@@ -5,4 +5,5 @@ export enum FIELD_TYPES {
     SKILLS = 'skills',
     SOCIAL = 'social',
     PROFILE_VISITOR_COUNTER = 'profile-visitor-counter',
+    BLOG_POST = 'blog-post',
 }

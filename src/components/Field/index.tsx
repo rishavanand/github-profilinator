@@ -10,6 +10,7 @@ import SocialField from './SocialField';
 import { faPen, faCheck, faTimes, faCaretUp, faCaretDown } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { ProfileVisitorCounterField } from '../Field/ProfileVisitorCounterField';
+import BlogPostField from './BlogPostField';
 
 export interface FieldProps {
     id?: string;
@@ -55,6 +56,8 @@ export const Field = (
                 return <SocialField {...props} />;
             case FIELD_TYPES.PROFILE_VISITOR_COUNTER:
                 return <ProfileVisitorCounterField {...props} />;
+            case FIELD_TYPES.BLOG_POST:
+                return <BlogPostField {...props} />;
         }
     };
 
