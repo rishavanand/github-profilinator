@@ -79,10 +79,11 @@ export const Preview = () => {
                     generateSectionMarkdownExt(section, 'end')
                 );
             })
-            .join('  \n<br/>  \n');
+            .join('  \n\n<br/>  \n\n');
     };
 
     const generateMarkdown = () => {
+        console.log(JSON.stringify(context.sections));
         const markdown = generateSectionMarkdown(context.sections);
         console.log(markdown);
         const markdownText = marked(markdown);
