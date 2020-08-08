@@ -3,7 +3,7 @@ import { Input, Row, Col, Button, Dropdown, Menu, Form, Switch } from 'antd';
 import { DownOutlined } from '@ant-design/icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import styles from '../../styles/fields.module.scss';
-import { faCaretDown, faCaretUp, faTimes, faAlignLeft, faExpandArrowsAlt } from '@fortawesome/free-solid-svg-icons';
+import { faAlignLeft, faExpandArrowsAlt } from '@fortawesome/free-solid-svg-icons';
 import { FieldProps } from '.';
 import { globalContext } from '../../context/GlobalContextProvider';
 
@@ -13,11 +13,17 @@ export enum STATS_ALIGNMENT {
     RIGHT = 'right',
 }
 
+export enum VARIANT {
+    LANGUAGE_STATS = 'languages',
+    ACTIVITY_STATS = 'activity',
+}
+
 export interface GithubReadmeStatsOptions {
     height?: string;
     width?: string;
     alignment?: STATS_ALIGNMENT;
     fitImage?: boolean;
+    variant?: VARIANT;
 }
 
 export interface GithubReadmeStatsData {
@@ -39,7 +45,12 @@ export const generateAlignmentTags = (alignment: STATS_ALIGNMENT, type: 'start' 
 };
 
 export const generateImageTag = (data: GithubReadmeStatsData, options: GithubReadmeStatsOptions) => {
-    const statsUrl = `https://github-readme-stats.vercel.app/api?username=${data.username}&show_icons=true`;
+    let statsUrl: string;
+    if (!options.variant || options.variant === VARIANT.ACTIVITY_STATS)
+        statsUrl = `https://github-readme-stats.vercel.app/api?username=${data.username}&show_icons=true&count_private=true`;
+    else if (options.variant === VARIANT.LANGUAGE_STATS)
+        statsUrl = `https://github-readme-stats.vercel.app/api/top-langs/?username=${data.username}`;
+
     if (options.fitImage)
         return `<img src="${statsUrl}" align="${
             options.alignment ? options.alignment : 'left'
@@ -103,14 +114,21 @@ export const GithubReadmeStatsField = (
         });
     };
 
-    const changeAlignment = (aligment: typeof localGithubReadmeStatsProps.options.alignment) => {
+    const changeAlignment = (alignment: typeof localGithubReadmeStatsProps.options.alignment) => {
         const localProps = { ...localGithubReadmeStatsProps };
         if (!localProps.options) localProps.options = {};
-        localProps.options.alignment = aligment;
+        localProps.options.alignment = alignment;
         modifyField(localProps);
     };
 
-    const aligmentMenu = (
+    const changeVariant = (variant: VARIANT) => {
+        const localProps = { ...localGithubReadmeStatsProps };
+        if (!localProps.options) localProps.options = {};
+        localProps.options.variant = variant;
+        modifyField(localProps);
+    };
+
+    const alignmentMenu = (
         <Menu>
             <Menu.Item key="1" onClick={() => changeAlignment(STATS_ALIGNMENT.LEFT)}>
                 Left
@@ -124,11 +142,27 @@ export const GithubReadmeStatsField = (
         </Menu>
     );
 
+    const variantMenu = (
+        <Menu>
+            <Menu.Item key="1" onClick={() => changeVariant(VARIANT.ACTIVITY_STATS)}>
+                Activity stats
+            </Menu.Item>
+            <Menu.Item key="2" onClick={() => changeVariant(VARIANT.LANGUAGE_STATS)}>
+                Language stats
+            </Menu.Item>
+        </Menu>
+    );
+
     return (
         <>
             <Row justify="space-between" style={{ marginBottom: 10 }}>
                 <Col>
-                    <Dropdown overlay={aligmentMenu}>
+                    <Dropdown overlay={variantMenu}>
+                        <Button style={{ paddingLeft: 5, paddingRight: 5 }}>
+                            Variant <DownOutlined />{' '}
+                        </Button>
+                    </Dropdown>
+                    <Dropdown overlay={alignmentMenu}>
                         <Button
                             style={{ paddingLeft: 5, paddingRight: 5, width: 50 }}
                             icon={
