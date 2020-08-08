@@ -79,7 +79,7 @@ export const Preview = () => {
                     generateSectionMarkdownExt(section, 'end')
                 );
             })
-            .join('  \n\n');
+            .join('  \n<br/>  \n');
     };
 
     const generateMarkdown = () => {
