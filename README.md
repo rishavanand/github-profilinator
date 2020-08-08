@@ -14,11 +14,14 @@ Generate creative GitHub profile readmes in few click!
 
 <img src="https://img.shields.io/github/issues/rishavanand/github-profilinator?style=for-the-badge">
 
+<img src="https://img.shields.io/github/issues-pr/rishavanand/github-profilinator?style=for-the-badge">
+
+<br />
 <br />
 
 <a href="http://profilinator.rishav.dev/" target="_blank">View Generator</a> · <a href="http://github.com/rishavanand" target="_blank">View Generated Profile</a> · <a href="https://github.com/rishavanand/github-profilinator/issues/new/choose" target="_blank">Report Bug</a> · <a href="https://github.com/rishavanand/github-profilinator/issues/new/choose" target="_blank">Request Feature</a>
 
-Loved the project? Show your love to the developer by starring this repo.
+_Loved the project? Show your love to the developer by starring this repo._
 
 <br />
 
@@ -82,9 +85,9 @@ npm start
 
 ## 💫 Built on the shoulders of giants
 
--   [amazing github-readme-stats]() by Anurag Hazra for creating detailed statistics
--   [github-profile-views-counter]() by Anton Komarev for simplifying visitor counter
--   [blog post workflow]() by Gautam Krishna R which is a Genius use of Github Actions.
+-   [amazing github-readme-stats](https://github.com/anuraghazra/github-readme-stats) by Anurag Hazra for creating detailed statistics
+-   [github-profile-views-counter](https://github.com/antonkomarev/github-profile-views-counter) by Anton Komarev for simplifying visitor counter
+-   [blog post workflow](https://github.com/gautamkrishnar/blog-post-workflow) by Gautam Krishna R which is a Genius use of Github Actions.
 
 ## :heart: Supporting the project
 
