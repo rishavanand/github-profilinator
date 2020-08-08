@@ -105,7 +105,7 @@ export const Preview = () => {
     const generateAdvertisedMarkdown = (markdown: string) => {
         return (
             markdown +
-            `\n<br />\n\n----\n<div align="center">Generated using <a href="https://profilinator.rishav.dev/">Github Profilinator</a></div>`
+            `\n<br />\n\n----\n<div align="center">Generated using <a href="https://profilinator.rishav.dev/" target="_blank">Github Profilinator</a></div>`
         );
     };
 
