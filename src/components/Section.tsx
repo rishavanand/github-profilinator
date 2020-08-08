@@ -14,18 +14,18 @@ import {
     Menu,
     Switch,
     Popover,
+    Table,
 } from 'antd';
 import { PlusOutlined, FireOutlined, DownOutlined } from '@ant-design/icons';
 import { globalContext, GlobalContext } from '../context/GlobalContextProvider';
 import Field, { FieldProps } from '../components/Field';
 import { FIELD_TYPES } from '../config/global';
 import { v4 as uuidv4 } from 'uuid';
-import { faColumns, faCog } from '@fortawesome/free-solid-svg-icons';
+import { faColumns, faCog, faCaretUp, faCaretDown } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const { Option } = Select;
-const { Header, Sider, Content } = Layout;
-const { Title, Paragraph } = Typography;
+const { Title } = Typography;
 
 export interface SectionProps {
     id?: string;
@@ -209,9 +209,9 @@ const Section = (section: SectionProps & Required<Pick<SectionProps, 'sectionInd
 
     const generateSectionSettings = () => {
         return (
-            <>
-                <Row justify="space-between">
-                    <Col>
+            <table>
+                <tr>
+                    <td>
                         <Dropdown overlay={columnCountMenu}>
                             <Button
                                 style={{ paddingLeft: 5, paddingRight: 5, width: 50 }}
@@ -222,20 +222,41 @@ const Section = (section: SectionProps & Required<Pick<SectionProps, 'sectionInd
                                 }
                             />
                         </Dropdown>
-                    </Col>
-                    <Col>Number of columns</Col>
-                </Row>
-                <Row>
-                    <Col>
+                    </td>
+                    <td>Number of columns</td>
+                </tr>
+                <tr>
+                    <td>
                         <Switch
                             style={{ paddingLeft: 5, paddingRight: 5, marginRight: 10, marginTop: 10 }}
                             checked={section.nameToMarkdown}
                             onChange={toggleNameToMarkdown}
                         />
-                    </Col>
-                    <Col> Use section name in markdown</Col>
-                </Row>
-            </>
+                    </td>
+                    <td> Use section name in markdown</td>
+                </tr>
+                <tr>
+                    <td>
+                        <Button
+                            icon={
+                                <>
+                                    <FontAwesomeIcon icon={faCaretUp} />
+                                </>
+                            }
+                            onClick={() => context.shiftSection(section, 'up')}
+                        />
+                        <Button
+                            icon={
+                                <>
+                                    <FontAwesomeIcon icon={faCaretDown} />
+                                </>
+                            }
+                            onClick={() => context.shiftSection(section, 'down')}
+                        />
+                    </td>
+                    <td>Re-order sections</td>
+                </tr>
+            </table>
         );
     };
 

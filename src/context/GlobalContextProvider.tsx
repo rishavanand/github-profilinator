@@ -8,6 +8,10 @@ export interface GlobalContext {
     sections?: Array<SectionProps & Required<Pick<SectionProps, 'sectionIndex'>>>;
     changeActiveSection?: React.Dispatch<React.SetStateAction<number>>;
     addSection?: (sectionProps: SectionProps) => void;
+    shiftSection?: (
+        props: SectionProps & Required<Pick<SectionProps, 'sectionIndex'>>,
+        direction: 'up' | 'down',
+    ) => void;
     findSectionById?: (id: string) => SectionProps;
     modifySection?: (sectionProps: SectionProps & Required<Pick<SectionProps, 'sectionIndex'>>) => void;
     addField?: (
@@ -21,7 +25,7 @@ export interface GlobalContext {
     ) => void;
     shiftField?: (
         fieldProps: FieldProps & Required<Pick<FieldProps, 'columnIndex' | 'fieldIndex' | 'sectionIndex'>>,
-        location: 'up' | 'down',
+        direction: 'up' | 'down',
     ) => void;
     changeColumnCount?: (sectionIndex: number, columnCount: number) => void;
 }
@@ -40,6 +44,19 @@ const Provider = (props: { children: React.ReactChildren }) => {
     const modifySection = (sectionProps: SectionProps & Required<Pick<SectionProps, 'sectionIndex'>>) => {
         const { sectionIndex } = sectionProps;
         sections[sectionIndex] = sectionProps;
+        modifySections(sections.map(section => section));
+    };
+
+    const shiftSection = (
+        sectionProps: SectionProps & Required<Pick<SectionProps, 'sectionIndex'>>,
+        direction: 'up' | 'down',
+    ): void => {
+        const { sectionIndex } = sectionProps;
+        if ((sectionIndex <= 0 && direction === 'up') || (sectionIndex >= sections.length - 1 && direction === 'down'))
+            return;
+        const section = sections.splice(sectionIndex, 1);
+        if (direction === 'up') sections.splice(sectionIndex - 1, 0, ...section);
+        else sections.splice(sectionIndex + 1, 0, ...section);
         modifySections(sections.map(section => section));
     };
 
@@ -107,6 +124,7 @@ const Provider = (props: { children: React.ReactChildren }) => {
         sections: sections,
         addSection: addSection,
         modifySection: modifySection,
+        shiftSection: shiftSection,
         addField: addField,
         modifyField: modifyField,
         deleteField: deleteField,
