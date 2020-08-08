@@ -20,6 +20,10 @@ Generate creative GitHub profile readmes in few click!
 
 Loved the project? Show your love to the developer by starring this repo.
 
+<br />
+
+<img src="src/images/demo.gif" style="width: 80%"/>
+
 </div>
 
 ---
@@ -51,23 +55,29 @@ This project is already deployed on <a href="https://profilinator.rishav.dev/" t
 Instructions for local deployment are given below:
 
 1. Clone the repository
+
 ```
 git clone git@github.com:rishavanand/github-profilinator.git
 ```
 
 2. Enter the project directory
+
 ```
 cd github-profilinator
 ```
 
 3. Install dependencies
+
 ```
-npm i 
+npm i
 ```
+
 4. Start local dev server
+
 ```
 npm start
 ```
+
 5. View local deployment at [http://127.0.0.1:8000](http://127.0.0.1:8000)
 
 ## 💫 Built on the shoulders of giants
@@ -78,8 +88,8 @@ npm start
 
 ## :heart: Supporting the project
 
-A simple star to this project repo is enough to keep me motivated on this project for days. If you find your self very much excited with this project let me know with a tweet. 
+A simple star to this project repo is enough to keep me motivated on this project for days. If you find your self very much excited with this project let me know with a tweet.
 
 Thanks!
 
-Contributions are welcomed! 
+Contributions are welcomed!
