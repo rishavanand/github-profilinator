@@ -57,7 +57,7 @@ export const Field = (
             case FIELD_TYPES.PROFILE_VISITOR_COUNTER:
                 return <ProfileVisitorCounterField {...props} />;
             case FIELD_TYPES.BLOG_POST:
-                return <BlogPostField {...props} />;
+                return <BlogPostField />;
         }
     };
 
