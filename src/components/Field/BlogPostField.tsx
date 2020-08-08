@@ -10,8 +10,10 @@ export const BlogPostField = () => {
         <>
             This is a blog post field. It does not have a URL input box because the URL needs to be added to Github
             Action. After you add the generated markdown to your README, you have to enable the{' '}
-            <a href="https://github.com/gautamkrishnar/blog-post-workflow">Blog Post Workflow</a> for auto updating
-            README.{' '}
+            <a href="https://github.com/gautamkrishnar/blog-post-workflow" without rel="noreferrer" target="_blank">
+                Blog Post Workflow
+            </a>{' '}
+            for auto updating README.{' '}
         </>
     );
 };
