@@ -22,8 +22,6 @@ import { FIELD_TYPES } from '../config/global';
 import { v4 as uuidv4 } from 'uuid';
 import { faColumns, faCog } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { FormProps } from 'antd/lib/form';
-import { OmitProps } from 'antd/lib/transfer/ListBody';
 
 const { Option } = Select;
 const { Header, Sider, Content } = Layout;
@@ -97,6 +95,7 @@ const Section = (section: SectionProps & Required<Pick<SectionProps, 'sectionInd
                         <Option value={FIELD_TYPES.GITHUB_STATS}> Github Readme Stats</Option>
                         <Option value={FIELD_TYPES.SKILLS}> Skills</Option>
                         <Option value={FIELD_TYPES.SOCIAL}> Social</Option>
+                        <Option value={FIELD_TYPES.PROFILE_VISITOR_COUNTER}> Visitor Counter</Option>
                     </Select>
                 </Form.Item>
             </Form>

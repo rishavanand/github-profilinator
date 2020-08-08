@@ -18,6 +18,7 @@ import { generateGithubReadmeStatsMarkdown } from './Field/GithubReadmeStatsFiel
 import { generateSkillsFieldMarkdown } from './Field/SkillsField';
 import { generateSocialFieldMarkdown } from './Field/SocialField';
 import { generateSectionTitleMarkdown } from '../components/Section';
+import { generateProfileVisitorCounterMarkdown } from './Field/ProfileVisitorCounterField';
 
 const { Title } = Typography;
 
@@ -46,6 +47,8 @@ export const Preview = () => {
                     case FIELD_TYPES.SOCIAL:
                         returnField += generateSocialFieldMarkdown(field);
                         break;
+                    case FIELD_TYPES.PROFILE_VISITOR_COUNTER:
+                        returnField += generateProfileVisitorCounterMarkdown(field);
                 }
                 return returnField;
             })

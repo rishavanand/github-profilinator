@@ -4,4 +4,5 @@ export enum FIELD_TYPES {
     GITHUB_STATS = 'github-stats',
     SKILLS = 'skills',
     SOCIAL = 'social',
+    PROFILE_VISITOR_COUNTER = 'profile-visitor-counter',
 }
