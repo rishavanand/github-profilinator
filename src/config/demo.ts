@@ -203,14 +203,30 @@ export const DEMO_SECTION_DATA: Array<SectionProps & Required<Pick<SectionProps,
         nameToMarkdown: true,
     },
     {
+        name: 'Recent Blog Posts',
+        id: 'e92e33bb-f26b-419d-bf3e-1958ce6ad660',
+        fields: [
+            [
+                {
+                    type: FIELD_TYPES.BLOG_POST,
+                    sectionIndex: 4,
+                    columnIndex: 0,
+                    id: 'c143fb83-719e-43c1-a1bb-af72878ae370',
+                },
+            ],
+        ],
+        sectionIndex: 4,
+        nameToMarkdown: true,
+    },
+    {
         name: 'Visitor Counter',
         id: 'ea07ce6b-cc2b-47f5-b345-931e561b57c8',
-        sectionIndex: 4,
+        sectionIndex: 5,
         fields: [
             [
                 {
                     type: FIELD_TYPES.PROFILE_VISITOR_COUNTER,
-                    sectionIndex: 4,
+                    sectionIndex: 5,
                     columnIndex: 0,
                     id: '1fbf06da-c9e9-4a9c-aafb-5ba07aae9972',
                     options: { alignment: 'center' },
