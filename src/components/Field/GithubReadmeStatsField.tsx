@@ -28,17 +28,6 @@ export interface GithubReadmeStatsProps extends FieldProps {
     id?: string;
     data?: GithubReadmeStatsData;
     options?: GithubReadmeStatsOptions;
-    deleteField?: (
-        fieldProps: GithubReadmeStatsProps & Required<Pick<FieldProps, 'columnIndex' | 'fieldIndex' | 'sectionIndex'>>,
-    ) => void;
-    modifyField?: (
-        fieldProps: GithubReadmeStatsProps &
-            Required<Pick<GithubReadmeStatsProps, 'columnIndex' | 'fieldIndex' | 'sectionIndex'>>,
-    ) => void;
-    shiftField?: (
-        fieldProps: FieldProps & Required<Pick<FieldProps, 'columnIndex' | 'fieldIndex' | 'sectionIndex'>>,
-        location: 'up' | 'down',
-    ) => void;
 }
 
 export const generateAlignmentTags = (alignment: STATS_ALIGNMENT, type: 'start' | 'end') => {
