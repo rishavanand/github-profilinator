@@ -31,7 +31,7 @@ _Loved the project? Show your love to the developer by starring this repo._
 
 ---
 
-This projects is aimed to simply your GitHub profile generation process by providing creative components from all over the web which can be added in a few click. In the end, with the click of a button, markdown is auto generated which you can directly added to your readmes.
+This projects is aimed to simplify your GitHub profile generation process by providing creative components from all over the web which can be added in a few click. In the end, with the click of a button, markdown is auto generated which you can directly add to your readmes.
 
 ---
 
