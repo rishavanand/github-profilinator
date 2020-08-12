@@ -8,23 +8,17 @@ import { faSpotify } from '@fortawesome/free-brands-svg-icons';
 import { FieldProps } from '.';
 import { globalContext } from '../../context/GlobalContextProvider';
 
-export enum STATS_ALIGNMENT {
+export enum ALIGNMENT {
     LEFT = 'left',
     CENTRE = 'center',
     RIGHT = 'right',
 }
 
-export enum VARIANT {
-    LANGUAGE_STATS = 'languages',
-    ACTIVITY_STATS = 'activity',
-}
 
 export interface SpotifyListeningToOptions {
-    height?: string;
-    width?: string;
-    alignment?: STATS_ALIGNMENT;
+
+    alignment?: ALIGNMENT;
     fitImage?: boolean;
-    variant?: VARIANT;
 }
 
 export interface SpotifyListeningToData {
@@ -37,10 +31,10 @@ export interface SpotifyListeningToProps extends FieldProps {
     options?: SpotifyListeningToOptions;
 }
 
-export const generateAlignmentTags = (alignment: STATS_ALIGNMENT, type: 'start' | 'end') => {
-    if ((alignment === STATS_ALIGNMENT.CENTRE || alignment === STATS_ALIGNMENT.RIGHT) && type === 'start')
+export const generateAlignmentTags = (alignment: ALIGNMENT, type: 'start' | 'end') => {
+    if ((alignment === ALIGNMENT.CENTRE || alignment === ALIGNMENT.RIGHT) && type === 'start')
         return `<div align="${alignment}">`;
-    else if ((alignment === STATS_ALIGNMENT.CENTRE || alignment === STATS_ALIGNMENT.RIGHT) && type === 'end')
+    else if ((alignment === ALIGNMENT.CENTRE || alignment === ALIGNMENT.RIGHT) && type === 'end')
         return `</div>`;
     else return '';
 };
@@ -50,12 +44,12 @@ export const generateSpotifyListeningToMarkdown = ({ data, options }: SpotifyLis
         ? data.spotifyMarkdown
         : '[spotify-github-profile](https://rishavanand.github.io/static/images/spotify-readme-example.svg)';
     const svgLink = markdown.substring(markdown.indexOf('(') + 1, markdown.indexOf(')'));
-    console.log(svgLink);
+
     if (options.fitImage)
         return `<img src="${svgLink}" align="${options.alignment ? options.alignment : 'left'}" style="width: 100%" />`;
     else if (
         options.alignment &&
-        (options.alignment === STATS_ALIGNMENT.CENTRE || options.alignment === STATS_ALIGNMENT.RIGHT)
+        (options.alignment === ALIGNMENT.CENTRE || options.alignment === ALIGNMENT.RIGHT)
     )
         return `<div align="${options.alignment}"><img src="${svgLink}" /></div>`;
     else return `![Listening to on Spotify](${svgLink})`;
@@ -105,34 +99,18 @@ export const SpotifyListeningToField = (
         modifyField(localProps);
     };
 
-    const changeVariant = (variant: VARIANT) => {
-        const localProps = { ...localSpotifyListeningProps };
-        if (!localProps.options) localProps.options = {};
-        localProps.options.variant = variant;
-        modifyField(localProps);
-    };
+
 
     const alignmentMenu = (
         <Menu>
-            <Menu.Item key="1" onClick={() => changeAlignment(STATS_ALIGNMENT.LEFT)}>
+            <Menu.Item key="1" onClick={() => changeAlignment(ALIGNMENT.LEFT)}>
                 Left
             </Menu.Item>
-            <Menu.Item key="2" onClick={() => changeAlignment(STATS_ALIGNMENT.CENTRE)}>
+            <Menu.Item key="2" onClick={() => changeAlignment(ALIGNMENT.CENTRE)}>
                 Centre
             </Menu.Item>
-            <Menu.Item key="3" onClick={() => changeAlignment(STATS_ALIGNMENT.RIGHT)}>
+            <Menu.Item key="3" onClick={() => changeAlignment(ALIGNMENT.RIGHT)}>
                 Right
-            </Menu.Item>
-        </Menu>
-    );
-
-    const variantMenu = (
-        <Menu>
-            <Menu.Item key="1" onClick={() => changeVariant(VARIANT.ACTIVITY_STATS)}>
-                Activity stats
-            </Menu.Item>
-            <Menu.Item key="2" onClick={() => changeVariant(VARIANT.LANGUAGE_STATS)}>
-                Language stats
             </Menu.Item>
         </Menu>
     );
