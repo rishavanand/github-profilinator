@@ -37,9 +37,10 @@ export const generateAlignmentTags = (alignment: ALIGNMENT, type: 'start' | 'end
 };
 
 export const generateSpotifyListeningToMarkdown = ({ data, options }: SpotifyListeningToProps) => {
-    const markdown = data.spotifyMarkdown
-        ? data.spotifyMarkdown
-        : '[spotify-github-profile](https://rishavanand.github.io/static/images/spotify-readme-example.svg)';
+    const markdown =
+        data && data.spotifyMarkdown
+            ? data.spotifyMarkdown
+            : '[spotify-github-profile](https://rishavanand.github.io/static/images/spotify-readme-example.svg)';
     const svgLink = markdown.substring(markdown.indexOf('(') + 1, markdown.indexOf(')'));
 
     if (options.fitImage)

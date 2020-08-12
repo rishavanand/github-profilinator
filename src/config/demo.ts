@@ -208,38 +208,36 @@ export const DEMO_SECTION_DATA: Array<SectionProps & Required<Pick<SectionProps,
         nameToMarkdown: true,
     },
     {
-        name: 'Visitor Counter',
-        id: 'ea07ce6b-cc2b-47f5-b345-931e561b57c8',
+        name: 'Spotify Listening',
+        id: 'ea07ce6b-cc2b-47f5-b345-931e561b83v6',
         sectionIndex: 5,
         fields: [
             [
                 {
-                    type: FIELD_TYPES.PROFILE_VISITOR_COUNTER,
                     sectionIndex: 5,
+                    columnIndex: 0,
+                    id: 'field001',
+                    options: { size: 'h3', alignment: 'center' },
+                    type: FIELD_TYPES.SPOTIFY,
+                    sectionId: 'ea07ce6b-cc2b-47f5-b345-931e561b83v6',
+                },
+            ],
+        ],
+    },
+    {
+        name: 'Visitor Counter',
+        id: 'ea07ce6b-cc2b-47f5-b345-931e561b57c8',
+        sectionIndex: 6,
+        fields: [
+            [
+                {
+                    type: FIELD_TYPES.PROFILE_VISITOR_COUNTER,
+                    sectionIndex: 6,
                     columnIndex: 0,
                     id: '1fbf06da-c9e9-4a9c-aafb-5ba07aae9972',
                     options: { alignment: 'center' },
                     data: { username: 'rishavanand' },
                     fieldIndex: 0,
-                },
-            ],
-        ],
-    },
-
-    {
-        name: 'Spotify Listening',
-        id: 'ea07ce6b-cc2b-47f5-b345-931e561b83v6',
-        sectionIndex: 6,
-        fields: [
-            [
-                {
-                    id: 'field001',
-                    options: { size: 'h3', alignment: 'center' },
-                    data: {
-                        spotifyMarkdown: '',
-                    },
-                    type: FIELD_TYPES.SPOTIFY,
-                    sectionId: 'ea07ce6b-cc2b-47f5-b345-931e561b83v6',
                 },
             ],
         ],
