@@ -90,6 +90,8 @@ npm start
 -   [blog post workflow](https://github.com/gautamkrishnar/blog-post-workflow) by Gautam Krishna R which is a Genius use of Github Actions.
 -   [spotify-github-profile](https://github.com/kittinan/spotify-github-profile) by Kittinan which generated Spotify's currently listening album cover image.
 
+NOTE : All the logos/icons belong to their respective owners , we don't own them.
+
 ## :heart: Supporting the project
 
 A simple star to this project repo is enough to keep me motivated on this project for days. If you find your self very much excited with this project let me know with a tweet.
