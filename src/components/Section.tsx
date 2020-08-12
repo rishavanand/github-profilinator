@@ -3,7 +3,7 @@ import {
     Row,
     Col,
     Divider,
-    Layout,
+    Grid,
     Card,
     Typography,
     Button,
@@ -14,7 +14,7 @@ import {
     Menu,
     Switch,
     Popover,
-    Table,
+    Space,
 } from 'antd';
 import { PlusOutlined, FireOutlined, DownOutlined, RedoOutlined } from '@ant-design/icons';
 import { globalContext, GlobalContext } from '../context/GlobalContextProvider';
@@ -26,6 +26,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const { Option } = Select;
 const { Title } = Typography;
+const { useBreakpoint } = Grid;
 
 export interface SectionProps {
     id?: string;
@@ -63,6 +64,9 @@ const Section = (section: SectionProps & Required<Pick<SectionProps, 'sectionInd
     const [addFieldVisible, setAddFieldVisibility] = useState(false);
     const [form] = Form.useForm();
     const context = useContext(globalContext) as GlobalContext;
+    const screens = useBreakpoint();
+
+    const buttonSize = screens.md ? 'middle' : 'small';
 
     const generateFields = (
         fields: [
@@ -174,6 +178,7 @@ const Section = (section: SectionProps & Required<Pick<SectionProps, 'sectionInd
                                         setActiveSectionIndex(sectionIndex);
                                         setAddFieldVisibility(true);
                                     }}
+                                    size={buttonSize}
                                 >
                                     <PlusOutlined /> Field
                                 </Button>
@@ -222,6 +227,7 @@ const Section = (section: SectionProps & Required<Pick<SectionProps, 'sectionInd
                                         <FontAwesomeIcon icon={faColumns} /> <DownOutlined />
                                     </>
                                 }
+                                size={buttonSize}
                             />
                         </Dropdown>
                     </td>
@@ -246,6 +252,7 @@ const Section = (section: SectionProps & Required<Pick<SectionProps, 'sectionInd
                                 </>
                             }
                             onClick={() => context.shiftSection(section, 'up')}
+                            size={buttonSize}
                         />
                         <Button
                             icon={
@@ -254,6 +261,7 @@ const Section = (section: SectionProps & Required<Pick<SectionProps, 'sectionInd
                                 </>
                             }
                             onClick={() => context.shiftSection(section, 'down')}
+                            size={buttonSize}
                         />
                     </td>
                     <td>Re-order sections</td>
@@ -267,6 +275,7 @@ const Section = (section: SectionProps & Required<Pick<SectionProps, 'sectionInd
                                 </>
                             }
                             onClick={() => context.deleteSection(section)}
+                            size={buttonSize}
                         />
                     </td>
                     <td>Remove section</td>
@@ -281,36 +290,34 @@ const Section = (section: SectionProps & Required<Pick<SectionProps, 'sectionInd
         );
     else
         return (
-            <>
+            <div
+                style={{
+                    minHeight: '100vh',
+                }}
+            >
                 <Row justify="space-between">
                     <Col>
                         <Title level={3}>{section.name} Section</Title>
                     </Col>
                     <Col>
-                        <Row>
-                            <Col>
-                                <Popover content={generateSectionSettings} title="Section Settings">
-                                    <Button
-                                        style={{ marginRight: 10 }}
-                                        icon={
-                                            <>
-                                                <FontAwesomeIcon icon={faCog} />
-                                            </>
-                                        }
-                                    />
-                                </Popover>
-                            </Col>
-                            <Col style={{ marginRight: 10 }}>
-                                <Button type="primary" ghost block onClick={context.useTemplate}>
-                                    <FireOutlined /> Use template
-                                </Button>
-                            </Col>
-                            <Col>
-                                <Button type="primary" ghost block onClick={context.resetSections}>
-                                    <RedoOutlined /> Start fresh
-                                </Button>
-                            </Col>
-                        </Row>
+                        <Space>
+                            <Button type="primary" ghost block onClick={context.useTemplate} size={buttonSize}>
+                                <FireOutlined /> Use template
+                            </Button>
+                            <Button type="primary" ghost block onClick={context.resetSections} size={buttonSize}>
+                                <RedoOutlined /> Start fresh
+                            </Button>
+                            <Popover content={generateSectionSettings} title="Section Settings">
+                                <Button
+                                    size={buttonSize}
+                                    icon={
+                                        <>
+                                            <FontAwesomeIcon icon={faCog} />
+                                        </>
+                                    }
+                                />
+                            </Popover>
+                        </Space>
                     </Col>
                 </Row>
 
@@ -329,7 +336,7 @@ const Section = (section: SectionProps & Required<Pick<SectionProps, 'sectionInd
                     ],
                     section.sectionIndex,
                 )}
-            </>
+            </div>
         );
 };
 

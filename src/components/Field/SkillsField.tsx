@@ -1,11 +1,13 @@
 import React, { useContext } from 'react';
-import { Input, Row, Col, Button, Dropdown, Menu, Form, Checkbox } from 'antd';
+import { Row, Col, Button, Dropdown, Menu, Grid, Checkbox } from 'antd';
 import { DownOutlined } from '@ant-design/icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCaretDown, faCaretUp, faTimes, faArrowsAltV } from '@fortawesome/free-solid-svg-icons';
+import { faArrowsAltV } from '@fortawesome/free-solid-svg-icons';
 import { FieldProps } from '.';
 import { SKILLS } from '../../config/skills';
 import { globalContext } from '../../context/GlobalContextProvider';
+
+const { useBreakpoint } = Grid;
 
 export enum ALIGNMENT {
     LEFT = 'left',
@@ -60,6 +62,9 @@ export const SkillsField = (
         Required<Pick<SkillsFieldProps, 'id' | 'sectionId' | 'sectionIndex' | 'columnIndex' | 'fieldIndex' | 'type'>>,
 ) => {
     const { modifyField } = useContext(globalContext);
+    const screens = useBreakpoint();
+
+    const skillsColSpan = screens.md ? 6 : 12;
 
     const localSkillsFieldProps: typeof skillsFieldProps = {
         options: {
@@ -125,7 +130,7 @@ export const SkillsField = (
                 <Row>
                     {Object.keys(SKILLS).map(skill => {
                         return (
-                            <Col span={6} key={SKILLS[skill].value}>
+                            <Col span={skillsColSpan} key={SKILLS[skill].value}>
                                 <Checkbox value={SKILLS[skill].value}>{SKILLS[skill].label}</Checkbox>
                             </Col>
                         );

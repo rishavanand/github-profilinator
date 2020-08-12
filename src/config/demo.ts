@@ -15,7 +15,7 @@ export const DEMO_SECTION_DATA: Array<SectionProps & Required<Pick<SectionProps,
             [
                 {
                     id: 'field001',
-                    options: { width: 600, alignment: 'center', fitImage: false },
+                    options: { width: 600, alignment: 'center', fitImage: true },
                     data: { url: 'https://rishavanand.github.io/static/images/greetings.gif', alt: 'Greetings' },
                     type: FIELD_TYPES.IMAGE,
                     sectionIndex: 0,

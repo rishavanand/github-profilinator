@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react';
-import { Row, Col, Divider, Typography, Button, Modal, Input, Alert } from 'antd';
+import { Row, Col, Divider, Typography, Button, Modal, Input, Card, Grid } from 'antd';
 import { FireOutlined } from '@ant-design/icons';
 import { globalContext } from '../context/GlobalContextProvider';
 import { FIELD_TYPES } from '../config/global';
@@ -25,10 +25,14 @@ import { generateSpotifyListeningToMarkdown } from './Field/SpotifyListeningTo';
 
 const { Title } = Typography;
 const { TextArea } = Input;
+const { useBreakpoint } = Grid;
 
-export const Preview = () => {
+export const Preview = ({ scrollRef }: { scrollRef: string }) => {
     const context = useContext(globalContext);
     const [showMarkdown, setShowMarkdown] = useState(false);
+    const screens = useBreakpoint();
+
+    const buttonSize = screens.md ? 'middle' : 'small';
 
     const generateFieldsMarkdown = (fields: FieldProps[]) => {
         if (!fields || !fields.length) return '';
@@ -112,13 +116,18 @@ export const Preview = () => {
     };
 
     return (
-        <>
+        <div
+            style={{
+                minHeight: '100vh',
+            }}
+            ref={scrollRef}
+        >
             <Row justify="space-between">
                 <Col>
                     <Title level={3}>Preview</Title>
                 </Col>
                 <Col>
-                    <Button type="primary" onClick={toggleShowMarkdown}>
+                    <Button type="primary" onClick={toggleShowMarkdown} size={buttonSize}>
                         <FireOutlined /> Generate README.md
                     </Button>
                 </Col>
@@ -155,7 +164,7 @@ export const Preview = () => {
                 <br />
                 <TextArea autoSize={true} value={generateAdvertisedMarkdown(generateMarkdown().markdown)} />
             </Modal>
-        </>
+        </div>
     );
 };
 
