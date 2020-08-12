@@ -41,7 +41,7 @@ export const generateImageTag = (data: FieldData, options: FiledOptions) => {
         options.alignment &&
         (options.alignment === STATS_ALIGNMENT.CENTRE || options.alignment === STATS_ALIGNMENT.RIGHT)
     )
-        return `<img src="${statsUrl}" align="${options.alignment}" />`;
+        return `<img alt="Visitor Counter" src="${statsUrl}" align="${options.alignment}" />`;
     else return `![Profile views counter](${statsUrl})`;
 };
 
