@@ -22,7 +22,6 @@ import { generateProfileVisitorCounterMarkdown } from './Field/ProfileVisitorCou
 import { generateBlogPostMarkdown } from './Field/BlogPostField';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStar } from '@fortawesome/free-solid-svg-icons';
-import { generateSpotifyListeningToMarkdown } from './Field/SpotifyListeningTo';
 
 const { Title } = Typography;
 const { TextArea } = Input;
@@ -58,9 +57,6 @@ export const Preview = () => {
                         break;
                     case FIELD_TYPES.BLOG_POST:
                         returnField += generateBlogPostMarkdown();
-                        break;
-                    case FIELD_TYPES.SPOTIFY:
-                        returnField += generateSpotifyListeningToMarkdown(field);
                         break;
                 }
                 return returnField;
