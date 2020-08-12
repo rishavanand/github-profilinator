@@ -97,6 +97,7 @@ const Section = (section: SectionProps & Required<Pick<SectionProps, 'sectionInd
                         <Option value={FIELD_TYPES.SOCIAL}> Social</Option>
                         <Option value={FIELD_TYPES.PROFILE_VISITOR_COUNTER}> Visitor Counter</Option>
                         <Option value={FIELD_TYPES.BLOG_POST}> Dynamic blog post list</Option>
+                        <Option value={FIELD_TYPES.SPOTIFY}> Spotify Listening</Option>
                     </Select>
                 </Form.Item>
             </Form>

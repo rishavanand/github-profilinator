@@ -5,7 +5,6 @@ import { globalContext } from '../context/GlobalContextProvider';
 import { FIELD_TYPES } from '../config/global';
 import { generateTextFieldMarkdown } from './Field/TextField';
 import marked from 'marked';
-import renderHTML from 'react-render-html';
 import styles from '../styles/preview.module.scss';
 import { generateImageFieldMarkdown } from './Field/ImageField';
 import { FieldProps, generateFieldTitleMarkdown } from './Field';
@@ -22,6 +21,7 @@ import { generateProfileVisitorCounterMarkdown } from './Field/ProfileVisitorCou
 import { generateBlogPostMarkdown } from './Field/BlogPostField';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStar } from '@fortawesome/free-solid-svg-icons';
+import { generateSpotifyListeningToMarkdown } from './Field/SpotifyListeningTo';
 
 const { Title } = Typography;
 const { TextArea } = Input;
@@ -58,6 +58,9 @@ export const Preview = () => {
                     case FIELD_TYPES.BLOG_POST:
                         returnField += generateBlogPostMarkdown();
                         break;
+                    case FIELD_TYPES.SPOTIFY:
+                        returnField += generateSpotifyListeningToMarkdown(field);
+                        break;
                 }
                 return returnField;
             })
@@ -93,9 +96,8 @@ export const Preview = () => {
 
     const generateMarkdown = () => {
         const markdown = generateSectionMarkdown(context.sections);
-        const markdownText = marked(markdown);
-        const html = renderHTML(markdownText);
-        return { html, markdown, markdownText };
+        const html = marked(markdown);
+        return { html, markdown };
     };
 
     const toggleShowMarkdown = () => {
@@ -122,7 +124,7 @@ export const Preview = () => {
                 </Col>
             </Row>
             <Divider />
-            <div className={styles.markdown}>{generateMarkdown().html}</div>
+            <div className={styles.markdown} dangerouslySetInnerHTML={{ __html: generateMarkdown().html }} />
             <Modal
                 title="Generated Markdown"
                 width="70vw"
