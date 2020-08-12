@@ -11,6 +11,7 @@ import { faPen, faCheck, faTimes, faCaretUp, faCaretDown } from '@fortawesome/fr
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { ProfileVisitorCounterField } from '../Field/ProfileVisitorCounterField';
 import BlogPostField from './BlogPostField';
+import SpotifyListeningToField from './SpotifyListeningTo';
 
 export interface FieldProps {
     id?: string;
@@ -58,6 +59,8 @@ export const Field = (
                 return <ProfileVisitorCounterField {...props} />;
             case FIELD_TYPES.BLOG_POST:
                 return <BlogPostField />;
+            case FIELD_TYPES.SPOTIFY:
+                return <SpotifyListeningToField {...props} />;
         }
     };
 
