@@ -62,6 +62,8 @@ export const Preview = () => {
                     case FIELD_TYPES.SPOTIFY:
                         returnField += generateSpotifyListeningToMarkdown(field);
                         break;
+                    default:
+                        break;
                 }
                 return returnField;
             })
