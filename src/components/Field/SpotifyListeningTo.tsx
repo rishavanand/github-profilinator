@@ -14,9 +14,7 @@ export enum ALIGNMENT {
     RIGHT = 'right',
 }
 
-
 export interface SpotifyListeningToOptions {
-
     alignment?: ALIGNMENT;
     fitImage?: boolean;
 }
@@ -34,8 +32,7 @@ export interface SpotifyListeningToProps extends FieldProps {
 export const generateAlignmentTags = (alignment: ALIGNMENT, type: 'start' | 'end') => {
     if ((alignment === ALIGNMENT.CENTRE || alignment === ALIGNMENT.RIGHT) && type === 'start')
         return `<div align="${alignment}">`;
-    else if ((alignment === ALIGNMENT.CENTRE || alignment === ALIGNMENT.RIGHT) && type === 'end')
-        return `</div>`;
+    else if ((alignment === ALIGNMENT.CENTRE || alignment === ALIGNMENT.RIGHT) && type === 'end') return `</div>`;
     else return '';
 };
 
@@ -47,10 +44,7 @@ export const generateSpotifyListeningToMarkdown = ({ data, options }: SpotifyLis
 
     if (options.fitImage)
         return `<img src="${svgLink}" align="${options.alignment ? options.alignment : 'left'}" style="width: 100%" />`;
-    else if (
-        options.alignment &&
-        (options.alignment === ALIGNMENT.CENTRE || options.alignment === ALIGNMENT.RIGHT)
-    )
+    else if (options.alignment && (options.alignment === ALIGNMENT.CENTRE || options.alignment === ALIGNMENT.RIGHT))
         return `<div align="${options.alignment}"><img src="${svgLink}" /></div>`;
     else return `![Listening to on Spotify](${svgLink})`;
 };
@@ -98,8 +92,6 @@ export const SpotifyListeningToField = (
         localProps.options.alignment = alignment;
         modifyField(localProps);
     };
-
-
 
     const alignmentMenu = (
         <Menu>
