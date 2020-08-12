@@ -44,11 +44,11 @@ export const generateSpotifyListeningToMarkdown = ({ data, options }: SpotifyLis
     const svgLink = markdown.substring(markdown.indexOf('(') + 1, markdown.indexOf(')'));
 
     if (options.fitImage)
-        return `<img alt="Listening to on spotify" src="${svgLink}" align="${
+        return `<img key="spotify-img" alt="Listening to on spotify" src="${svgLink}" align="${
             options.alignment ? options.alignment : 'left'
         }" style="width: 100%" />`;
     else if (options.alignment && (options.alignment === ALIGNMENT.CENTRE || options.alignment === ALIGNMENT.RIGHT))
-        return `<div align="${options.alignment}"><img alt="Listening to on spotify" src="${svgLink}" /></div>`;
+        return `<div key="spotify-img-div" align="${options.alignment}"><img key="spotify-img" alt="Listening to on spotify" src="${svgLink}" /></div>`;
     else return `![Listening to on Spotify](${svgLink})`;
 };
 

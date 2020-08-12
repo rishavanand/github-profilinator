@@ -29,7 +29,7 @@ export interface ProfileVisitorCounterProps extends FieldProps {
 
 export const generateAlignmentTags = (alignment: STATS_ALIGNMENT, type: 'start' | 'end') => {
     if ((alignment === STATS_ALIGNMENT.CENTRE || alignment === STATS_ALIGNMENT.RIGHT) && type === 'start')
-        return `<div align="${alignment}">\n`;
+        return `<div key="visitor-counter-img-div" align="${alignment}">\n`;
     else if ((alignment === STATS_ALIGNMENT.CENTRE || alignment === STATS_ALIGNMENT.RIGHT) && type === 'end')
         return `\n</div>`;
     else return '';
@@ -41,7 +41,7 @@ export const generateImageTag = (data: FieldData, options: FiledOptions) => {
         options.alignment &&
         (options.alignment === STATS_ALIGNMENT.CENTRE || options.alignment === STATS_ALIGNMENT.RIGHT)
     )
-        return `<img alt="Visitor Counter" src="${statsUrl}" align="${options.alignment}" />`;
+        return `<img key="visitor-counter-img" alt="Visitor Counter" src="${statsUrl}" />`;
     else return `![Profile views counter](${statsUrl})`;
 };
 
