@@ -1,3 +1,6 @@
+/* eslint-disable prettier/prettier */
+const BASE_URL=document.URL
+
 export const SKILLS = {
     vuejs: {
         label: 'Vue.js',
@@ -334,5 +337,207 @@ export const SKILLS = {
         label: 'Blender',
         value: 'blender',
         iconUrl: 'https://download.blender.org/branding/community/blender_community_badge_white.svg',
+    },
+    adobeindesign: {
+        label: 'Adobe InDesign',
+        value: 'adobeindesign',
+        iconUrl: BASE_URL + 'static/skills-assets/adobeindesign.svg',
+    },
+    raspberrypi: {
+        label: 'Raspberry Pi',
+        value: 'raspberrypi',
+        iconUrl: BASE_URL + 'static/skills-assets/raspberrypi.png',
+    },
+    invision: {
+        label: 'Invision',
+        value: 'invision',
+        iconUrl: BASE_URL + 'static/skills-assets/invision.svg',
+    },
+    gatsby: {
+        label: 'Gatsby',
+        value: 'gatsby',
+        iconUrl: BASE_URL + 'static/skills-assets/gatsby.png',
+    },
+    adobepremierepro: {
+        label: 'Premiere Pro',
+        value: 'adobepremierepro',
+        iconUrl: BASE_URL + 'static/skills-assets/adobepremierepro.png',
+    },
+    adobedreamweaver: {
+        label: 'Dreamweaver ',
+        value: 'adobedreamweaver',
+        iconUrl: BASE_URL + 'static/skills-assets/adobedreamweaver.png',
+    },
+    woocommerce: {
+        label: 'WooCommerce',
+        value: 'woocommerce',
+        iconUrl: BASE_URL + 'static/skills-assets/woocommerce.png',
+    },
+    adobexd: {
+        label: 'Adobe XD',
+        value: 'adobexd',
+        iconUrl: BASE_URL + 'static/skills-assets/adobexd.png',
+    },
+    
+    graphql: {
+        label: 'GraphQL',
+        value: 'graphql',
+        iconUrl: BASE_URL + 'static/skills-assets/graphql.png',
+    },
+    openstack: {
+        label: 'OpenStack',
+        value: 'openstack',
+        iconUrl: BASE_URL + 'static/skills-assets/openstack.png',
+    },
+    meteor: {
+        label: 'Meteor',
+        value: 'meteor',
+        iconUrl: BASE_URL + 'static/skills-assets/meteor.svg',
+    },
+    keras: {
+        label: 'Keras',
+        value: 'keras',
+        iconUrl: BASE_URL + 'static/skills-assets/keras.png',
+    },
+    ansible: {
+        label: 'Ansible',
+        value: 'ansible',
+        iconUrl: BASE_URL + 'static/skills-assets/ansible.png',
+    },
+    tableau : {
+        label: 'Tableau',
+        value: 'tableau',
+        iconUrl: BASE_URL + 'static/skills-assets/tableau.svg',
+    },
+    xampp : {
+        label: 'XAMPP',
+        value: 'xampp',
+        iconUrl: BASE_URL + 'static/skills-assets/xampp.png',
+    },
+    grafana : {
+        label: 'Grafana',
+        value: 'grafana',
+        iconUrl: BASE_URL + 'static/skills-assets/grafana.png',
+    },
+    mocha : {
+        label: 'Mocha',
+        value: 'mocha',
+        iconUrl: BASE_URL + 'static/skills-assets/mocha.png',
+    },
+    chai : {
+        label: 'Chai',
+        value: 'chai',
+        iconUrl: BASE_URL + 'static/skills-assets/chai.png',
+    },
+    d3 : {
+        label: 'D3.js',
+        value: 'd3',
+        iconUrl: BASE_URL + 'static/skills-assets/d3.png',
+    },
+    firebase : {
+        label: 'Firebase',
+        value: 'firebase',
+        iconUrl: BASE_URL + 'static/skills-assets/firebase.png',
+    },
+    powerbi : {
+        label: 'Power Bi',
+        value: 'powerbi',
+        iconUrl: BASE_URL + 'static/skills-assets/powerbi.png',
+    },
+    nuxtjs : {
+        label: 'Nuxt JS',
+        value: 'nuxtjs',
+        iconUrl: BASE_URL + 'static/skills-assets/nuxt.png',
+    },
+    latex : {
+        label: 'Latex',
+        value: 'latex',
+        iconUrl: BASE_URL + 'static/skills-assets/latex.png',
+    },
+    arduino : {
+        label: 'Arduino',
+        value: 'arduino',
+        iconUrl: BASE_URL + 'static/skills-assets/arduino.png',
+    },
+    mariadb : {
+        label: 'Maria DB',
+        value: 'mariadb',
+        iconUrl: BASE_URL + 'static/skills-assets/mariadb.png',
+    },
+    
+    elasticsearch : {
+        label: 'Elastic Search',
+        value: 'elasticsearch',
+        iconUrl: BASE_URL + 'static/skills-assets/elasticsearch.png',
+    },
+    kibana : {
+        label: 'Kibana',
+        value: 'kibana',
+        iconUrl: BASE_URL + 'static/skills-assets/kibana.png',
+    },
+    salesforce : {
+        label: 'Salesforce',
+        value: 'salesforce',
+        iconUrl: BASE_URL + 'static/skills-assets/salesforce.png',
+    },
+    wordpress : {
+        label: 'WordPress',
+        value: 'wordpress',
+        iconUrl: BASE_URL + 'static/skills-assets/wordpress.png',
+    },
+    influxdb : {
+        label: 'InfluxDB',
+        value: 'influxdb',
+        iconUrl: BASE_URL + 'static/skills-assets/influxdb.svg',
+    },
+    jquery : {
+        label: 'jQuery',
+        value: 'jquery',
+        iconUrl: BASE_URL + 'static/skills-assets/jquery.png',
+    },
+    lightroom : {
+        label: 'Lightroom',
+        value: 'lightroom',
+        iconUrl: BASE_URL + 'static/skills-assets/lightroom.png',
+    },
+    r : {
+        label: 'R',
+        value: 'r',
+        iconUrl: BASE_URL + 'static/skills-assets/r.svg',
+    },
+    xaml : {
+        label: 'XAML',
+        value: 'xaml',
+        iconUrl: BASE_URL + 'static/skills-assets/xaml.png',
+    },
+    nativescript : {
+        label: 'NativeScript',
+        value: 'nativescript',
+        iconUrl: BASE_URL + 'static/skills-assets/nativescript.png',
+    },
+    aftereffects : {
+        label: 'After Effects',
+        value: 'aftereffects',
+        iconUrl: BASE_URL + 'static/skills-assets/aftereffects.png',
+    },
+    haskell : {
+        label: 'Haskell',
+        value: 'haskell',
+        iconUrl: BASE_URL + 'static/skills-assets/haskell.png',
+    },
+    unity : {
+        label: 'Unity',
+        value: 'unity',
+        iconUrl: BASE_URL + 'static/skills-assets/unity.png',
+    },
+    flask : {
+        label: 'Flask',
+        value: 'flask',
+        iconUrl: BASE_URL + 'static/skills-assets/flask.png',
+    },
+    deno : {
+        label: 'Deno',
+        value: 'deno',
+        iconUrl: BASE_URL + 'static/skills-assets/deno.svg',
     },
 };
