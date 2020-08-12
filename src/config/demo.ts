@@ -208,6 +208,24 @@ export const DEMO_SECTION_DATA: Array<SectionProps & Required<Pick<SectionProps,
         nameToMarkdown: true,
     },
     {
+        name: 'Spotify Listening',
+        id: 'ea07ce6b-cc2b-47f5-b345-931e561b83v6',
+        sectionIndex: 6,
+        fields: [
+            [
+                {
+                    id: 'field001',
+                    options: { size: 'h3', alignment: 'center' },
+                    data: {
+                        spotifyMarkdown: '',
+                    },
+                    type: FIELD_TYPES.SPOTIFY,
+                    sectionId: 'ea07ce6b-cc2b-47f5-b345-931e561b83v6',
+                },
+            ],
+        ],
+    },
+    {
         name: 'Visitor Counter',
         id: 'ea07ce6b-cc2b-47f5-b345-931e561b57c8',
         sectionIndex: 5,

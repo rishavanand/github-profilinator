@@ -46,9 +46,9 @@ This projects is aimed to simplify your GitHub profile generation process by pro
 -   [x] Init with demo template
 -   [x] Multi column support
 -   [x] Customizable blocks and layouts
+-   [x] Listening to from Spotify
 -   [ ] Multi template
 -   [ ] Last tweet from Twitter
--   [ ] Listening to from Spotify
 -   [ ] Last 3 uploads from Instagram
 
 ## 🚀 Getting started
@@ -88,6 +88,7 @@ npm start
 -   [amazing github-readme-stats](https://github.com/anuraghazra/github-readme-stats) by Anurag Hazra for creating detailed statistics
 -   [github-profile-views-counter](https://github.com/antonkomarev/github-profile-views-counter) by Anton Komarev for simplifying visitor counter
 -   [blog post workflow](https://github.com/gautamkrishnar/blog-post-workflow) by Gautam Krishna R which is a Genius use of Github Actions.
+-   [spotify-github-profile](https://github.com/kittinan/spotify-github-profile) by Kittinan which generated Spotify's currently listening album cover image.
 
 ## :heart: Supporting the project
 
