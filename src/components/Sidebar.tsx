@@ -71,7 +71,7 @@ export const Sidebar = () => {
     };
 
     return (
-        <Sider>
+        <Sider collapsible breakpoint="md" collapsedWidth={0}>
             <div className={styles.logo}>
                 <h2>GITHUB</h2>
                 <h1>PROFILINATOR</h1>
