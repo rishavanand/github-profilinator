@@ -1,5 +1,5 @@
 /* eslint-disable prettier/prettier */
-const BASE_URL= typeof window !== 'undefined' ? window.location.href : '';
+const BASE_URL = typeof window !== 'undefined' ? window.location.href : '';
 
 export const SKILLS = {
     vuejs: {
@@ -341,203 +341,203 @@ export const SKILLS = {
     adobeindesign: {
         label: 'Adobe InDesign',
         value: 'adobeindesign',
-        iconUrl: BASE_URL + 'static/skills-assets/adobeindesign.svg',
+        iconUrl: BASE_URL + 'skills-assets/adobeindesign.svg',
     },
     raspberrypi: {
         label: 'Raspberry Pi',
         value: 'raspberrypi',
-        iconUrl: BASE_URL + 'static/skills-assets/raspberrypi.png',
+        iconUrl: BASE_URL + 'skills-assets/raspberrypi.png',
     },
     invision: {
         label: 'Invision',
         value: 'invision',
-        iconUrl: BASE_URL + 'static/skills-assets/invision.svg',
+        iconUrl: BASE_URL + 'skills-assets/invision.svg',
     },
     gatsby: {
         label: 'Gatsby',
         value: 'gatsby',
-        iconUrl: BASE_URL + 'static/skills-assets/gatsby.png',
+        iconUrl: BASE_URL + 'skills-assets/gatsby.png',
     },
     adobepremierepro: {
         label: 'Premiere Pro',
         value: 'adobepremierepro',
-        iconUrl: BASE_URL + 'static/skills-assets/adobepremierepro.png',
+        iconUrl: BASE_URL + 'skills-assets/adobepremierepro.png',
     },
     adobedreamweaver: {
         label: 'Dreamweaver ',
         value: 'adobedreamweaver',
-        iconUrl: BASE_URL + 'static/skills-assets/adobedreamweaver.png',
+        iconUrl: BASE_URL + 'skills-assets/adobedreamweaver.png',
     },
     woocommerce: {
         label: 'WooCommerce',
         value: 'woocommerce',
-        iconUrl: BASE_URL + 'static/skills-assets/woocommerce.png',
+        iconUrl: BASE_URL + 'skills-assets/woocommerce.png',
     },
     adobexd: {
         label: 'Adobe XD',
         value: 'adobexd',
-        iconUrl: BASE_URL + 'static/skills-assets/adobexd.png',
+        iconUrl: BASE_URL + 'skills-assets/adobexd.png',
     },
-    
+
     graphql: {
         label: 'GraphQL',
         value: 'graphql',
-        iconUrl: BASE_URL + 'static/skills-assets/graphql.png',
+        iconUrl: BASE_URL + 'skills-assets/graphql.png',
     },
     openstack: {
         label: 'OpenStack',
         value: 'openstack',
-        iconUrl: BASE_URL + 'static/skills-assets/openstack.png',
+        iconUrl: BASE_URL + 'skills-assets/openstack.png',
     },
     meteor: {
         label: 'Meteor',
         value: 'meteor',
-        iconUrl: BASE_URL + 'static/skills-assets/meteor.svg',
+        iconUrl: BASE_URL + 'skills-assets/meteor.svg',
     },
     keras: {
         label: 'Keras',
         value: 'keras',
-        iconUrl: BASE_URL + 'static/skills-assets/keras.png',
+        iconUrl: BASE_URL + 'skills-assets/keras.png',
     },
     ansible: {
         label: 'Ansible',
         value: 'ansible',
-        iconUrl: BASE_URL + 'static/skills-assets/ansible.png',
+        iconUrl: BASE_URL + 'skills-assets/ansible.png',
     },
-    tableau : {
+    tableau: {
         label: 'Tableau',
         value: 'tableau',
-        iconUrl: BASE_URL + 'static/skills-assets/tableau.svg',
+        iconUrl: BASE_URL + 'skills-assets/tableau.svg',
     },
-    xampp : {
+    xampp: {
         label: 'XAMPP',
         value: 'xampp',
-        iconUrl: BASE_URL + 'static/skills-assets/xampp.png',
+        iconUrl: BASE_URL + 'skills-assets/xampp.png',
     },
-    grafana : {
+    grafana: {
         label: 'Grafana',
         value: 'grafana',
-        iconUrl: BASE_URL + 'static/skills-assets/grafana.png',
+        iconUrl: BASE_URL + 'skills-assets/grafana.png',
     },
-    mocha : {
+    mocha: {
         label: 'Mocha',
         value: 'mocha',
-        iconUrl: BASE_URL + 'static/skills-assets/mocha.png',
+        iconUrl: BASE_URL + 'skills-assets/mocha.png',
     },
-    chai : {
+    chai: {
         label: 'Chai',
         value: 'chai',
-        iconUrl: BASE_URL + 'static/skills-assets/chai.png',
+        iconUrl: BASE_URL + 'skills-assets/chai.png',
     },
-    d3 : {
+    d3: {
         label: 'D3.js',
         value: 'd3',
-        iconUrl: BASE_URL + 'static/skills-assets/d3.png',
+        iconUrl: BASE_URL + 'skills-assets/d3.png',
     },
-    firebase : {
+    firebase: {
         label: 'Firebase',
         value: 'firebase',
-        iconUrl: BASE_URL + 'static/skills-assets/firebase.png',
+        iconUrl: BASE_URL + 'skills-assets/firebase.png',
     },
-    powerbi : {
+    powerbi: {
         label: 'Power Bi',
         value: 'powerbi',
-        iconUrl: BASE_URL + 'static/skills-assets/powerbi.png',
+        iconUrl: BASE_URL + 'skills-assets/powerbi.png',
     },
-    nuxtjs : {
+    nuxtjs: {
         label: 'Nuxt JS',
         value: 'nuxtjs',
-        iconUrl: BASE_URL + 'static/skills-assets/nuxt.png',
+        iconUrl: BASE_URL + 'skills-assets/nuxt.png',
     },
-    latex : {
+    latex: {
         label: 'Latex',
         value: 'latex',
-        iconUrl: BASE_URL + 'static/skills-assets/latex.png',
+        iconUrl: BASE_URL + 'skills-assets/latex.png',
     },
-    arduino : {
+    arduino: {
         label: 'Arduino',
         value: 'arduino',
-        iconUrl: BASE_URL + 'static/skills-assets/arduino.png',
+        iconUrl: BASE_URL + 'skills-assets/arduino.png',
     },
-    mariadb : {
+    mariadb: {
         label: 'Maria DB',
         value: 'mariadb',
-        iconUrl: BASE_URL + 'static/skills-assets/mariadb.png',
+        iconUrl: BASE_URL + 'skills-assets/mariadb.png',
     },
-    
-    elasticsearch : {
+
+    elasticsearch: {
         label: 'Elastic Search',
         value: 'elasticsearch',
-        iconUrl: BASE_URL + 'static/skills-assets/elasticsearch.png',
+        iconUrl: BASE_URL + 'skills-assets/elasticsearch.png',
     },
-    kibana : {
+    kibana: {
         label: 'Kibana',
         value: 'kibana',
-        iconUrl: BASE_URL + 'static/skills-assets/kibana.png',
+        iconUrl: BASE_URL + 'skills-assets/kibana.png',
     },
-    salesforce : {
+    salesforce: {
         label: 'Salesforce',
         value: 'salesforce',
-        iconUrl: BASE_URL + 'static/skills-assets/salesforce.png',
+        iconUrl: BASE_URL + 'skills-assets/salesforce.png',
     },
-    wordpress : {
+    wordpress: {
         label: 'WordPress',
         value: 'wordpress',
-        iconUrl: BASE_URL + 'static/skills-assets/wordpress.png',
+        iconUrl: BASE_URL + 'skills-assets/wordpress.png',
     },
-    influxdb : {
+    influxdb: {
         label: 'InfluxDB',
         value: 'influxdb',
-        iconUrl: BASE_URL + 'static/skills-assets/influxdb.svg',
+        iconUrl: BASE_URL + 'skills-assets/influxdb.svg',
     },
-    jquery : {
+    jquery: {
         label: 'jQuery',
         value: 'jquery',
-        iconUrl: BASE_URL + 'static/skills-assets/jquery.png',
+        iconUrl: BASE_URL + 'skills-assets/jquery.png',
     },
-    lightroom : {
+    lightroom: {
         label: 'Lightroom',
         value: 'lightroom',
-        iconUrl: BASE_URL + 'static/skills-assets/lightroom.png',
+        iconUrl: BASE_URL + 'skills-assets/lightroom.png',
     },
-    r : {
+    r: {
         label: 'R',
         value: 'r',
-        iconUrl: BASE_URL + 'static/skills-assets/r.svg',
+        iconUrl: BASE_URL + 'skills-assets/r.svg',
     },
-    xaml : {
+    xaml: {
         label: 'XAML',
         value: 'xaml',
-        iconUrl: BASE_URL + 'static/skills-assets/xaml.png',
+        iconUrl: BASE_URL + 'skills-assets/xaml.png',
     },
-    nativescript : {
+    nativescript: {
         label: 'NativeScript',
         value: 'nativescript',
-        iconUrl: BASE_URL + 'static/skills-assets/nativescript.png',
+        iconUrl: BASE_URL + 'skills-assets/nativescript.png',
     },
-    aftereffects : {
+    aftereffects: {
         label: 'After Effects',
         value: 'aftereffects',
-        iconUrl: BASE_URL + 'static/skills-assets/aftereffects.png',
+        iconUrl: BASE_URL + 'skills-assets/aftereffects.png',
     },
-    haskell : {
+    haskell: {
         label: 'Haskell',
         value: 'haskell',
-        iconUrl: BASE_URL + 'static/skills-assets/haskell.png',
+        iconUrl: BASE_URL + 'skills-assets/haskell.png',
     },
-    unity : {
+    unity: {
         label: 'Unity',
         value: 'unity',
-        iconUrl: BASE_URL + 'static/skills-assets/unity.png',
+        iconUrl: BASE_URL + 'skills-assets/unity.png',
     },
-    flask : {
+    flask: {
         label: 'Flask',
         value: 'flask',
-        iconUrl: BASE_URL + 'static/skills-assets/flask.png',
+        iconUrl: BASE_URL + 'skills-assets/flask.png',
     },
-    deno : {
+    deno: {
         label: 'Deno',
         value: 'deno',
-        iconUrl: BASE_URL + 'static/skills-assets/deno.svg',
+        iconUrl: BASE_URL + 'skills-assets/deno.svg',
     },
 };
