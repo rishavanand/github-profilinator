@@ -1,5 +1,5 @@
 /* eslint-disable prettier/prettier */
-const BASE_URL=document.URL
+const BASE_URL= typeof window !== 'undefined' ? window.location.href : '';
 
 export const SKILLS = {
     vuejs: {
