@@ -109,10 +109,6 @@ export const DEMO_SECTION_DATA: Array<SectionProps & Required<Pick<SectionProps,
                     data: {
                         list: [
                             'cplusplus',
-                            'django',
-                            'c',
-                            'java',
-                            'html5',
                             'javascript',
                             'typescript',
                             'php',
