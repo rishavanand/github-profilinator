@@ -12,6 +12,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { ProfileVisitorCounterField } from '../Field/ProfileVisitorCounterField';
 import BlogPostField from './BlogPostField';
 import SpotifyListeningToField from './SpotifyListeningTo';
+const { TextArea } = Input;
 
 export interface FieldProps {
     id?: string;
@@ -74,7 +75,7 @@ export const Field = (
 
     const generateCardTitle = () => {
         if (titleEditState)
-            return <Input value={title ? title : ''} placeholder="Field title" onChange={changeTitle} />;
+            return <TextArea value={title ? title : ''} placeholder="Field title" onChange={changeTitle} />;
         else return title ? title : 'Untitled field';
     };
 

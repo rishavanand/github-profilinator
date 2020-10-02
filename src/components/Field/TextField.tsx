@@ -17,6 +17,7 @@ import { FieldProps } from '.';
 import 'emoji-mart/css/emoji-mart.css';
 import { Picker } from 'emoji-mart';
 import { globalContext } from '../../context/GlobalContextProvider';
+const { TextArea } = Input;
 
 export enum TEXT_SIZE {
     H1 = 'h1',
@@ -309,7 +310,7 @@ export const TextField = (
                     </Popover>
                 </Col>
             </Row>
-            <Input name="input" value={localTextFieldProps.data.value} onChange={onChange} />
+            <TextArea name="input" value={localTextFieldProps.data.value} onChange={onChange} />
         </>
     );
 };

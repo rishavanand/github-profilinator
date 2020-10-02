@@ -7,6 +7,7 @@ import { faAlignLeft, faExpandArrowsAlt } from '@fortawesome/free-solid-svg-icon
 import { faSpotify } from '@fortawesome/free-brands-svg-icons';
 import { FieldProps } from '.';
 import { globalContext } from '../../context/GlobalContextProvider';
+const { TextArea } = Input;
 
 export enum ALIGNMENT {
     LEFT = 'left',
@@ -150,7 +151,7 @@ export const SpotifyListeningToField = (
             <Row></Row>
             <Form layout="vertical">
                 <Form.Item label="First use the button to connect with Spotify, then paste the generated code in the field below">
-                    <Input
+                    <TextArea
                         name="md-code"
                         value={localSpotifyListeningProps.data.spotifyMarkdown}
                         onChange={onChange}

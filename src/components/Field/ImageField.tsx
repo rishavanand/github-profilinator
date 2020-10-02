@@ -6,6 +6,7 @@ import styles from '../../styles/fields.module.scss';
 import { faAlignLeft, faExpandArrowsAlt } from '@fortawesome/free-solid-svg-icons';
 import { FieldProps } from '.';
 import { globalContext } from '../../context/GlobalContextProvider';
+const { TextArea } = Input;
 
 export enum IMAGE_ALIGNMENT {
     LEFT = 'left',
@@ -189,16 +190,16 @@ export const ImageField = (
             </Row>
             <Form layout="vertical">
                 <Form.Item label="Image Alt Text">
-                    <Input name="alt" value={localImageFieldProps.data.alt} onChange={onChange} />
+                    <TextArea name="alt" value={localImageFieldProps.data.alt} onChange={onChange} />
                 </Form.Item>
                 <Form.Item label="Image URL">
-                    <Input name="url" value={localImageFieldProps.data.url} onChange={onChange} />
+                    <TextArea name="url" value={localImageFieldProps.data.url} onChange={onChange} />
                 </Form.Item>
                 <Form.Item label="Height">
-                    <Input name="height" value={localImageFieldProps.options.height} onChange={onChange} />
+                    <TextArea name="height" value={localImageFieldProps.options.height} onChange={onChange} />
                 </Form.Item>
                 <Form.Item label="Width">
-                    <Input name="width" value={localImageFieldProps.options.width} onChange={onChange} />
+                    <TextArea name="width" value={localImageFieldProps.options.width} onChange={onChange} />
                 </Form.Item>
             </Form>
         </>

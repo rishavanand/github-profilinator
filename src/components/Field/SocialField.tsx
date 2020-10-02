@@ -6,6 +6,7 @@ import { faAlignLeft } from '@fortawesome/free-solid-svg-icons';
 import { FieldProps } from '.';
 import { SOCIAL_SITE_IDS, SOCIAL_SITES } from '../../config/social';
 import { globalContext } from '../../context/GlobalContextProvider';
+const { TextArea } = Input;
 
 export enum SOCIAL_FIELD_ALIGNMENT {
     LEFT = 'left',
@@ -112,7 +113,7 @@ export const SocialField = (
         return socialSites.map(siteId => {
             const site = SOCIAL_SITES[siteId];
             return (
-                <Input
+                <TextArea
                     key={siteId}
                     suffix={site.title}
                     name={siteId}

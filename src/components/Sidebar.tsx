@@ -8,6 +8,7 @@ import { SectionProps } from './Section';
 
 const { Sider } = Layout;
 const { Option } = Select;
+const { TextArea } = Input;
 
 export const Sidebar = () => {
     const [addSectionVisible, setAddSectionVisibility] = useState(false);
@@ -41,7 +42,7 @@ export const Sidebar = () => {
         return (
             <Form form={form} layout="vertical">
                 <Form.Item name="name" label="Name" rules={[{ required: true }]}>
-                    <Input />
+                    <TextArea />
                 </Form.Item>
             </Form>
         );
