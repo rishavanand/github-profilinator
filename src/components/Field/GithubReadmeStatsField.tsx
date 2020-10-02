@@ -55,12 +55,7 @@ export const generateImageTag = (data: GithubReadmeStatsData, options: GithubRea
         return `<img src="${statsUrl}" align="${
             options.alignment ? options.alignment : 'left'
         }" style="width: 100%" />`;
-    else if (
-        options.alignment &&
-        (options.alignment === STATS_ALIGNMENT.CENTRE || options.alignment === STATS_ALIGNMENT.RIGHT)
-    )
-        return `<img src="${statsUrl}" align="${options.alignment ? options.alignment : 'left'}" />`;
-    else return `![Github Readme Stats](${statsUrl})`;
+    else return `<img src="${statsUrl}" align="${options.alignment ? options.alignment : 'left'}" />`;
 };
 
 export const generateGithubReadmeStatsMarkdown = ({ data, options }: GithubReadmeStatsProps) => {
