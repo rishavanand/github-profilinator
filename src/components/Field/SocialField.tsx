@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { Input, Row, Col, Button, Dropdown, Menu, Form } from 'antd';
+import { Input, Row, Col, Button, Dropdown, Menu, Form, Tooltip } from 'antd';
 import { DownOutlined } from '@ant-design/icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAlignLeft } from '@fortawesome/free-solid-svg-icons';
@@ -146,14 +146,16 @@ export const SocialField = (
             <Row justify="space-between" style={{ marginBottom: 10 }}>
                 <Col>
                     <Dropdown overlay={alignmentMenu}>
-                        <Button
-                            style={{ paddingLeft: 5, paddingRight: 5, width: 50 }}
-                            icon={
-                                <>
-                                    <FontAwesomeIcon icon={faAlignLeft} /> <DownOutlined />
-                                </>
-                            }
-                        />
+                        <Tooltip placement="top" title={<span>Alignment</span>}>
+                            <Button
+                                style={{ paddingLeft: 5, paddingRight: 5, width: 50 }}
+                                icon={
+                                    <>
+                                        <FontAwesomeIcon icon={faAlignLeft} /> <DownOutlined />
+                                    </>
+                                }
+                            />
+                        </Tooltip>
                     </Dropdown>
                 </Col>
             </Row>

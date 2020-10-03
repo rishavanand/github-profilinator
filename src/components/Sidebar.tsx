@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-import { Form, Input, Select, Layout, Menu, Button, Divider, Modal } from 'antd';
+import { Form, Input, Select, Layout, Menu, Button, Divider, Modal, Tooltip } from 'antd';
 import { CloseCircleOutlined, PlusOutlined } from '@ant-design/icons';
 import styles from '../styles/sidebar.module.scss';
 import { globalContext, GlobalContext } from '../context/GlobalContextProvider';
@@ -79,16 +79,18 @@ export const Sidebar = () => {
             {generateMenu(context.activeSectionIndex, context.sections)}
             <Divider />
             <div className={styles.buttonContainer}>
-                <Button
-                    type="dashed"
-                    ghost
-                    block
-                    className={styles.addSectionButton}
-                    onClick={() => setAddSectionVisibility(true)}
-                >
-                    <PlusOutlined />
-                    Section
-                </Button>
+                <Tooltip placement="top" title={<span>Add a Section</span>}>
+                    <Button
+                        type="dashed"
+                        ghost
+                        block
+                        className={styles.addSectionButton}
+                        onClick={() => setAddSectionVisibility(true)}
+                    >
+                        <PlusOutlined />
+                        Section
+                    </Button>
+                </Tooltip>
             </div>
             {generateAddSectionModal()}
         </Sider>

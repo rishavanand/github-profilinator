@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react';
 import { FIELD_TYPES } from '../../config/global';
 import TextField from './TextField';
-import { Card, Input, Button } from 'antd';
+import { Card, Input, Button, Tooltip } from 'antd';
 import { globalContext } from '../../context/GlobalContextProvider';
 import ImageField from './ImageField';
 import GithubReadmeStatsField from './GithubReadmeStatsField';
@@ -80,40 +80,48 @@ export const Field = (
 
     const generateTitleIcon = () => {
         const editButton = (
-            <Button icon={<FontAwesomeIcon icon={titleEditState ? faCheck : faPen} />} onClick={editTitle} />
+            <Tooltip placement="top" title={<span>Edit Title</span>}>
+                <Button icon={<FontAwesomeIcon icon={titleEditState ? faCheck : faPen} />} onClick={editTitle} />
+            </Tooltip>
         );
 
         const closeButton = (
-            <Button
-                onClick={() => context.deleteField(props)}
-                icon={
-                    <>
-                        <FontAwesomeIcon icon={faTimes} />
-                    </>
-                }
-            />
+            <Tooltip placement="top" title={<span>Remove Field</span>}>
+                <Button
+                    onClick={() => context.deleteField(props)}
+                    icon={
+                        <>
+                            <FontAwesomeIcon icon={faTimes} />
+                        </>
+                    }
+                />
+            </Tooltip>
         );
 
         const moveUpButton = (
-            <Button
-                icon={
-                    <>
-                        <FontAwesomeIcon icon={faCaretUp} />
-                    </>
-                }
-                onClick={() => context.shiftField(props, 'up')}
-            />
+            <Tooltip placement="top" title={<span>Shift Field Upwards</span>}>
+                <Button
+                    icon={
+                        <>
+                            <FontAwesomeIcon icon={faCaretUp} />
+                        </>
+                    }
+                    onClick={() => context.shiftField(props, 'up')}
+                />
+            </Tooltip>
         );
 
         const moveDownButton = (
-            <Button
-                icon={
-                    <>
-                        <FontAwesomeIcon icon={faCaretDown} />
-                    </>
-                }
-                onClick={() => context.shiftField(props, 'down')}
-            />
+            <Tooltip placement="top" title={<span>Shift Field Downwards</span>}>
+                <Button
+                    icon={
+                        <>
+                            <FontAwesomeIcon icon={faCaretDown} />
+                        </>
+                    }
+                    onClick={() => context.shiftField(props, 'down')}
+                />
+            </Tooltip>
         );
 
         return (

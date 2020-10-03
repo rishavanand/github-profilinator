@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react';
-import { Row, Col, Divider, Typography, Button, Modal, Input, Card, Grid } from 'antd';
+import { Row, Col, Divider, Typography, Button, Modal, Input, Card, Grid, Tooltip } from 'antd';
 import { FireOutlined } from '@ant-design/icons';
 import { globalContext } from '../context/GlobalContextProvider';
 import { FIELD_TYPES } from '../config/global';
@@ -127,9 +127,11 @@ export const Preview = ({ scrollRef }: { scrollRef: string }) => {
                     <Title level={3}>Preview</Title>
                 </Col>
                 <Col>
-                    <Button type="primary" onClick={toggleShowMarkdown} size={buttonSize}>
-                        <FireOutlined /> Generate README.md
-                    </Button>
+                    <Tooltip placement="top" title={<span>Markdown</span>}>
+                        <Button type="primary" onClick={toggleShowMarkdown} size={buttonSize}>
+                            <FireOutlined /> Generate README.md
+                        </Button>
+                    </Tooltip>
                 </Col>
             </Row>
             <Divider />

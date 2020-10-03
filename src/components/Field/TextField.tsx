@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { Input, Row, Col, Button, Dropdown, Menu, Popover } from 'antd';
+import { Input, Row, Col, Button, Dropdown, Menu, Popover, Tooltip } from 'antd';
 import { DownOutlined } from '@ant-design/icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import styles from '../../styles/fields.module.scss';
@@ -226,86 +226,104 @@ export const TextField = (
         <>
             <Row justify="space-between" style={{ marginBottom: 10 }}>
                 <Col>
-                    <Button
-                        icon={<FontAwesomeIcon icon={faBold} />}
-                        onClick={() => toggleBold()}
-                        className={[
-                            styles.optionButton,
-                            localTextFieldProps.options && localTextFieldProps.options.bold
-                                ? styles.selected
-                                : styles.unselected,
-                        ].join(' ')}
-                    />
-                    <Button
-                        icon={<FontAwesomeIcon icon={faItalic} />}
-                        onClick={() => toggleItalics()}
-                        className={[
-                            styles.optionButton,
-                            localTextFieldProps.options && localTextFieldProps.options.italics
-                                ? styles.selected
-                                : styles.unselected,
-                        ].join(' ')}
-                    />
-                    <Button
-                        icon={<FontAwesomeIcon icon={faUnderline} />}
-                        onClick={() => toggleUnderLine()}
-                        className={[
-                            styles.optionButton,
-                            localTextFieldProps.options && localTextFieldProps.options.underLine
-                                ? styles.selected
-                                : styles.unselected,
-                        ].join(' ')}
-                    />
-                    <Button
-                        icon={<FontAwesomeIcon icon={faList} />}
-                        onClick={() => toggleListType()}
-                        className={[
-                            styles.optionButton,
-                            localTextFieldProps.options && localTextFieldProps.options.isList
-                                ? styles.selected
-                                : styles.unselected,
-                        ].join(' ')}
-                    />
-                    <Button
-                        icon={<FontAwesomeIcon icon={faLink} />}
-                        onClick={() => addLinkTemplate()}
-                        className={[styles.optionButton, localTextFieldProps.options && styles.unselected].join(' ')}
-                    />
-                    <Dropdown overlay={fontSizeMenu}>
+                    <Tooltip placement="top" title={<span>Bold</span>}>
                         <Button
-                            style={{ paddingLeft: 5, paddingRight: 5, width: 50 }}
-                            icon={
-                                <>
-                                    <FontAwesomeIcon icon={faHeading} /> <DownOutlined />
-                                </>
-                            }
+                            icon={<FontAwesomeIcon icon={faBold} />}
+                            onClick={() => toggleBold()}
+                            className={[
+                                styles.optionButton,
+                                localTextFieldProps.options && localTextFieldProps.options.bold
+                                    ? styles.selected
+                                    : styles.unselected,
+                            ].join(' ')}
                         />
+                    </Tooltip>
+                    <Tooltip placement="top" title={<span>Italics</span>}>
+                        <Button
+                            icon={<FontAwesomeIcon icon={faItalic} />}
+                            onClick={() => toggleItalics()}
+                            className={[
+                                styles.optionButton,
+                                localTextFieldProps.options && localTextFieldProps.options.italics
+                                    ? styles.selected
+                                    : styles.unselected,
+                            ].join(' ')}
+                        />
+                    </Tooltip>
+                    <Tooltip placement="top" title={<span>Underline</span>}>
+                        <Button
+                            icon={<FontAwesomeIcon icon={faUnderline} />}
+                            onClick={() => toggleUnderLine()}
+                            className={[
+                                styles.optionButton,
+                                localTextFieldProps.options && localTextFieldProps.options.underLine
+                                    ? styles.selected
+                                    : styles.unselected,
+                            ].join(' ')}
+                        />
+                    </Tooltip>
+                    <Tooltip placement="top" title={<span>Bullet Points</span>}>
+                        <Button
+                            icon={<FontAwesomeIcon icon={faList} />}
+                            onClick={() => toggleListType()}
+                            className={[
+                                styles.optionButton,
+                                localTextFieldProps.options && localTextFieldProps.options.isList
+                                    ? styles.selected
+                                    : styles.unselected,
+                            ].join(' ')}
+                        />
+                    </Tooltip>
+                    <Tooltip placement="top" title={<span>Link</span>}>
+                        <Button
+                            icon={<FontAwesomeIcon icon={faLink} />}
+                            onClick={() => addLinkTemplate()}
+                            className={[styles.optionButton, localTextFieldProps.options && styles.unselected].join(
+                                ' ',
+                            )}
+                        />
+                    </Tooltip>
+                    <Dropdown overlay={fontSizeMenu}>
+                        <Tooltip placement="top" title={<span>Heading Type</span>}>
+                            <Button
+                                style={{ paddingLeft: 5, paddingRight: 5, width: 50 }}
+                                icon={
+                                    <>
+                                        <FontAwesomeIcon icon={faHeading} /> <DownOutlined />
+                                    </>
+                                }
+                            />
+                        </Tooltip>
                     </Dropdown>
                     <Dropdown overlay={aligmentMenu}>
-                        <Button
-                            style={{ paddingLeft: 5, paddingRight: 5, width: 50 }}
-                            icon={
-                                <>
-                                    <FontAwesomeIcon icon={faAlignLeft} /> <DownOutlined />
-                                </>
-                            }
-                        />
+                        <Tooltip placement="top" title={<span>Alignment</span>}>
+                            <Button
+                                style={{ paddingLeft: 5, paddingRight: 5, width: 50 }}
+                                icon={
+                                    <>
+                                        <FontAwesomeIcon icon={faAlignLeft} /> <DownOutlined />
+                                    </>
+                                }
+                            />
+                        </Tooltip>
                     </Dropdown>
                     <Popover
                         content={<Picker onSelect={addEmoji} native={true} />}
                         title="Emoji Selector"
                         trigger="hover"
                     >
-                        <Button
-                            className={[styles.optionButton, localTextFieldProps.options && styles.unselected].join(
-                                ' ',
-                            )}
-                            icon={
-                                <>
-                                    <FontAwesomeIcon icon={faSmile} />
-                                </>
-                            }
-                        />
+                        <Tooltip placement="bottom" title={<span>Emoji</span>}>
+                            <Button
+                                className={[styles.optionButton, localTextFieldProps.options && styles.unselected].join(
+                                    ' ',
+                                )}
+                                icon={
+                                    <>
+                                        <FontAwesomeIcon icon={faSmile} />
+                                    </>
+                                }
+                            />
+                        </Tooltip>
                     </Popover>
                 </Col>
             </Row>

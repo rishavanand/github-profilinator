@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { Input, Row, Col, Button, Dropdown, Menu, Form, Switch } from 'antd';
+import { Input, Row, Col, Button, Dropdown, Menu, Form, Switch, Tooltip } from 'antd';
 import { DownOutlined } from '@ant-design/icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import styles from '../../styles/fields.module.scss';
@@ -112,29 +112,33 @@ export const SpotifyListeningToField = (
             <Row justify="space-between" style={{ marginBottom: 10 }}>
                 <Col>
                     <Dropdown overlay={alignmentMenu}>
+                        <Tooltip placement="top" title={<span>Alignment</span>}>
+                            <Button
+                                style={{ paddingLeft: 5, paddingRight: 5, width: 50 }}
+                                icon={
+                                    <>
+                                        <FontAwesomeIcon icon={faAlignLeft} /> <DownOutlined />
+                                    </>
+                                }
+                            />
+                        </Tooltip>
+                    </Dropdown>
+                    <Tooltip placement="top" title={<span>Fit to Width</span>}>
                         <Button
-                            style={{ paddingLeft: 5, paddingRight: 5, width: 50 }}
                             icon={
                                 <>
-                                    <FontAwesomeIcon icon={faAlignLeft} /> <DownOutlined />
+                                    <FontAwesomeIcon icon={faExpandArrowsAlt} />
                                 </>
                             }
+                            onClick={() => toggleFitImage()}
+                            className={[
+                                styles.optionButton,
+                                localSpotifyListeningProps.options && localSpotifyListeningProps.options.fitImage
+                                    ? styles.selected
+                                    : styles.unselected,
+                            ].join(' ')}
                         />
-                    </Dropdown>
-                    <Button
-                        icon={
-                            <>
-                                <FontAwesomeIcon icon={faExpandArrowsAlt} />
-                            </>
-                        }
-                        onClick={() => toggleFitImage()}
-                        className={[
-                            styles.optionButton,
-                            localSpotifyListeningProps.options && localSpotifyListeningProps.options.fitImage
-                                ? styles.selected
-                                : styles.unselected,
-                        ].join(' ')}
-                    />
+                    </Tooltip>
                 </Col>
                 <Col>
                     <a href="https://spotify-github-profile.vercel.app/api/login" rel="noreferrer" target="_blank">
