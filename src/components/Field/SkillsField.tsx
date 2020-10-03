@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { Row, Col, Button, Dropdown, Menu, Grid, Checkbox } from 'antd';
+import { Row, Col, Button, Dropdown, Menu, Grid, Checkbox, Tooltip } from 'antd';
 import { DownOutlined } from '@ant-design/icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowsAltV } from '@fortawesome/free-solid-svg-icons';
@@ -110,14 +110,16 @@ export const SkillsField = (
                 <Row>
                     <Col>
                         <Dropdown overlay={sizeMenu}>
-                            <Button
-                                style={{ paddingLeft: 5, paddingRight: 5, width: 50 }}
-                                icon={
-                                    <>
-                                        <FontAwesomeIcon icon={faArrowsAltV} /> <DownOutlined />
-                                    </>
-                                }
-                            />
+                            <Tooltip placement="top" title={<span>Icon Size</span>}>
+                                <Button
+                                    style={{ paddingLeft: 5, paddingRight: 5, width: 50 }}
+                                    icon={
+                                        <>
+                                            <FontAwesomeIcon icon={faArrowsAltV} /> <DownOutlined />
+                                        </>
+                                    }
+                                />
+                            </Tooltip>
                         </Dropdown>
                     </Col>
                 </Row>

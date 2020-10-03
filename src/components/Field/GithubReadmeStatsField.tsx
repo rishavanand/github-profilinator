@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { Input, Row, Col, Button, Dropdown, Menu, Form, Switch } from 'antd';
+import { Input, Row, Col, Button, Dropdown, Menu, Form, Switch, Tooltip } from 'antd';
 import { DownOutlined } from '@ant-design/icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import styles from '../../styles/fields.module.scss';
@@ -152,34 +152,40 @@ export const GithubReadmeStatsField = (
             <Row justify="space-between" style={{ marginBottom: 10 }}>
                 <Col>
                     <Dropdown overlay={variantMenu}>
-                        <Button style={{ paddingLeft: 5, paddingRight: 5 }}>
-                            Variant <DownOutlined />{' '}
-                        </Button>
+                        <Tooltip placement="top" title={<span>Variant</span>}>
+                            <Button style={{ paddingLeft: 5, paddingRight: 5 }}>
+                                Variant <DownOutlined />{' '}
+                            </Button>
+                        </Tooltip>
                     </Dropdown>
                     <Dropdown overlay={alignmentMenu}>
+                        <Tooltip placement="top" title={<span>Alignment</span>}>
+                            <Button
+                                style={{ paddingLeft: 5, paddingRight: 5, width: 50 }}
+                                icon={
+                                    <>
+                                        <FontAwesomeIcon icon={faAlignLeft} /> <DownOutlined />
+                                    </>
+                                }
+                            />
+                        </Tooltip>
+                    </Dropdown>
+                    <Tooltip placement="top" title={<span>Fit to Width</span>}>
                         <Button
-                            style={{ paddingLeft: 5, paddingRight: 5, width: 50 }}
                             icon={
                                 <>
-                                    <FontAwesomeIcon icon={faAlignLeft} /> <DownOutlined />
+                                    <FontAwesomeIcon icon={faExpandArrowsAlt} />
                                 </>
                             }
+                            onClick={() => toggleFitImage()}
+                            className={[
+                                styles.optionButton,
+                                localGithubReadmeStatsProps.options && localGithubReadmeStatsProps.options.fitImage
+                                    ? styles.selected
+                                    : styles.unselected,
+                            ].join(' ')}
                         />
-                    </Dropdown>
-                    <Button
-                        icon={
-                            <>
-                                <FontAwesomeIcon icon={faExpandArrowsAlt} />
-                            </>
-                        }
-                        onClick={() => toggleFitImage()}
-                        className={[
-                            styles.optionButton,
-                            localGithubReadmeStatsProps.options && localGithubReadmeStatsProps.options.fitImage
-                                ? styles.selected
-                                : styles.unselected,
-                        ].join(' ')}
-                    />
+                    </Tooltip>
                 </Col>
             </Row>
             <Form layout="vertical">

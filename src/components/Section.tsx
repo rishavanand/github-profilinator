@@ -15,6 +15,7 @@ import {
     Switch,
     Popover,
     Space,
+    Tooltip,
 } from 'antd';
 import { PlusOutlined, FireOutlined, DownOutlined, RedoOutlined } from '@ant-design/icons';
 import { globalContext, GlobalContext } from '../context/GlobalContextProvider';
@@ -168,20 +169,22 @@ const Section = (section: SectionProps & Required<Pick<SectionProps, 'sectionInd
                             title={`Column #${columnIndex + 1}`}
                             style={{ marginBottom: '25px' }}
                             extra={
-                                <Button
-                                    type="primary"
-                                    ghost
-                                    block
-                                    style={{ borderStyle: 'dashed' }}
-                                    onClick={() => {
-                                        setActiveColumnIndex(columnIndex);
-                                        setActiveSectionIndex(sectionIndex);
-                                        setAddFieldVisibility(true);
-                                    }}
-                                    size={buttonSize}
-                                >
-                                    <PlusOutlined /> Field
-                                </Button>
+                                <Tooltip placement="top" title={<span>Add a Field</span>}>
+                                    <Button
+                                        type="primary"
+                                        ghost
+                                        block
+                                        style={{ borderStyle: 'dashed' }}
+                                        onClick={() => {
+                                            setActiveColumnIndex(columnIndex);
+                                            setActiveSectionIndex(sectionIndex);
+                                            setAddFieldVisibility(true);
+                                        }}
+                                        size={buttonSize}
+                                    >
+                                        <PlusOutlined /> Field
+                                    </Button>
+                                </Tooltip>
                             }
                         >
                             {generateFields(field, sectionIndex, columnIndex)}
@@ -245,24 +248,28 @@ const Section = (section: SectionProps & Required<Pick<SectionProps, 'sectionInd
                 </tr>
                 <tr>
                     <td>
-                        <Button
-                            icon={
-                                <>
-                                    <FontAwesomeIcon icon={faCaretUp} />
-                                </>
-                            }
-                            onClick={() => context.shiftSection(section, 'up')}
-                            size={buttonSize}
-                        />
-                        <Button
-                            icon={
-                                <>
-                                    <FontAwesomeIcon icon={faCaretDown} />
-                                </>
-                            }
-                            onClick={() => context.shiftSection(section, 'down')}
-                            size={buttonSize}
-                        />
+                        <Tooltip placement="top" title={<span>Shift Section Upwards</span>}>
+                            <Button
+                                icon={
+                                    <>
+                                        <FontAwesomeIcon icon={faCaretUp} />
+                                    </>
+                                }
+                                onClick={() => context.shiftSection(section, 'up')}
+                                size={buttonSize}
+                            />
+                        </Tooltip>
+                        <Tooltip placement="top" title={<span>Shift Section Downwards</span>}>
+                            <Button
+                                icon={
+                                    <>
+                                        <FontAwesomeIcon icon={faCaretDown} />
+                                    </>
+                                }
+                                onClick={() => context.shiftSection(section, 'down')}
+                                size={buttonSize}
+                            />
+                        </Tooltip>
                     </td>
                     <td>Re-order sections</td>
                 </tr>
@@ -304,6 +311,7 @@ const Section = (section: SectionProps & Required<Pick<SectionProps, 'sectionInd
                             <Button type="primary" ghost block onClick={context.useTemplate} size={buttonSize}>
                                 <FireOutlined /> Use template
                             </Button>
+
                             <Button type="primary" ghost block onClick={context.resetSections} size={buttonSize}>
                                 <RedoOutlined /> Start fresh
                             </Button>
