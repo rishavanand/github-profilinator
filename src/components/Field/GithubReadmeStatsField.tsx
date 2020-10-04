@@ -7,6 +7,8 @@ import { faAlignLeft, faExpandArrowsAlt } from '@fortawesome/free-solid-svg-icon
 import { FieldProps } from '.';
 import { globalContext } from '../../context/GlobalContextProvider';
 
+const { TextArea } = Input;
+
 export enum STATS_ALIGNMENT {
     LEFT = 'left',
     CENTRE = 'center',
@@ -85,7 +87,7 @@ export const GithubReadmeStatsField = (
         ...imageFieldProps,
     };
 
-    const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const onChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
         const name = event.target.name;
         const value = event.target.value;
         if (name === 'username')
@@ -190,7 +192,13 @@ export const GithubReadmeStatsField = (
             </Row>
             <Form layout="vertical">
                 <Form.Item label="Github username">
-                    <Input name="username" value={localGithubReadmeStatsProps.data.username} onChange={onChange} />
+                    <TextArea
+                        rows={1}
+                        autoSize={true}
+                        name="username"
+                        value={localGithubReadmeStatsProps.data.username}
+                        onChange={onChange}
+                    />
                 </Form.Item>
             </Form>
         </>

@@ -8,6 +8,8 @@ import { faSpotify } from '@fortawesome/free-brands-svg-icons';
 import { FieldProps } from '.';
 import { globalContext } from '../../context/GlobalContextProvider';
 
+const { TextArea } = Input;
+
 export enum ALIGNMENT {
     LEFT = 'left',
     CENTRE = 'center',
@@ -63,7 +65,7 @@ export const SpotifyListeningToField = (
         ...imageFieldProps,
     };
 
-    const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const onChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
         const name = event.target.name;
         const value = event.target.value;
         if (name === 'md-code')
@@ -154,7 +156,9 @@ export const SpotifyListeningToField = (
             <Row></Row>
             <Form layout="vertical">
                 <Form.Item label="First use the button to connect with Spotify, then paste the generated code in the field below">
-                    <Input
+                    <TextArea
+                        rows={1}
+                        autoSize={true}
                         name="md-code"
                         value={localSpotifyListeningProps.data.spotifyMarkdown}
                         onChange={onChange}

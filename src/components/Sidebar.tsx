@@ -6,6 +6,7 @@ import { globalContext, GlobalContext } from '../context/GlobalContextProvider';
 import { v4 as uuidv4 } from 'uuid';
 import { SectionProps } from './Section';
 
+const { TextArea } = Input;
 const { Sider } = Layout;
 const { Option } = Select;
 
@@ -41,7 +42,7 @@ export const Sidebar = () => {
         return (
             <Form form={form} layout="vertical">
                 <Form.Item name="name" label="Name" rules={[{ required: true }]}>
-                    <Input />
+                    <TextArea rows={1} autoSize={true} />
                 </Form.Item>
             </Form>
         );

@@ -18,6 +18,8 @@ import 'emoji-mart/css/emoji-mart.css';
 import { Picker } from 'emoji-mart';
 import { globalContext } from '../../context/GlobalContextProvider';
 
+const { TextArea } = Input;
+
 export enum TEXT_SIZE {
     H1 = 'h1',
     H2 = 'h2',
@@ -113,7 +115,7 @@ export const TextField = (
         ...textFieldProps,
     };
 
-    const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const onChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
         const value = event.target.value;
         modifyField({
             ...localTextFieldProps,
@@ -327,7 +329,13 @@ export const TextField = (
                     </Popover>
                 </Col>
             </Row>
-            <Input name="input" value={localTextFieldProps.data.value} onChange={onChange} />
+            <TextArea
+                rows={1}
+                autoSize={true}
+                name="input"
+                value={localTextFieldProps.data.value}
+                onChange={onChange}
+            />
         </>
     );
 };
