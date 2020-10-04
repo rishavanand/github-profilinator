@@ -13,6 +13,8 @@ import { ProfileVisitorCounterField } from '../Field/ProfileVisitorCounterField'
 import BlogPostField from './BlogPostField';
 import SpotifyListeningToField from './SpotifyListeningTo';
 
+const { TextArea } = Input;
+
 export interface FieldProps {
     id?: string;
     title?: string;
@@ -74,7 +76,15 @@ export const Field = (
 
     const generateCardTitle = () => {
         if (titleEditState)
-            return <Input value={title ? title : ''} placeholder="Field title" onChange={changeTitle} />;
+            return (
+                <TextArea
+                    rows={1}
+                    autoSize={true}
+                    value={title ? title : ''}
+                    placeholder="Field title"
+                    onChange={changeTitle}
+                />
+            );
         else return title ? title : 'Untitled field';
     };
 

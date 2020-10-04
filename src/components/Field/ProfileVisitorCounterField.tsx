@@ -7,6 +7,8 @@ import { faAlignLeft } from '@fortawesome/free-solid-svg-icons';
 import { FieldProps } from '.';
 import { globalContext } from '../../context/GlobalContextProvider';
 
+const { TextArea } = Input;
+
 export enum STATS_ALIGNMENT {
     LEFT = 'left',
     CENTRE = 'center',
@@ -72,7 +74,7 @@ export const ProfileVisitorCounterField = (
         ...props,
     };
 
-    const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const onChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
         const name = event.target.name;
         const value = event.target.value;
         if (name === 'username')
@@ -125,7 +127,13 @@ export const ProfileVisitorCounterField = (
             </Row>
             <Form layout="vertical">
                 <Form.Item label="Github username">
-                    <Input name="username" value={localProps.data.username} onChange={onChange} />
+                    <TextArea
+                        rows={1}
+                        autoSize={true}
+                        name="username"
+                        value={localProps.data.username}
+                        onChange={onChange}
+                    />
                 </Form.Item>
             </Form>
         </>

@@ -7,6 +7,8 @@ import { FieldProps } from '.';
 import { SOCIAL_SITE_IDS, SOCIAL_SITES } from '../../config/social';
 import { globalContext } from '../../context/GlobalContextProvider';
 
+const { TextArea } = Input;
+
 export enum SOCIAL_FIELD_ALIGNMENT {
     LEFT = 'left',
     CENTRE = 'center',
@@ -85,7 +87,7 @@ export const SocialField = (
         ...socialFieldProps,
     };
 
-    const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const onChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
         const id = event.target.name;
         const value = event.target.value;
         if (!localSocialFieldProps.data.sites[id]) localSocialFieldProps.data.sites[id] = {};
@@ -112,7 +114,9 @@ export const SocialField = (
         return socialSites.map(siteId => {
             const site = SOCIAL_SITES[siteId];
             return (
-                <Input
+                <TextArea
+                    rows={1}
+                    autoSize={true}
                     key={siteId}
                     suffix={site.title}
                     name={siteId}

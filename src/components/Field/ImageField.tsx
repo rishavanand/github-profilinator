@@ -7,6 +7,8 @@ import { faAlignLeft, faExpandArrowsAlt } from '@fortawesome/free-solid-svg-icon
 import { FieldProps } from '.';
 import { globalContext } from '../../context/GlobalContextProvider';
 
+const { TextArea } = Input;
+
 export enum IMAGE_ALIGNMENT {
     LEFT = 'left',
     CENTRE = 'center',
@@ -89,7 +91,7 @@ export const ImageField = (
         ...imageFieldProps,
     };
 
-    const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const onChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
         const { name, value } = event.target;
 
         if (name === 'url')
@@ -193,16 +195,40 @@ export const ImageField = (
             </Row>
             <Form layout="vertical">
                 <Form.Item label="Image Alt Text">
-                    <Input name="alt" value={localImageFieldProps.data.alt} onChange={onChange} />
+                    <TextArea
+                        rows={1}
+                        autoSize={true}
+                        name="alt"
+                        value={localImageFieldProps.data.alt}
+                        onChange={onChange}
+                    />
                 </Form.Item>
                 <Form.Item label="Image URL">
-                    <Input name="url" value={localImageFieldProps.data.url} onChange={onChange} />
+                    <TextArea
+                        rows={1}
+                        autoSize={true}
+                        name="url"
+                        value={localImageFieldProps.data.url}
+                        onChange={onChange}
+                    />
                 </Form.Item>
                 <Form.Item label="Height">
-                    <Input name="height" value={localImageFieldProps.options.height} onChange={onChange} />
+                    <TextArea
+                        rows={1}
+                        autoSize={true}
+                        name="height"
+                        value={localImageFieldProps.options.height}
+                        onChange={onChange}
+                    />
                 </Form.Item>
                 <Form.Item label="Width">
-                    <Input name="width" value={localImageFieldProps.options.width} onChange={onChange} />
+                    <TextArea
+                        rows={1}
+                        autoSize={true}
+                        name="width"
+                        value={localImageFieldProps.options.width}
+                        onChange={onChange}
+                    />
                 </Form.Item>
             </Form>
         </>
