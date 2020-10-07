@@ -120,6 +120,7 @@ export const SocialField = (
                     key={siteId}
                     suffix={site.title}
                     name={siteId}
+                    placeholder={site.title}
                     value={
                         localSocialFieldProps.data.sites[siteId]
                             ? localSocialFieldProps.data.sites[siteId].username
