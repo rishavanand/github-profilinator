@@ -116,12 +116,7 @@ export const Preview = ({ scrollRef }: { scrollRef: string }) => {
     };
 
     return (
-        <div
-            style={{
-                minHeight: '100vh',
-            }}
-            ref={scrollRef}
-        >
+        <div ref={scrollRef}>
             <Row justify="space-between">
                 <Col>
                     <Title level={3}>Preview</Title>
@@ -135,7 +130,11 @@ export const Preview = ({ scrollRef }: { scrollRef: string }) => {
                 </Col>
             </Row>
             <Divider />
-            <div className={styles.markdown} dangerouslySetInnerHTML={{ __html: generateMarkdown().html }} />
+            <div
+                className={styles.markdown}
+                style={{ height: 'calc(100vh - 170px)', overflowY: 'scroll' }}
+                dangerouslySetInnerHTML={{ __html: generateMarkdown().html }}
+            />
             <Modal
                 title="Generated Markdown"
                 width="70vw"
