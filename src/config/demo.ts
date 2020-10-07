@@ -239,4 +239,23 @@ export const DEMO_SECTION_DATA: Array<SectionProps & Required<Pick<SectionProps,
             ],
         ],
     },
+    {
+        name: 'Support Me',
+        id: '796debb6-97a6-4e56-8f4e-1fc0965074ee',
+        sectionIndex: 7,
+        nameToMarkdown: true,
+        fields: [
+            [
+                {
+                    type: FIELD_TYPES.SUPPORTME,
+                    sectionIndex: 7,
+                    columnIndex: 0,
+                    id: '2c3abfca-f83e-401b-b719-6591d633f23d',
+                    options: { alignment: 'left' },
+                    data: { paypal: 'logarithm4', buymeacoffee: 'rishavanand' },
+                    fieldIndex: 0,
+                },
+            ],
+        ],
+    },
 ];
