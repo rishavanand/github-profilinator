@@ -114,19 +114,20 @@ export const SocialField = (
         return socialSites.map(siteId => {
             const site = SOCIAL_SITES[siteId];
             return (
-                <TextArea
-                    rows={1}
-                    autoSize={true}
-                    key={siteId}
-                    suffix={site.title}
-                    name={siteId}
-                    value={
-                        localSocialFieldProps.data.sites[siteId]
-                            ? localSocialFieldProps.data.sites[siteId].username
-                            : ''
-                    }
-                    onChange={onChange}
-                />
+                <Form.Item key={siteId} label={site.title}>
+                    <TextArea
+                        rows={1}
+                        autoSize={true}
+                        suffix={site.title}
+                        name={siteId}
+                        value={
+                            localSocialFieldProps.data.sites[siteId]
+                                ? localSocialFieldProps.data.sites[siteId].username
+                                : ''
+                        }
+                        onChange={onChange}
+                    />
+                </Form.Item>
             );
         });
     };
@@ -163,7 +164,7 @@ export const SocialField = (
                     </Dropdown>
                 </Col>
             </Row>
-            <Form>{generateSocialInputs()}</Form>
+            <Form layout="vertical">{generateSocialInputs()}</Form>
         </>
     );
 };
