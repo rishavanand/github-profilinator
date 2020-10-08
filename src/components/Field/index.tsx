@@ -12,6 +12,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { ProfileVisitorCounterField } from '../Field/ProfileVisitorCounterField';
 import BlogPostField from './BlogPostField';
 import SpotifyListeningToField from './SpotifyListeningTo';
+import SupportMeToField from './SupportMeToField';
 
 const { TextArea } = Input;
 
@@ -63,6 +64,8 @@ export const Field = (
                 return <BlogPostField />;
             case FIELD_TYPES.SPOTIFY:
                 return <SpotifyListeningToField {...props} />;
+            case FIELD_TYPES.SUPPORTME:
+                return <SupportMeToField {...props} />;
         }
     };
 
