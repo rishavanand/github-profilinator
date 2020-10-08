@@ -7,4 +7,5 @@ export enum FIELD_TYPES {
     PROFILE_VISITOR_COUNTER = 'profile-visitor-counter',
     BLOG_POST = 'blog-post',
     SPOTIFY = 'spotify',
+    SUPPORTME = 'supportme',
 }
