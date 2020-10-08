@@ -168,7 +168,7 @@ const Section = (section: SectionProps & Required<Pick<SectionProps, 'sectionInd
                         <Card
                             key={columnIndex}
                             title={`Column #${columnIndex + 1}`}
-                            style={{ marginBottom: '25px' }}
+                            style={{ height: 'calc(100vh - 150px)', overflowY: 'scroll' }}
                             extra={
                                 <Tooltip placement="top" title={<span>Add a Field</span>}>
                                     <Button
@@ -298,11 +298,7 @@ const Section = (section: SectionProps & Required<Pick<SectionProps, 'sectionInd
         );
     else
         return (
-            <div
-                style={{
-                    minHeight: '100vh',
-                }}
-            >
+            <div>
                 <Row justify="space-between">
                     <Col>
                         <Title level={3}>{section.name} Section</Title>
