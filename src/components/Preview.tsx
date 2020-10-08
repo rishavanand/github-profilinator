@@ -136,7 +136,7 @@ export const Preview = ({ scrollRef }: { scrollRef: string }) => {
             <Divider />
             <div
                 className={styles.markdown}
-                style={{ height: 'calc(100vh - 170px)', overflowY: 'scroll' }}
+                style={{ height: 'calc(100vh - 150px)', overflowY: 'scroll', margin: 0 }}
                 dangerouslySetInnerHTML={{ __html: generateMarkdown().html }}
             />
             <Modal
