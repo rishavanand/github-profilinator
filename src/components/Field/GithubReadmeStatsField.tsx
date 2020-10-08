@@ -51,7 +51,7 @@ export const generateImageTag = (data: GithubReadmeStatsData, options: GithubRea
     if (!options.variant || options.variant === VARIANT.ACTIVITY_STATS)
         statsUrl = `https://github-readme-stats.vercel.app/api?username=${data.username}&show_icons=true&count_private=true&hide_border=true`;
     else if (options.variant === VARIANT.LANGUAGE_STATS)
-        statsUrl = `https://github-readme-stats.vercel.app/api/top-langs/?username=${data.username}&hide_border=true`;
+        statsUrl = `https://github-readme-stats.vercel.app/api/top-langs/?username=${data.username}&hide_border=true&layout=compact`;
 
     if (options.fitImage)
         return `<img src="${statsUrl}" align="${
