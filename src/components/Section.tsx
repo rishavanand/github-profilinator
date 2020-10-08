@@ -48,8 +48,8 @@ export const generateSectionMarkdown = ({ fields }: Partial<SectionProps>, type:
 export const generateColumnMarkdown = (columns: Partial<FieldProps[][]>, type: 'start' | 'end') => {
     const columnCount = columns && columns.length ? columns.length : 0;
     if (columnCount > 1 && type === 'start')
-        return `<td valign="top" width="${parseInt((100 / columnCount).toString())}%">`;
-    else if (columnCount > 1 && type === 'end') return `</td>`;
+        return `<td valign="top" width="${parseInt((100 / columnCount).toString())}%">\n\n`;
+    else if (columnCount > 1 && type === 'end') return `\n\n</td>`;
     else return '';
 };
 
