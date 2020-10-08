@@ -51,7 +51,7 @@ export const generateImageTag = (data: SupportMeData, options: SupportMeOptions)
         html += `
             <a href="${statsUrl.paypal}" target="_blank" style="display: inline-block;">
                 <img
-                    src="https://img.shields.io/badge/Donate-PayPal-green.svg?style=flat-square" 
+                    src="https://img.shields.io/badge/Donate-PayPal-blue.svg?style=flat-square" 
                     align="${options.alignment ? options.alignment : 'left'}"
                 />
             </a>`;
@@ -59,7 +59,7 @@ export const generateImageTag = (data: SupportMeData, options: SupportMeOptions)
         html += `
             <a href="${statsUrl.buymeacoffee}" target="_blank" style="display: inline-block;">
                 <img
-                    src="https://img.shields.io/badge/Donate-Buy%20Me%20A%20Coffee-yellow.svg?style=flat-square" 
+                    src="https://img.shields.io/badge/Donate-Buy%20Me%20A%20Coffee-orange.svg?style=flat-square" 
                     align="${options.alignment ? options.alignment : 'left'}"
                 />
             </a>`;
