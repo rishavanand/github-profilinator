@@ -22,6 +22,7 @@ import { generateBlogPostMarkdown } from './Field/BlogPostField';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStar } from '@fortawesome/free-solid-svg-icons';
 import { generateSpotifyListeningToMarkdown } from './Field/SpotifyListeningTo';
+import { generateSupportMeMarkdown } from './Field/SupportMeToField';
 
 const { Title } = Typography;
 const { TextArea } = Input;
@@ -64,6 +65,9 @@ export const Preview = ({ scrollRef }: { scrollRef: string }) => {
                         break;
                     case FIELD_TYPES.SPOTIFY:
                         returnField += generateSpotifyListeningToMarkdown(field);
+                        break;
+                    case FIELD_TYPES.SUPPORTME:
+                        returnField += generateSupportMeMarkdown(field);
                         break;
                 }
                 return returnField;
