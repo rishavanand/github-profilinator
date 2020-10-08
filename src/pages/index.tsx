@@ -56,7 +56,7 @@ const IndexPage = () => {
             </div>
             <Layout>
                 <Sidebar />
-                <Content style={{ padding: 16 }}>
+                <Content style={{ padding: 16, height: '100vh' }}>
                     <Row gutter={[16, 16]}>
                         <Col md={12} sm={24}>
                             <Section
