@@ -1,12 +1,14 @@
-import React, { useContext } from 'react';
+import React, { ReactElement, useContext, useState } from 'react';
 import { Row, Col, Button, Dropdown, Menu, Grid, Checkbox, Tooltip } from 'antd';
+import 'antd/dist/antd.css';
+import { Select } from 'antd';
 import { DownOutlined } from '@ant-design/icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowsAltV } from '@fortawesome/free-solid-svg-icons';
 import { FieldProps } from '.';
 import { SKILLS } from '../../config/skills';
 import { globalContext } from '../../context/GlobalContextProvider';
-
+const { Option } = Select;
 const { useBreakpoint } = Grid;
 
 export enum ALIGNMENT {
@@ -33,9 +35,10 @@ export interface SkillsFieldProps extends FieldProps {
     id?: string;
     data?: SkillsFieldData;
     options?: SkillsFieldOptions;
+    value?: string;
 }
 
-export const generateImageTag = (data: SkillsFieldData, options: SkillsFieldOptions) => {
+export const generateImageTag = (data: SkillsFieldData, options: SkillsFieldOptions): string => {
     return (
         `<div align="center">  \n` +
         data.list
@@ -47,7 +50,7 @@ export const generateImageTag = (data: SkillsFieldData, options: SkillsFieldOpti
     );
 };
 
-export const generateSkillsFieldMarkdown = ({ data, options }: SkillsFieldProps) => {
+export const generateSkillsFieldMarkdown = ({ data, options }: SkillsFieldProps): string => {
     if (!options) options = {};
     if (!data || !data.list)
         data = {
@@ -60,10 +63,24 @@ export const generateSkillsFieldMarkdown = ({ data, options }: SkillsFieldProps)
 export const SkillsField = (
     skillsFieldProps: SkillsFieldProps &
         Required<Pick<SkillsFieldProps, 'id' | 'sectionId' | 'sectionIndex' | 'columnIndex' | 'fieldIndex' | 'type'>>,
-) => {
+): ReactElement => {
     const { modifyField } = useContext(globalContext);
     const screens = useBreakpoint();
+    const [searchValue, setSearchValue] = useState('');
 
+    const onChangeSearchHandler = value => {
+        console.log(`selected ${value}`);
+        setSearchValue(value);
+    };
+    const onBlur = () => {
+        console.log('blur');
+    };
+    const onFocus = () => {
+        console.log('focus');
+    };
+    const onSearch = val => {
+        console.log('search:', val);
+    };
     const skillsColSpan = screens.md ? 6 : 12;
 
     const localSkillsFieldProps: typeof skillsFieldProps = {
@@ -124,19 +141,43 @@ export const SkillsField = (
                     </Col>
                 </Row>
             </Row>
+            <Select
+                showSearch
+                style={{ width: 200, marginBottom: '10px', float: 'right' }}
+                placeholder="Find your skill"
+                allowClear
+                optionFilterProp="children"
+                onChange={onChangeSearchHandler}
+                onFocus={onFocus}
+                onBlur={onBlur}
+                onSearch={onSearch}
+                filterOption={(input, option) => option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0}
+            >
+                {Object.keys(SKILLS).map(skill => {
+                    return (
+                        <Option key={SKILLS[skill].value} value={SKILLS[skill].value}>
+                            {SKILLS[skill].label}
+                        </Option>
+                    );
+                })}
+            </Select>
             <Checkbox.Group
                 defaultValue={localSkillsFieldProps.data.list}
                 style={{ width: '100%' }}
                 onChange={onChange}
             >
                 <Row>
-                    {Object.keys(SKILLS).map(skill => {
-                        return (
-                            <Col span={skillsColSpan} key={SKILLS[skill].value}>
-                                <Checkbox value={SKILLS[skill].value}>{SKILLS[skill].label}</Checkbox>
-                            </Col>
-                        );
-                    })}
+                    {Object.keys(SKILLS)
+                        .filter(skill =>
+                            searchValue !== '' && searchValue !== undefined ? skill === searchValue : 'null',
+                        )
+                        .map(skill => {
+                            return (
+                                <Col span={skillsColSpan} key={SKILLS[skill].value}>
+                                    <Checkbox value={SKILLS[skill].value}>{SKILLS[skill].label}</Checkbox>
+                                </Col>
+                            );
+                        })}
                 </Row>
             </Checkbox.Group>
             ,
