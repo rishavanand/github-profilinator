@@ -19,6 +19,17 @@ Pull requests are the best way to propose changes. We actively welcome your pull
 8. Create a new PR to `dev` branch
 9. Link your PR to the issue
 
+## Adding new readme templates
+
+1. Visit the Profilinator
+2. Click the `Start Fresh` button and create your new template from scratch
+3. Strictly use data from `template-1.ts` and `template-2.ts` for your new template
+4. If you need to add image, add under the `/static` directory
+5. Once done, click on the `Generate README.md` button. This will output the template config in the console
+6. Copy the config and create a template file under `/src/config/templates` with the name `template-[next-index].ts`
+7. Include the new config in `/src/config/templates/index.ts`
+8. Add the new config in `/src/components/Section.tsx` in the `templateMenu` function
+
 ## Check builds locally before pushing
 
 1. `npm run lint`
