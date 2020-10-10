@@ -1,24 +1,16 @@
 export const TEMPLATE_2 = [
     {
         name: 'Intro',
-        sectionIndex: 0,
         fields: [
             [
                 {
                     type: 'text',
-                    sectionIndex: 0,
-                    columnIndex: 0,
-                    id: 'd59c9df8-8b23-4ed2-9c3f-d0208e0f117b',
-                    fieldIndex: 0,
                     title: '',
                     data: { value: "Hey 👋, I'm Rishav Anand!" },
                     options: { size: 'h2' },
                 },
                 {
                     type: 'social',
-                    sectionIndex: 0,
-                    columnIndex: 0,
-                    id: '08daf153-4d52-423e-9369-e62a0614e07f',
                     options: {},
                     data: {
                         sites: {
@@ -30,14 +22,9 @@ export const TEMPLATE_2 = [
                             instagram: { username: 'iamrishavanand' },
                         },
                     },
-                    fieldIndex: 1,
                 },
                 {
                     type: 'text',
-                    sectionIndex: 0,
-                    columnIndex: 0,
-                    id: 'cb671c87-7013-49eb-b3e4-23142da55e08',
-                    fieldIndex: 2,
                     title: 'Glad to see you here!',
                     data: {
                         value:
@@ -50,75 +37,48 @@ export const TEMPLATE_2 = [
     },
     {
         name: 'Rapidfire',
-        id: '87bc73ff-7623-4fdb-90ec-dc92dcf1eaa2',
-        sectionIndex: 1,
         nameToMarkdown: true,
         fields: [
             [
                 {
                     type: 'text',
-                    sectionIndex: 1,
-                    columnIndex: 0,
-                    id: '7e9ab6e8-870d-4d75-a513-ace601ed1abb',
                     data: {
                         value:
                             '🔭 I’m currently working on [Github Profilinator](https://github.com/rishavanand/github-profilinator)',
                     },
                     options: { isList: true },
-                    fieldIndex: 0,
                 },
                 {
                     type: 'text',
-                    sectionIndex: 1,
-                    columnIndex: 0,
-                    id: 'e02404de-8abc-4535-9dc5-358efdc4812d',
                     data: { value: '🌱 I’m currently learning Hyperledger and Kubernetes' },
                     options: { isList: true },
-                    fieldIndex: 1,
                 },
                 {
                     type: 'text',
-                    sectionIndex: 1,
-                    columnIndex: 0,
-                    id: '346fd8af-dd5f-4cbc-9861-f2f7de019215',
                     data: { value: '❓ Ask me about anything related to MERN stack and related technologies' },
                     options: { isList: true },
-                    fieldIndex: 2,
                 },
                 {
                     type: 'text',
-                    sectionIndex: 1,
-                    columnIndex: 0,
-                    id: 'e3f57aff-880f-49f4-9864-77063dc9493b',
                     data: { value: '⚡ Fun fact: I keep night shift swithed on at all times ' },
                     options: { isList: true },
-                    fieldIndex: 3,
                 },
             ],
             [
                 {
                     type: 'image',
-                    sectionIndex: 1,
-                    columnIndex: 1,
-                    id: 'ffc4cd58-0147-42d4-99af-3b7870b128d7',
                     options: { alignment: 'center', fitImage: true },
                     data: { alt: 'Greetings', url: 'https://rishavanand.github.io/static/images/greetings.gif' },
-                    fieldIndex: 0,
                 },
             ],
         ],
     },
     {
         name: 'Languages and Tools',
-        id: 'f3baa9c1-f369-4627-aefe-820d3f394809',
         fields: [
             [
                 {
                     type: 'skills',
-                    sectionIndex: 2,
-                    columnIndex: 0,
-                    id: '7847a4fd-14c3-47c0-bf55-4c38f6237868',
-                    fieldIndex: 0,
                     title: '',
                     options: { size: '25' },
                     data: {
@@ -165,56 +125,40 @@ export const TEMPLATE_2 = [
                 },
             ],
         ],
-        sectionIndex: 2,
         nameToMarkdown: true,
     },
     {
         name: 'Github Stats',
-        id: '51397328-6f33-4eda-8fb9-191447025e57',
         fields: [
             [
                 {
                     type: 'github-stats',
-                    sectionIndex: 3,
-                    columnIndex: 0,
-                    id: 'b2526b7f-a4fd-437a-b47e-38609489ffa5',
                     options: { variant: 'activity', fitImage: true },
                     data: { username: 'rishavanand' },
-                    fieldIndex: 0,
                 },
             ],
             [
                 {
                     type: 'github-stats',
-                    sectionIndex: 3,
-                    columnIndex: 1,
-                    id: '519d3383-1e61-4a18-b8e7-39b720218e5d',
                     options: { variant: 'languages', fitImage: true },
                     data: { username: 'rishavanand' },
-                    fieldIndex: 0,
                 },
             ],
         ],
-        sectionIndex: 3,
         nameToMarkdown: true,
     },
-    { name: 'Show some love', id: '4f3a13cb-b738-492f-826c-81a3812b9584', fields: [[]] },
+    { name: 'Show some love', fields: [[]] },
     {
         name: 'Visitor Counter',
-        id: 'adf4b995-55be-4d5e-9800-83d600394d35',
         fields: [
             [
                 {
                     type: 'profile-visitor-counter',
-                    sectionIndex: 5,
-                    columnIndex: 0,
-                    id: '26571e98-2424-4906-bf1e-0aa83159471f',
                     options: {},
                     data: { username: 'rishavanand' },
-                    fieldIndex: 0,
                 },
             ],
         ],
     },
-    { name: 'Donate', id: '96f552eb-f4b6-43a7-a4e6-cb4aa6c9c936' },
+    { name: 'Donate' },
 ];
