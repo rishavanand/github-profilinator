@@ -62,16 +62,17 @@ export const generateProfileVisitorCounterMarkdown = ({ data, options }: FieldPr
     );
 };
 
-export const ProfileVisitorCounterField = (
-    props: ProfileVisitorCounterProps &
-        Required<Pick<ProfileVisitorCounterProps, 'sectionIndex' | 'columnIndex' | 'fieldIndex' | 'type'>>,
-) => {
-    const { modifyField } = useContext(globalContext);
-
-    const localProps: typeof props = {
+export const ProfileVisitorCounterField = ({
+    fieldProps,
+    modifyField,
+}: {
+    fieldProps: ProfileVisitorCounterProps;
+    modifyField: (filedProps: ProfileVisitorCounterProps) => void;
+}) => {
+    const localProps: typeof fieldProps = {
         options: {},
         data: {},
-        ...props,
+        ...fieldProps,
     };
 
     const onChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {

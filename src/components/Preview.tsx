@@ -109,6 +109,7 @@ export const Preview = ({ scrollRef }: { scrollRef: string }) => {
     };
 
     const toggleShowMarkdown = () => {
+        console.log(JSON.stringify(context.sections));
         setShowMarkdown(showMarkdown ? false : true);
     };
 

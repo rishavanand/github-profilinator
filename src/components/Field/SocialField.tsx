@@ -1,11 +1,10 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { Input, Row, Col, Button, Dropdown, Menu, Form, Tooltip } from 'antd';
 import { DownOutlined } from '@ant-design/icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAlignLeft } from '@fortawesome/free-solid-svg-icons';
 import { FieldProps } from '.';
 import { SOCIAL_SITE_IDS, SOCIAL_SITES } from '../../config/social';
-import { globalContext } from '../../context/GlobalContextProvider';
 
 const { TextArea } = Input;
 
@@ -73,18 +72,19 @@ export const generateSocialFieldMarkdown = ({ data, options = {} }: SocialFieldP
     );
 };
 
-export const SocialField = (
-    socialFieldProps: SocialFieldProps &
-        Required<Pick<SocialFieldProps, 'id' | 'sectionId' | 'sectionIndex' | 'columnIndex' | 'fieldIndex' | 'type'>>,
-) => {
-    const { modifyField } = useContext(globalContext);
-
-    const localSocialFieldProps: typeof socialFieldProps = {
+export const SocialField = ({
+    fieldProps,
+    modifyField,
+}: {
+    fieldProps: SocialFieldProps;
+    modifyField: (filedProps: SocialFieldProps) => void;
+}) => {
+    const localSocialFieldProps: typeof fieldProps = {
         options: {},
         data: {
             sites: {},
         },
-        ...socialFieldProps,
+        ...fieldProps,
     };
 
     const onChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {

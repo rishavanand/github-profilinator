@@ -1,35 +1,27 @@
 import React, { useState } from 'react';
 import { SectionProps } from '../components/Section';
-import { DEMO_SECTION_DATA } from '../config/demo';
+import * as TEMPLATES from '../config/templates';
 import { FieldProps } from '../components/Field';
 
 export interface GlobalContext {
     activeSectionIndex?: number;
-    sections?: Array<SectionProps & Required<Pick<SectionProps, 'sectionIndex'>>>;
+    sections?: SectionProps[];
     changeActiveSection?: React.Dispatch<React.SetStateAction<number>>;
     addSection?: (sectionProps: SectionProps) => void;
-    shiftSection?: (
-        props: SectionProps & Required<Pick<SectionProps, 'sectionIndex'>>,
-        direction: 'up' | 'down',
-    ) => void;
+    shiftSection?: (direction: 'up' | 'down', sectionIndex: number) => void;
     resetSections?: () => void;
-    useTemplate?: () => void;
-    deleteSection?: (sectionProps: SectionProps & Required<Pick<SectionProps, 'sectionIndex'>>) => void;
+    useTemplate?: (templateId?: string) => void;
+    deleteSection?: (sectionIndex: number) => void;
     findSectionById?: (id: string) => SectionProps;
-    modifySection?: (sectionProps: SectionProps & Required<Pick<SectionProps, 'sectionIndex'>>) => void;
+    modifySection?: (sectionProps: SectionProps, sectionIndex: number) => void;
     addField?: (
-        fieldProps: FieldProps & Required<Pick<FieldProps, 'id' | 'type' | 'sectionIndex' | 'columnIndex'>>,
+        fieldProps: FieldProps & Required<Pick<FieldProps, 'type'>>,
+        sectionIndex: number,
+        columnIndex: number,
     ) => void;
-    modifyField?: (
-        fieldProps: FieldProps & Required<Pick<FieldProps, 'columnIndex' | 'fieldIndex' | 'sectionIndex'>>,
-    ) => void;
-    deleteField?: (
-        fieldProps: FieldProps & Required<Pick<FieldProps, 'columnIndex' | 'fieldIndex' | 'sectionIndex'>>,
-    ) => void;
-    shiftField?: (
-        fieldProps: FieldProps & Required<Pick<FieldProps, 'columnIndex' | 'fieldIndex' | 'sectionIndex'>>,
-        direction: 'up' | 'down',
-    ) => void;
+    modifyField?: (fieldProps: FieldProps, sectionIndex: number, columnIndex: number, fieldIndex: number) => void;
+    deleteField?: (sectionIndex: number, columnIndex: number, fieldIndex: number) => void;
+    shiftField?: (direction: 'up' | 'down', sectionIndex: number, columnIndex: number, fieldIndex: number) => void;
     changeColumnCount?: (sectionIndex: number, columnCount: number) => void;
 }
 
@@ -37,24 +29,19 @@ export const globalContext = React.createContext<GlobalContext>({});
 
 const Provider = (props: { children: React.ReactChildren }) => {
     const [activeSectionIndex, changeActiveSection] = useState(0);
-    const [sections, modifySections] = useState(DEMO_SECTION_DATA);
+    const [sections, modifySections] = useState(TEMPLATES['TEMPLATE_1'] as SectionProps[]);
 
-    const addSection = (sectionData: SectionProps & Required<Pick<SectionProps, 'sectionIndex'>>) => {
+    const addSection = (sectionData: SectionProps) => {
         sections.push(sectionData);
         modifySections(sections.map(section => section));
     };
 
-    const modifySection = (sectionProps: SectionProps & Required<Pick<SectionProps, 'sectionIndex'>>) => {
-        const { sectionIndex } = sectionProps;
+    const modifySection = (sectionProps: SectionProps, sectionIndex: number) => {
         sections[sectionIndex] = sectionProps;
         modifySections(sections.map(section => section));
     };
 
-    const shiftSection = (
-        sectionProps: SectionProps & Required<Pick<SectionProps, 'sectionIndex'>>,
-        direction: 'up' | 'down',
-    ): void => {
-        const { sectionIndex } = sectionProps;
+    const shiftSection = (direction: 'up' | 'down', sectionIndex: number): void => {
         if ((sectionIndex <= 0 && direction === 'up') || (sectionIndex >= sections.length - 1 && direction === 'down'))
             return;
         const section = sections.splice(sectionIndex, 1);
@@ -63,8 +50,7 @@ const Provider = (props: { children: React.ReactChildren }) => {
         modifySections(sections.map(section => section));
     };
 
-    const deleteSection = (sectionProps: SectionProps & Required<Pick<SectionProps, 'sectionIndex'>>) => {
-        const { sectionIndex } = sectionProps;
+    const deleteSection = (sectionIndex: number) => {
         sections.splice(sectionIndex, 1);
         modifySections(sections.map(section => section));
     };
@@ -73,30 +59,27 @@ const Provider = (props: { children: React.ReactChildren }) => {
         modifySections([
             {
                 name: 'Intro',
-                sectionIndex: 0,
             },
         ]);
         changeActiveSection(0);
     };
 
-    const useTemplate = () => {
-        modifySections(DEMO_SECTION_DATA);
+    const useTemplate = (templateId?: string) => {
+        modifySections(TEMPLATES[templateId]);
         changeActiveSection(0);
     };
 
     const addField = (
-        fieldProps: FieldProps & Required<Pick<FieldProps, 'id' | 'type' | 'sectionIndex' | 'columnIndex'>>,
+        fieldProps: FieldProps & Required<Pick<FieldProps, 'type'>>,
+        sectionIndex: number,
+        columnIndex: number,
     ) => {
-        const { sectionIndex, columnIndex } = fieldProps;
         if (!sections[sectionIndex].fields) sections[sectionIndex].fields = [[]];
         sections[sectionIndex].fields[columnIndex].push(fieldProps);
         modifySections(sections.map(section => section));
     };
 
-    const modifyField = (
-        fieldProps: FieldProps & Required<Pick<FieldProps, 'columnIndex' | 'fieldIndex' | 'sectionIndex'>>,
-    ) => {
-        const { sectionIndex, columnIndex, fieldIndex } = fieldProps;
+    const modifyField = (fieldProps: FieldProps, sectionIndex: number, columnIndex: number, fieldIndex: number) => {
         if (!sections[sectionIndex].fields || !sections[sectionIndex].fields.length)
             sections[sectionIndex].fields = [[]];
         sections[sectionIndex].fields[columnIndex][fieldIndex] = {
@@ -106,11 +89,7 @@ const Provider = (props: { children: React.ReactChildren }) => {
         modifySections(sections.map(section => section));
     };
 
-    const shiftField = (
-        fieldProps: FieldProps & Required<Pick<FieldProps, 'columnIndex' | 'fieldIndex' | 'sectionIndex'>>,
-        direction: 'up' | 'down',
-    ) => {
-        const { sectionIndex, columnIndex, fieldIndex } = fieldProps;
+    const shiftField = (direction: 'up' | 'down', sectionIndex: number, columnIndex: number, fieldIndex: number) => {
         if (
             (fieldIndex <= 0 && direction === 'up') ||
             (fieldIndex >= sections[sectionIndex].fields[columnIndex].length - 1 && direction === 'down')
@@ -122,10 +101,7 @@ const Provider = (props: { children: React.ReactChildren }) => {
         modifySections(sections.map(section => section));
     };
 
-    const deleteField = (
-        fieldProps: FieldProps & Required<Pick<FieldProps, 'columnIndex' | 'fieldIndex' | 'sectionIndex'>>,
-    ) => {
-        const { sectionIndex, columnIndex, fieldIndex } = fieldProps;
+    const deleteField = (sectionIndex: number, columnIndex: number, fieldIndex: number) => {
         sections[sectionIndex].fields[columnIndex].splice(fieldIndex, 1);
         modifySections(sections.map(section => section));
     };

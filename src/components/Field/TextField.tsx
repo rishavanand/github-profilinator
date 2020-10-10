@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { Input, Row, Col, Button, Dropdown, Menu, Popover, Tooltip } from 'antd';
 import { DownOutlined } from '@ant-design/icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -16,7 +16,6 @@ import {
 import { FieldProps } from '.';
 import 'emoji-mart/css/emoji-mart.css';
 import { Picker } from 'emoji-mart';
-import { globalContext } from '../../context/GlobalContextProvider';
 
 const { TextArea } = Input;
 
@@ -103,16 +102,17 @@ export const generateTextFieldMarkdown = ({ options, data }: TextFieldProps) => 
     );
 };
 
-export const TextField = (
-    textFieldProps: TextFieldProps &
-        Required<Pick<TextFieldProps, 'id' | 'sectionId' | 'sectionIndex' | 'columnIndex' | 'fieldIndex' | 'type'>>,
-) => {
-    const { modifyField } = useContext(globalContext);
-
-    const localTextFieldProps: typeof textFieldProps = {
+export const TextField = ({
+    fieldProps,
+    modifyField,
+}: {
+    fieldProps: TextFieldProps;
+    modifyField: (fieldProps: TextFieldProps) => void;
+}) => {
+    const localTextFieldProps: typeof fieldProps = {
         data: {},
         options: {},
-        ...textFieldProps,
+        ...fieldProps,
     };
 
     const onChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
