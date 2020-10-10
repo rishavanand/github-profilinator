@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { Input, Row, Col, Button, Dropdown, Menu, Form, Switch, Tooltip } from 'antd';
 import { DownOutlined } from '@ant-design/icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -6,7 +6,6 @@ import styles from '../../styles/fields.module.scss';
 import { faAlignLeft, faExpandArrowsAlt } from '@fortawesome/free-solid-svg-icons';
 import { faSpotify } from '@fortawesome/free-brands-svg-icons';
 import { FieldProps } from '.';
-import { globalContext } from '../../context/GlobalContextProvider';
 
 const { TextArea } = Input;
 
@@ -51,18 +50,17 @@ export const generateSpotifyListeningToMarkdown = ({ data, options }: SpotifyLis
     else return `![Listening to on Spotify](${svgLink})`;
 };
 
-export const SpotifyListeningToField = (
-    imageFieldProps: SpotifyListeningToProps &
-        Required<
-            Pick<SpotifyListeningToProps, 'id' | 'sectionId' | 'sectionIndex' | 'columnIndex' | 'fieldIndex' | 'type'>
-        >,
-) => {
-    const { modifyField } = useContext(globalContext);
-
-    const localSpotifyListeningProps: typeof imageFieldProps = {
+export const SpotifyListeningToField = ({
+    fieldProps,
+    modifyField,
+}: {
+    fieldProps: SpotifyListeningToProps;
+    modifyField: (filedProps: SpotifyListeningToProps) => void;
+}) => {
+    const localSpotifyListeningProps: typeof fieldProps = {
         options: {},
         data: {},
-        ...imageFieldProps,
+        ...fieldProps,
     };
 
     const onChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {

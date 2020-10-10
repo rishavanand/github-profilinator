@@ -1,11 +1,10 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { Row, Col, Button, Dropdown, Menu, Grid, Checkbox, Tooltip } from 'antd';
 import { DownOutlined } from '@ant-design/icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowsAltV } from '@fortawesome/free-solid-svg-icons';
 import { FieldProps } from '.';
 import { SKILLS } from '../../config/skills';
-import { globalContext } from '../../context/GlobalContextProvider';
 
 const { useBreakpoint } = Grid;
 
@@ -57,23 +56,25 @@ export const generateSkillsFieldMarkdown = ({ data, options }: SkillsFieldProps)
     return `${generateImageTag(data, options)}`;
 };
 
-export const SkillsField = (
-    skillsFieldProps: SkillsFieldProps &
-        Required<Pick<SkillsFieldProps, 'id' | 'sectionId' | 'sectionIndex' | 'columnIndex' | 'fieldIndex' | 'type'>>,
-) => {
-    const { modifyField } = useContext(globalContext);
+export const SkillsField = ({
+    fieldProps,
+    modifyField,
+}: {
+    fieldProps: SkillsFieldProps;
+    modifyField: (filedProps: SkillsFieldProps) => void;
+}) => {
     const screens = useBreakpoint();
 
     const skillsColSpan = screens.md ? 6 : 12;
 
-    const localSkillsFieldProps: typeof skillsFieldProps = {
+    const localSkillsFieldProps: typeof fieldProps = {
         options: {
             size: SIZE.MEDIUM,
         },
         data: {
             list: [],
         },
-        ...skillsFieldProps,
+        ...fieldProps,
     };
 
     const onChange = checkedSkills => {

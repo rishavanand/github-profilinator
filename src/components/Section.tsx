@@ -1,4 +1,4 @@
-import React, { Component, useState, useContext } from 'react';
+import React, { useState, useContext } from 'react';
 import {
     Row,
     Col,
@@ -21,7 +21,6 @@ import { PlusOutlined, FireOutlined, DownOutlined, RedoOutlined } from '@ant-des
 import { globalContext, GlobalContext } from '../context/GlobalContextProvider';
 import Field, { FieldProps } from '../components/Field';
 import { FIELD_TYPES } from '../config/global';
-import { v4 as uuidv4 } from 'uuid';
 import { faColumns, faCog, faCaretUp, faCaretDown, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
@@ -31,7 +30,6 @@ const { useBreakpoint } = Grid;
 
 export interface SectionProps {
     id?: string;
-    sectionIndex?: number;
     name?: string;
     nameToMarkdown?: boolean;
     fields?: Array<Array<FieldProps>>;
@@ -59,7 +57,7 @@ export const generateSectionTitleMarkdown = (props: SectionProps) => {
     else return '';
 };
 
-const Section = (section: SectionProps & Required<Pick<SectionProps, 'sectionIndex'>>) => {
+const Section = (section: SectionProps) => {
     const [activeSectionIndex, setActiveSectionIndex] = useState(0);
     const [activeColumnIndex, setActiveColumnIndex] = useState(0);
     const [addFieldVisible, setAddFieldVisibility] = useState(false);
@@ -70,10 +68,7 @@ const Section = (section: SectionProps & Required<Pick<SectionProps, 'sectionInd
     const buttonSize = screens.md ? 'middle' : 'small';
 
     const generateFields = (
-        fields: [
-            Required<Pick<FieldProps, 'id' | 'type' | 'sectionIndex' | 'columnIndex' | 'fieldIndex' | 'sectionId'>> &
-                FieldProps,
-        ],
+        fields: [Required<Pick<FieldProps, 'type'>> & FieldProps],
         sectionIndex: number,
         columnIndex: number,
     ) => {
@@ -81,11 +76,11 @@ const Section = (section: SectionProps & Required<Pick<SectionProps, 'sectionInd
             return <>You have not added any fields in this section. Please add a new field to view it here.</>;
         return fields.map((field, fieldIndex) => (
             <Field
-                {...field}
+                props={field}
                 sectionIndex={sectionIndex}
                 columnIndex={columnIndex}
                 fieldIndex={fieldIndex}
-                key={field.id}
+                key={`field-${sectionIndex}-${columnIndex}-${fieldIndex}`}
             />
         ));
     };
@@ -110,11 +105,18 @@ const Section = (section: SectionProps & Required<Pick<SectionProps, 'sectionInd
         );
     };
 
-    const addField = (formProps: FieldProps & Required<Pick<FieldProps, 'type' | 'sectionIndex' | 'columnIndex'>>) => {
-        context.addField({
-            ...formProps,
-            id: uuidv4(),
-        });
+    const addField = (
+        formProps: FieldProps & Required<Pick<FieldProps, 'type'>>,
+        sectionIndex: number,
+        columnIndex: number,
+    ) => {
+        context.addField(
+            {
+                ...formProps,
+            },
+            sectionIndex,
+            columnIndex,
+        );
         setAddFieldVisibility(false);
     };
 
@@ -128,7 +130,7 @@ const Section = (section: SectionProps & Required<Pick<SectionProps, 'sectionInd
                     form.validateFields()
                         .then((values: FieldProps & Required<Pick<FieldProps, 'type'>>) => {
                             form.resetFields();
-                            addField({ ...values, sectionIndex: activeSectionIndex, columnIndex: activeColumnIndex });
+                            addField(values, activeSectionIndex, activeColumnIndex);
                         })
                         .catch(info => {
                             console.log('Validate Failed:', info);
@@ -141,26 +143,8 @@ const Section = (section: SectionProps & Required<Pick<SectionProps, 'sectionInd
         );
     };
 
-    const generateColumnCards = (
-        fields: [
-            [
-                Required<
-                    Pick<FieldProps, 'id' | 'type' | 'sectionIndex' | 'columnIndex' | 'fieldIndex' | 'sectionId'>
-                > &
-                    FieldProps,
-            ],
-        ],
-        sectionIndex: number,
-    ) => {
-        if (!fields || !fields.length)
-            fields = [
-                ([] as unknown) as [
-                    Required<
-                        Pick<FieldProps, 'type' | 'id' | 'sectionIndex' | 'columnIndex' | 'fieldIndex' | 'sectionId'>
-                    > &
-                        FieldProps,
-                ],
-            ];
+    const generateColumnCards = (fields: [[Required<Pick<FieldProps, 'type'>> & FieldProps]], sectionIndex: number) => {
+        if (!fields || !fields.length) fields = [([] as unknown) as [Required<Pick<FieldProps, 'type'>> & FieldProps]];
         return (
             <>
                 {fields.map((field, columnIndex) => {
@@ -199,26 +183,29 @@ const Section = (section: SectionProps & Required<Pick<SectionProps, 'sectionInd
 
     const columnCountMenu = (
         <Menu>
-            <Menu.Item key="1" onClick={() => section.changeColumnCount(section.sectionIndex, 1)}>
+            <Menu.Item key="1" onClick={() => section.changeColumnCount(context.activeSectionIndex, 1)}>
                 1
             </Menu.Item>
-            <Menu.Item key="2" onClick={() => section.changeColumnCount(section.sectionIndex, 2)}>
+            <Menu.Item key="2" onClick={() => section.changeColumnCount(context.activeSectionIndex, 2)}>
                 2
             </Menu.Item>
-            <Menu.Item key="3" onClick={() => section.changeColumnCount(section.sectionIndex, 3)}>
+            <Menu.Item key="3" onClick={() => section.changeColumnCount(context.activeSectionIndex, 3)}>
                 3
             </Menu.Item>
         </Menu>
     );
 
-    const toggleNameToMarkdown = () => {
-        context.modifySection({
-            ...section,
-            nameToMarkdown: section.nameToMarkdown ? false : true,
-        });
+    const toggleNameToMarkdown = (sectionIndex: number) => {
+        context.modifySection(
+            {
+                ...section,
+                nameToMarkdown: section.nameToMarkdown ? false : true,
+            },
+            sectionIndex,
+        );
     };
 
-    const generateSectionSettings = () => {
+    const generateSectionSettings = (sectionIndex: number) => {
         return (
             <table>
                 <tr>
@@ -242,7 +229,7 @@ const Section = (section: SectionProps & Required<Pick<SectionProps, 'sectionInd
                         <Switch
                             style={{ paddingLeft: 5, paddingRight: 5, marginRight: 10, marginTop: 10 }}
                             checked={section.nameToMarkdown}
-                            onChange={toggleNameToMarkdown}
+                            onChange={() => toggleNameToMarkdown(sectionIndex)}
                         />
                     </td>
                     <td> Use section name in markdown</td>
@@ -256,7 +243,7 @@ const Section = (section: SectionProps & Required<Pick<SectionProps, 'sectionInd
                                         <FontAwesomeIcon icon={faCaretUp} />
                                     </>
                                 }
-                                onClick={() => context.shiftSection(section, 'up')}
+                                onClick={() => context.shiftSection('up', sectionIndex)}
                                 size={buttonSize}
                             />
                         </Tooltip>
@@ -267,7 +254,7 @@ const Section = (section: SectionProps & Required<Pick<SectionProps, 'sectionInd
                                         <FontAwesomeIcon icon={faCaretDown} />
                                     </>
                                 }
-                                onClick={() => context.shiftSection(section, 'down')}
+                                onClick={() => context.shiftSection('down', sectionIndex)}
                                 size={buttonSize}
                             />
                         </Tooltip>
@@ -282,7 +269,7 @@ const Section = (section: SectionProps & Required<Pick<SectionProps, 'sectionInd
                                     <FontAwesomeIcon icon={faTimes} />
                                 </>
                             }
-                            onClick={() => context.deleteSection(section)}
+                            onClick={() => context.deleteSection(sectionIndex)}
                             size={buttonSize}
                         />
                     </td>
@@ -291,6 +278,13 @@ const Section = (section: SectionProps & Required<Pick<SectionProps, 'sectionInd
             </table>
         );
     };
+
+    const templateMenu = (
+        <Menu>
+            <Menu.Item onClick={() => context.useTemplate('TEMPLATE_1')}>Template 1</Menu.Item>
+            <Menu.Item onClick={() => context.useTemplate('TEMPLATE_2')}>Template 2</Menu.Item>
+        </Menu>
+    );
 
     if (!section)
         return (
@@ -305,9 +299,11 @@ const Section = (section: SectionProps & Required<Pick<SectionProps, 'sectionInd
                     </Col>
                     <Col>
                         <Space>
-                            <Button type="primary" ghost block onClick={context.useTemplate} size={buttonSize}>
-                                <FireOutlined /> Use template
-                            </Button>
+                            <Dropdown overlay={templateMenu} placement="bottomCenter" arrow>
+                                <Button type="primary" ghost block size={buttonSize}>
+                                    <FireOutlined /> Use template
+                                </Button>
+                            </Dropdown>
 
                             <Button type="primary" ghost block onClick={context.resetSections} size={buttonSize}>
                                 <RedoOutlined /> Start fresh
@@ -328,18 +324,8 @@ const Section = (section: SectionProps & Required<Pick<SectionProps, 'sectionInd
 
                 <Divider />
                 {generateColumnCards(
-                    section.fields as [
-                        [
-                            Required<
-                                Pick<
-                                    FieldProps,
-                                    'id' | 'type' | 'sectionIndex' | 'columnIndex' | 'fieldIndex' | 'sectionId'
-                                >
-                            > &
-                                FieldProps,
-                        ],
-                    ],
-                    section.sectionIndex,
+                    section.fields as [[Required<Pick<FieldProps, 'type'>> & FieldProps]],
+                    context.activeSectionIndex,
                 )}
             </div>
         );

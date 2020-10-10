@@ -1,5 +1,4 @@
-import React, { useContext } from 'react';
-import { Input, Form } from 'antd';
+import React from 'react';
 
 export const generateBlogPostMarkdown = () => {
     return `<!-- BLOG-POST-LIST:START -->  \nIf things goes well, this section should automatically be replaced by a list of your blog posts after you commit your readme file. \n<!-- BLOG-POST-LIST:END -->`;

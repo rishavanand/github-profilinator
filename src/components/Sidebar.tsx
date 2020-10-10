@@ -1,14 +1,12 @@
 import React, { useState, useContext } from 'react';
-import { Form, Input, Select, Layout, Menu, Button, Divider, Modal, Tooltip } from 'antd';
-import { CloseCircleOutlined, PlusOutlined } from '@ant-design/icons';
+import { Form, Input, Layout, Menu, Button, Divider, Modal, Tooltip } from 'antd';
+import { PlusOutlined } from '@ant-design/icons';
 import styles from '../styles/sidebar.module.scss';
 import { globalContext, GlobalContext } from '../context/GlobalContextProvider';
-import { v4 as uuidv4 } from 'uuid';
 import { SectionProps } from './Section';
 
 const { TextArea } = Input;
 const { Sider } = Layout;
-const { Option } = Select;
 
 export const Sidebar = () => {
     const [addSectionVisible, setAddSectionVisibility] = useState(false);
@@ -18,7 +16,6 @@ export const Sidebar = () => {
     const addSection = (formValues: { name: string }) => {
         context.addSection({
             ...formValues,
-            id: uuidv4(),
         });
         setAddSectionVisibility(false);
     };

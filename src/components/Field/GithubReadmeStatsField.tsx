@@ -1,11 +1,10 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { Input, Row, Col, Button, Dropdown, Menu, Form, Switch, Tooltip } from 'antd';
 import { DownOutlined } from '@ant-design/icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import styles from '../../styles/fields.module.scss';
 import { faAlignLeft, faExpandArrowsAlt } from '@fortawesome/free-solid-svg-icons';
 import { FieldProps } from '.';
-import { globalContext } from '../../context/GlobalContextProvider';
 
 const { TextArea } = Input;
 
@@ -73,18 +72,17 @@ export const generateGithubReadmeStatsMarkdown = ({ data, options }: GithubReadm
     );
 };
 
-export const GithubReadmeStatsField = (
-    imageFieldProps: GithubReadmeStatsProps &
-        Required<
-            Pick<GithubReadmeStatsProps, 'id' | 'sectionId' | 'sectionIndex' | 'columnIndex' | 'fieldIndex' | 'type'>
-        >,
-) => {
-    const { modifyField } = useContext(globalContext);
-
-    const localGithubReadmeStatsProps: typeof imageFieldProps = {
+export const GithubReadmeStatsField = ({
+    fieldProps,
+    modifyField,
+}: {
+    fieldProps: GithubReadmeStatsProps;
+    modifyField: (filedProps: GithubReadmeStatsProps) => void;
+}) => {
+    const localGithubReadmeStatsProps: typeof fieldProps = {
         options: {},
         data: {},
-        ...imageFieldProps,
+        ...fieldProps,
     };
 
     const onChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {

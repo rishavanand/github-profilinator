@@ -1,12 +1,9 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { Input, Row, Col, Button, Dropdown, Menu, Form, Switch, Tooltip } from 'antd';
 import { DownOutlined } from '@ant-design/icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faAlignLeft, faExpandArrowsAlt } from '@fortawesome/free-solid-svg-icons';
-
+import { faAlignLeft } from '@fortawesome/free-solid-svg-icons';
 import { FieldProps } from '.';
-import { globalContext } from '../../context/GlobalContextProvider';
-import styles from '../../styles/fields.module.scss';
 
 const { TextArea } = Input;
 
@@ -80,16 +77,17 @@ export const generateSupportMeMarkdown = ({ data, options }: SupportMeProps) => 
     );
 };
 
-export const SupportMeField = (
-    imageFieldProps: SupportMeProps &
-        Required<Pick<SupportMeProps, 'id' | 'sectionId' | 'sectionIndex' | 'columnIndex' | 'fieldIndex' | 'type'>>,
-) => {
-    const { modifyField } = useContext(globalContext);
-
-    const localSupportMeProps: typeof imageFieldProps = {
+export const SupportMeField = ({
+    fieldProps,
+    modifyField,
+}: {
+    fieldProps: SupportMeProps;
+    modifyField: (fieldProps: SupportMeProps) => void;
+}) => {
+    const localSupportMeProps: typeof fieldProps = {
         options: {},
         data: {},
-        ...imageFieldProps,
+        ...fieldProps,
     };
 
     const onChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {

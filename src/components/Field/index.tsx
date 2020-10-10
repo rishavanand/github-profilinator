@@ -17,11 +17,7 @@ import SupportMeToField from './SupportMeToField';
 const { TextArea } = Input;
 
 export interface FieldProps {
-    id?: string;
     title?: string;
-    sectionIndex?: number;
-    columnIndex?: number;
-    fieldIndex?: number;
     type?: FIELD_TYPES;
     sectionId?: string;
     data?: any;
@@ -34,10 +30,17 @@ export const generateFieldTitleMarkdown = (props: FieldProps) => {
     else return '';
 };
 
-export const Field = (
-    props: FieldProps &
-        Required<Pick<FieldProps, 'id' | 'type' | 'sectionId' | 'sectionIndex' | 'columnIndex' | 'fieldIndex'>>,
-) => {
+export const Field = ({
+    props,
+    sectionIndex,
+    columnIndex,
+    fieldIndex,
+}: {
+    props: FieldProps & Required<Pick<FieldProps, 'type'>>;
+    sectionIndex: number;
+    columnIndex: number;
+    fieldIndex: number;
+}) => {
     const context = useContext(globalContext);
     const { type, title } = props;
     const [titleEditState, editTitleEditState] = useState(false);
@@ -47,34 +50,45 @@ export const Field = (
     };
 
     const generateField = () => {
+        const { modifyField: modifyFieldInContext } = useContext(globalContext);
+
+        const modifyField = (fieldProps: FieldProps) => {
+            modifyFieldInContext({ ...fieldProps }, sectionIndex, columnIndex, fieldIndex);
+        };
+
         switch (type) {
             case FIELD_TYPES.TEXT:
-                return <TextField {...props} />;
+                return <TextField fieldProps={props} modifyField={modifyField} />;
             case FIELD_TYPES.IMAGE:
-                return <ImageField {...props} />;
+                return <ImageField fieldProps={props} modifyField={modifyField} />;
             case FIELD_TYPES.GITHUB_STATS:
-                return <GithubReadmeStatsField {...props} />;
+                return <GithubReadmeStatsField fieldProps={props} modifyField={modifyField} />;
             case FIELD_TYPES.SKILLS:
-                return <SkillsField {...props} />;
+                return <SkillsField fieldProps={props} modifyField={modifyField} />;
             case FIELD_TYPES.SOCIAL:
-                return <SocialField {...props} />;
+                return <SocialField fieldProps={props} modifyField={modifyField} />;
             case FIELD_TYPES.PROFILE_VISITOR_COUNTER:
-                return <ProfileVisitorCounterField {...props} />;
+                return <ProfileVisitorCounterField fieldProps={props} modifyField={modifyField} />;
             case FIELD_TYPES.BLOG_POST:
                 return <BlogPostField />;
             case FIELD_TYPES.SPOTIFY:
-                return <SpotifyListeningToField {...props} />;
+                return <SpotifyListeningToField fieldProps={props} modifyField={modifyField} />;
             case FIELD_TYPES.SUPPORTME:
-                return <SupportMeToField {...props} />;
+                return <SupportMeToField fieldProps={props} modifyField={modifyField} />;
         }
     };
 
     const changeTitle = e => {
         const value = e.target.value;
-        context.modifyField({
-            ...props,
-            title: value,
-        });
+        context.modifyField(
+            {
+                ...props,
+                title: value,
+            },
+            sectionIndex,
+            columnIndex,
+            fieldIndex,
+        );
     };
 
     const generateCardTitle = () => {
@@ -101,7 +115,7 @@ export const Field = (
         const closeButton = (
             <Tooltip placement="top" title={<span>Remove Field</span>}>
                 <Button
-                    onClick={() => context.deleteField(props)}
+                    onClick={() => context.deleteField(sectionIndex, columnIndex, fieldIndex)}
                     icon={
                         <>
                             <FontAwesomeIcon icon={faTimes} />
@@ -119,7 +133,7 @@ export const Field = (
                             <FontAwesomeIcon icon={faCaretUp} />
                         </>
                     }
-                    onClick={() => context.shiftField(props, 'up')}
+                    onClick={() => context.shiftField('up', sectionIndex, columnIndex, fieldIndex)}
                 />
             </Tooltip>
         );
@@ -132,7 +146,7 @@ export const Field = (
                             <FontAwesomeIcon icon={faCaretDown} />
                         </>
                     }
-                    onClick={() => context.shiftField(props, 'down')}
+                    onClick={() => context.shiftField('down', sectionIndex, columnIndex, fieldIndex)}
                 />
             </Tooltip>
         );
