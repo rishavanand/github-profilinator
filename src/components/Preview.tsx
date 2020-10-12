@@ -92,12 +92,12 @@ export const Preview = ({ scrollRef }: { scrollRef: string }) => {
         if (!sections) sections = [];
         return sections
             .map(section => {
-                return (
+                const sectionMarkdown =
                     generateSectionTitleMarkdown(section) +
                     generateSectionMarkdownExt(section, 'start') +
                     generateColumnMarkdown(section.fields) +
-                    generateSectionMarkdownExt(section, 'end')
-                );
+                    generateSectionMarkdownExt(section, 'end');
+                return section.collapsable ? '<details>' + sectionMarkdown + '</details>' : sectionMarkdown;
             })
             .join('  \n\n<br/>  \n\n');
     };

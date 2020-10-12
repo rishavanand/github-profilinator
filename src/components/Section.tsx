@@ -32,6 +32,7 @@ export interface SectionProps {
     id?: string;
     name?: string;
     nameToMarkdown?: boolean;
+    collapsable?: boolean;
     fields?: Array<Array<FieldProps>>;
     changeColumnCount?: (sectionIndex: number, columnCount: number) => void;
 }
@@ -52,8 +53,9 @@ export const generateColumnMarkdown = (columns: Partial<FieldProps[][]>, type: '
 };
 
 export const generateSectionTitleMarkdown = (props: SectionProps) => {
-    const { name, nameToMarkdown } = props;
-    if (nameToMarkdown && name) return `\n## ${name}  \n`;
+    const { name, nameToMarkdown, collapsable } = props;
+    if (nameToMarkdown && name && !collapsable) return `\n## ${name}  \n`;
+    else if (nameToMarkdown && name && collapsable) return `<summary> ${name} </summary>`;
     else return '';
 };
 
@@ -205,76 +207,98 @@ const Section = (section: SectionProps) => {
         );
     };
 
+    const toggleCollapsable = (sectionIndex: number) => {
+        context.modifySection(
+            {
+                ...section,
+                collapsable: section.collapsable ? false : true,
+            },
+            sectionIndex,
+        );
+    };
+
     const generateSectionSettings = (sectionIndex: number) => {
         return (
             <table>
-                <tr>
-                    <td>
-                        <Dropdown overlay={columnCountMenu}>
+                <tbody>
+                    <tr>
+                        <td>
+                            <Dropdown overlay={columnCountMenu}>
+                                <Button
+                                    style={{ paddingLeft: 5, paddingRight: 5, width: 50 }}
+                                    icon={
+                                        <>
+                                            <FontAwesomeIcon icon={faColumns} /> <DownOutlined />
+                                        </>
+                                    }
+                                    size={buttonSize}
+                                />
+                            </Dropdown>
+                        </td>
+                        <td>Number of columns</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <Switch
+                                style={{ paddingLeft: 5, paddingRight: 5, marginRight: 10, marginTop: 10 }}
+                                checked={section.nameToMarkdown}
+                                onChange={() => toggleNameToMarkdown(sectionIndex)}
+                            />
+                        </td>
+                        <td> Use section name in markdown</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <Switch
+                                style={{ paddingLeft: 5, paddingRight: 5, marginRight: 10, marginTop: 10 }}
+                                checked={section.collapsable}
+                                onChange={() => toggleCollapsable(sectionIndex)}
+                            />
+                        </td>
+                        <td> Make section collapsable</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <Tooltip placement="top" title={<span>Shift Section Upwards</span>}>
+                                <Button
+                                    icon={
+                                        <>
+                                            <FontAwesomeIcon icon={faCaretUp} />
+                                        </>
+                                    }
+                                    onClick={() => context.shiftSection('up', sectionIndex)}
+                                    size={buttonSize}
+                                />
+                            </Tooltip>
+                            <Tooltip placement="top" title={<span>Shift Section Downwards</span>}>
+                                <Button
+                                    icon={
+                                        <>
+                                            <FontAwesomeIcon icon={faCaretDown} />
+                                        </>
+                                    }
+                                    onClick={() => context.shiftSection('down', sectionIndex)}
+                                    size={buttonSize}
+                                />
+                            </Tooltip>
+                        </td>
+                        <td>Re-order sections</td>
+                    </tr>
+                    <tr>
+                        <td>
                             <Button
-                                style={{ paddingLeft: 5, paddingRight: 5, width: 50 }}
                                 icon={
                                     <>
-                                        <FontAwesomeIcon icon={faColumns} /> <DownOutlined />
+                                        <FontAwesomeIcon icon={faTimes} />
                                     </>
                                 }
+                                onClick={() => context.deleteSection(sectionIndex)}
                                 size={buttonSize}
                             />
-                        </Dropdown>
-                    </td>
-                    <td>Number of columns</td>
-                </tr>
-                <tr>
-                    <td>
-                        <Switch
-                            style={{ paddingLeft: 5, paddingRight: 5, marginRight: 10, marginTop: 10 }}
-                            checked={section.nameToMarkdown}
-                            onChange={() => toggleNameToMarkdown(sectionIndex)}
-                        />
-                    </td>
-                    <td> Use section name in markdown</td>
-                </tr>
-                <tr>
-                    <td>
-                        <Tooltip placement="top" title={<span>Shift Section Upwards</span>}>
-                            <Button
-                                icon={
-                                    <>
-                                        <FontAwesomeIcon icon={faCaretUp} />
-                                    </>
-                                }
-                                onClick={() => context.shiftSection('up', sectionIndex)}
-                                size={buttonSize}
-                            />
-                        </Tooltip>
-                        <Tooltip placement="top" title={<span>Shift Section Downwards</span>}>
-                            <Button
-                                icon={
-                                    <>
-                                        <FontAwesomeIcon icon={faCaretDown} />
-                                    </>
-                                }
-                                onClick={() => context.shiftSection('down', sectionIndex)}
-                                size={buttonSize}
-                            />
-                        </Tooltip>
-                    </td>
-                    <td>Re-order sections</td>
-                </tr>
-                <tr>
-                    <td>
-                        <Button
-                            icon={
-                                <>
-                                    <FontAwesomeIcon icon={faTimes} />
-                                </>
-                            }
-                            onClick={() => context.deleteSection(sectionIndex)}
-                            size={buttonSize}
-                        />
-                    </td>
-                    <td>Remove section</td>
-                </tr>
+                        </td>
+                        <td>Remove section</td>
+                    </tr>
+                </tbody>
             </table>
         );
     };
