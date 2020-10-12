@@ -47,15 +47,19 @@ const IndexPage = () => {
     return (
         <>
             <Helmet>
-                <meta charset="utf-8"/>
+                <meta charset="utf-8" />
                 <title>Github Profilinator - GitHub Profile README Generator</title>
-                <meta property="og:title" content="Github Profilinator - GitHub Profile README Generator"/>
-                <meta name="description" property="og:description" content="Simplify your GitHub profile readme generation process with creative components from all over the web."/>
-                <meta property="og:url" content="https://profilinator.rishav.dev"/>
-                <meta property="og:site_name" content="Github Profilinator"/>
-                <meta property="og:type" content="website"/>
-                <meta property="og:locale" content="en_US"/>
-                <link rel="canonical" href="https://profilinator.rishav.dev"/>
+                <meta property="og:title" content="Github Profilinator - GitHub Profile README Generator" />
+                <meta
+                    name="description"
+                    property="og:description"
+                    content="Simplify your GitHub profile readme generation process with creative components from all over the web."
+                />
+                <meta property="og:url" content="https://profilinator.rishav.dev" />
+                <meta property="og:site_name" content="Github Profilinator" />
+                <meta property="og:type" content="website" />
+                <meta property="og:locale" content="en_US" />
+                <link rel="canonical" href="https://profilinator.rishav.dev" />
             </Helmet>
             <div className={styles.loading} style={{ display: initialLoad ? 'none' : 'flex' }}>
                 <Spin size="large" />
