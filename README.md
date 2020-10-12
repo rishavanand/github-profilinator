@@ -47,7 +47,7 @@ This projects is aimed to simplify your GitHub profile generation process by pro
 -   [x] Multi column support
 -   [x] Customizable blocks and layouts
 -   [x] Listening to from Spotify
--   [ ] Multi template
+-   [x] Multi template
 -   [ ] Last tweet from Twitter
 -   [ ] Last 3 uploads from Instagram
 
