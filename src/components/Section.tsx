@@ -207,73 +207,75 @@ const Section = (section: SectionProps) => {
     const generateSectionSettings = (sectionIndex: number) => {
         return (
             <table>
-                <tr>
-                    <td>
-                        <Dropdown overlay={columnCountMenu}>
+                <tbody>
+                    <tr>
+                        <td>
+                            <Dropdown overlay={columnCountMenu}>
+                                <Button
+                                    style={{ paddingLeft: 5, paddingRight: 5, width: 50 }}
+                                    icon={
+                                        <>
+                                            <FontAwesomeIcon icon={faColumns} /> <DownOutlined />
+                                        </>
+                                    }
+                                    size={buttonSize}
+                                />
+                            </Dropdown>
+                        </td>
+                        <td>Number of columns</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <Switch
+                                style={{ paddingLeft: 5, paddingRight: 5, marginRight: 10, marginTop: 10 }}
+                                checked={section.nameToMarkdown}
+                                onChange={() => toggleNameToMarkdown(sectionIndex)}
+                            />
+                        </td>
+                        <td> Use section name in markdown</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <Tooltip placement="top" title={<span>Shift Section Upwards</span>}>
+                                <Button
+                                    icon={
+                                        <>
+                                            <FontAwesomeIcon icon={faCaretUp} />
+                                        </>
+                                    }
+                                    onClick={() => context.shiftSection('up', sectionIndex)}
+                                    size={buttonSize}
+                                />
+                            </Tooltip>
+                            <Tooltip placement="top" title={<span>Shift Section Downwards</span>}>
+                                <Button
+                                    icon={
+                                        <>
+                                            <FontAwesomeIcon icon={faCaretDown} />
+                                        </>
+                                    }
+                                    onClick={() => context.shiftSection('down', sectionIndex)}
+                                    size={buttonSize}
+                                />
+                            </Tooltip>
+                        </td>
+                        <td>Re-order sections</td>
+                    </tr>
+                    <tr>
+                        <td>
                             <Button
-                                style={{ paddingLeft: 5, paddingRight: 5, width: 50 }}
                                 icon={
                                     <>
-                                        <FontAwesomeIcon icon={faColumns} /> <DownOutlined />
+                                        <FontAwesomeIcon icon={faTimes} />
                                     </>
                                 }
+                                onClick={() => context.deleteSection(sectionIndex)}
                                 size={buttonSize}
                             />
-                        </Dropdown>
-                    </td>
-                    <td>Number of columns</td>
-                </tr>
-                <tr>
-                    <td>
-                        <Switch
-                            style={{ paddingLeft: 5, paddingRight: 5, marginRight: 10, marginTop: 10 }}
-                            checked={section.nameToMarkdown}
-                            onChange={() => toggleNameToMarkdown(sectionIndex)}
-                        />
-                    </td>
-                    <td> Use section name in markdown</td>
-                </tr>
-                <tr>
-                    <td>
-                        <Tooltip placement="top" title={<span>Shift Section Upwards</span>}>
-                            <Button
-                                icon={
-                                    <>
-                                        <FontAwesomeIcon icon={faCaretUp} />
-                                    </>
-                                }
-                                onClick={() => context.shiftSection('up', sectionIndex)}
-                                size={buttonSize}
-                            />
-                        </Tooltip>
-                        <Tooltip placement="top" title={<span>Shift Section Downwards</span>}>
-                            <Button
-                                icon={
-                                    <>
-                                        <FontAwesomeIcon icon={faCaretDown} />
-                                    </>
-                                }
-                                onClick={() => context.shiftSection('down', sectionIndex)}
-                                size={buttonSize}
-                            />
-                        </Tooltip>
-                    </td>
-                    <td>Re-order sections</td>
-                </tr>
-                <tr>
-                    <td>
-                        <Button
-                            icon={
-                                <>
-                                    <FontAwesomeIcon icon={faTimes} />
-                                </>
-                            }
-                            onClick={() => context.deleteSection(sectionIndex)}
-                            size={buttonSize}
-                        />
-                    </td>
-                    <td>Remove section</td>
-                </tr>
+                        </td>
+                        <td>Remove section</td>
+                    </tr>
+                </tbody>
             </table>
         );
     };
@@ -307,7 +309,10 @@ const Section = (section: SectionProps) => {
                             <Button type="primary" ghost block onClick={context.resetSections} size={buttonSize}>
                                 <RedoOutlined /> Start fresh
                             </Button>
-                            <Popover content={generateSectionSettings} title="Section Settings">
+                            <Popover
+                                content={() => generateSectionSettings(activeSectionIndex)}
+                                title="Section Settings"
+                            >
                                 <Button
                                     size={buttonSize}
                                     icon={
