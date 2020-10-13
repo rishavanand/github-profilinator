@@ -148,13 +148,12 @@ const Section = (section: SectionProps) => {
     const generateColumnCards = (fields: [[Required<Pick<FieldProps, 'type'>> & FieldProps]], sectionIndex: number) => {
         if (!fields || !fields.length) fields = [([] as unknown) as [Required<Pick<FieldProps, 'type'>> & FieldProps]];
         return (
-            <>
+            <div style={{ height: 'calc(100vh - 150px)', overflowY: 'scroll' }}>
                 {fields.map((field, columnIndex) => {
                     return (
                         <Card
                             key={columnIndex}
                             title={`Column #${columnIndex + 1}`}
-                            style={{ height: 'calc(100vh - 150px)', overflowY: 'scroll' }}
                             extra={
                                 <Tooltip placement="top" title={<span>Add a Field</span>}>
                                     <Button
@@ -179,7 +178,7 @@ const Section = (section: SectionProps) => {
                     );
                 })}
                 {generateAddFieldModal()}
-            </>
+            </div>
         );
     };
 
@@ -332,7 +331,10 @@ const Section = (section: SectionProps) => {
                             <Button type="primary" ghost block onClick={context.resetSections} size={buttonSize}>
                                 <RedoOutlined /> Start fresh
                             </Button>
-                            <Popover content={generateSectionSettings} title="Section Settings">
+                            <Popover
+                                content={() => generateSectionSettings(activeSectionIndex)}
+                                title="Section Settings"
+                            >
                                 <Button
                                     size={buttonSize}
                                     icon={
@@ -347,6 +349,7 @@ const Section = (section: SectionProps) => {
                 </Row>
 
                 <Divider />
+
                 {generateColumnCards(
                     section.fields as [[Required<Pick<FieldProps, 'type'>> & FieldProps]],
                     context.activeSectionIndex,
