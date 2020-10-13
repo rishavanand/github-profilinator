@@ -332,7 +332,10 @@ const Section = (section: SectionProps) => {
                             <Button type="primary" ghost block onClick={context.resetSections} size={buttonSize}>
                                 <RedoOutlined /> Start fresh
                             </Button>
-                            <Popover content={generateSectionSettings} title="Section Settings">
+                            <Popover
+                                content={generateSectionSettings(context.activeSectionIndex)}
+                                title="Section Settings"
+                            >
                                 <Button
                                     size={buttonSize}
                                     icon={
