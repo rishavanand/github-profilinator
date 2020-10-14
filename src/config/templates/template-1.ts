@@ -171,14 +171,13 @@ export const TEMPLATE_1 = [
     },
     {
         name: 'Support Me',
-
         nameToMarkdown: true,
         collapsable: false,
         fields: [
             [
                 {
                     type: 'supportme',
-                    options: { alignment: 'left' },
+                    options: { alignment: 'center' },
                     data: { paypal: '', buymeacoffee: 'rishavanand' },
                 },
             ],
