@@ -171,8 +171,6 @@ export const TEMPLATE_1 = [
     },
     {
         name: 'Support Me',
-        nameToMarkdown: true,
-        collapsable: false,
         fields: [
             [
                 {
