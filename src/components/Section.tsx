@@ -332,7 +332,7 @@ const Section = (section: SectionProps) => {
                                 <RedoOutlined /> Start fresh
                             </Button>
                             <Popover
-                                content={() => generateSectionSettings(activeSectionIndex)}
+                                content={() => generateSectionSettings(context.activeSectionIndex)}
                                 title="Section Settings"
                             >
                                 <Button
