@@ -48,6 +48,8 @@ const Provider = (props: { children: React.ReactChildren }) => {
         if (direction === 'up') sections.splice(sectionIndex - 1, 0, ...section);
         else sections.splice(sectionIndex + 1, 0, ...section);
         modifySections(sections.map(section => section));
+        if (direction === 'up') changeActiveSection(activeSectionIndex - 1);
+        else changeActiveSection(activeSectionIndex + 1);
     };
 
     const deleteSection = (sectionIndex: number) => {
