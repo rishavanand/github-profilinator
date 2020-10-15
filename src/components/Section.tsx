@@ -58,7 +58,6 @@ export const generateSectionTitleMarkdown = (props: SectionProps) => {
 };
 
 const Section = (section: SectionProps) => {
-    const [activeSectionIndex, setActiveSectionIndex] = useState(0);
     const [activeColumnIndex, setActiveColumnIndex] = useState(0);
     const [addFieldVisible, setAddFieldVisibility] = useState(false);
     const [form] = Form.useForm();
@@ -130,7 +129,7 @@ const Section = (section: SectionProps) => {
                     form.validateFields()
                         .then((values: FieldProps & Required<Pick<FieldProps, 'type'>>) => {
                             form.resetFields();
-                            addField(values, activeSectionIndex, activeColumnIndex);
+                            addField(values, context.activeSectionIndex, activeColumnIndex);
                         })
                         .catch(info => {
                             console.log('Validate Failed:', info);
@@ -161,7 +160,7 @@ const Section = (section: SectionProps) => {
                                         style={{ borderStyle: 'dashed' }}
                                         onClick={() => {
                                             setActiveColumnIndex(columnIndex);
-                                            setActiveSectionIndex(sectionIndex);
+                                            context.changeActiveSection(sectionIndex);
                                             setAddFieldVisibility(true);
                                         }}
                                         size={buttonSize}
@@ -195,6 +194,7 @@ const Section = (section: SectionProps) => {
     );
 
     const toggleNameToMarkdown = (sectionIndex: number) => {
+        console.log(sectionIndex);
         context.modifySection(
             {
                 ...section,
@@ -310,7 +310,7 @@ const Section = (section: SectionProps) => {
                                 <RedoOutlined /> Start fresh
                             </Button>
                             <Popover
-                                content={() => generateSectionSettings(activeSectionIndex)}
+                                content={() => generateSectionSettings(context.activeSectionIndex)}
                                 title="Section Settings"
                             >
                                 <Button
