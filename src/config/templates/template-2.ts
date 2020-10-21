@@ -38,6 +38,7 @@ export const TEMPLATE_2 = [
     {
         name: 'Rapidfire',
         nameToMarkdown: true,
+        collapsable: false,
         fields: [
             [
                 {
@@ -126,6 +127,7 @@ export const TEMPLATE_2 = [
             ],
         ],
         nameToMarkdown: true,
+        collapsable: false,
     },
     {
         name: 'Github Stats',
@@ -146,6 +148,7 @@ export const TEMPLATE_2 = [
             ],
         ],
         nameToMarkdown: true,
+        collapsable: false,
     },
     { name: 'Show some love', fields: [[]] },
     {

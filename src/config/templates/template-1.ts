@@ -45,6 +45,7 @@ export const TEMPLATE_1 = [
     {
         name: 'My Skill Set',
         nameToMarkdown: true,
+        collapsable: false,
         fields: [
             [
                 {
@@ -122,6 +123,7 @@ export const TEMPLATE_1 = [
             ],
         ],
         nameToMarkdown: true,
+        collapsable: false,
     },
     {
         name: 'Github Stats',
@@ -135,11 +137,13 @@ export const TEMPLATE_1 = [
             ],
         ],
         nameToMarkdown: true,
+        collapsable: false,
     },
     {
         name: 'Recent Blog Posts',
         fields: [[{ type: 'blog-post' }]],
         nameToMarkdown: true,
+        collapsable: false,
     },
     {
         name: 'Spotify Listening',
