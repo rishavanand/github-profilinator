@@ -32,6 +32,7 @@ export interface SectionProps {
     id?: string;
     name?: string;
     nameToMarkdown?: boolean;
+    collapsable?: boolean;
     fields?: Array<Array<FieldProps>>;
     changeColumnCount?: (sectionIndex: number, columnCount: number) => void;
 }
@@ -52,8 +53,9 @@ export const generateColumnMarkdown = (columns: Partial<FieldProps[][]>, type: '
 };
 
 export const generateSectionTitleMarkdown = (props: SectionProps) => {
-    const { name, nameToMarkdown } = props;
-    if (nameToMarkdown && name) return `\n## ${name}  \n`;
+    const { name, nameToMarkdown, collapsable } = props;
+    if (nameToMarkdown && name && !collapsable) return `\n## ${name}  \n`;
+    else if (nameToMarkdown && name && collapsable) return `<summary> ${name} </summary>`;
     else return '';
 };
 
@@ -204,6 +206,16 @@ const Section = (section: SectionProps) => {
         );
     };
 
+    const toggleCollapsable = (sectionIndex: number) => {
+        context.modifySection(
+            {
+                ...section,
+                collapsable: section.collapsable ? false : true,
+            },
+            sectionIndex,
+        );
+    };
+
     const generateSectionSettings = (sectionIndex: number) => {
         return (
             <table>
@@ -233,6 +245,16 @@ const Section = (section: SectionProps) => {
                             />
                         </td>
                         <td> Use section name in markdown</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <Switch
+                                style={{ paddingLeft: 5, paddingRight: 5, marginRight: 10, marginTop: 10 }}
+                                checked={section.collapsable}
+                                onChange={() => toggleCollapsable(sectionIndex)}
+                            />
+                        </td>
+                        <td> Make section collapsable</td>
                     </tr>
                     <tr>
                         <td>
