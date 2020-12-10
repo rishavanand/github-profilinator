@@ -1,10 +1,12 @@
-import React from 'react';
-import { Row, Col, Button, Dropdown, Menu, Grid, Checkbox, Tooltip } from 'antd';
+import React, { useState } from 'react';
+import { Row, Col, Button, Dropdown, Menu, Grid, Checkbox, Tooltip, Input } from 'antd';
 import { DownOutlined } from '@ant-design/icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowsAltV } from '@fortawesome/free-solid-svg-icons';
 import { FieldProps } from '.';
 import { SKILLS } from '../../config/skills';
+
+const { Search } = Input;
 
 const { useBreakpoint } = Grid;
 
@@ -63,6 +65,9 @@ export const SkillsField = ({
     fieldProps: SkillsFieldProps;
     modifyField: (filedProps: SkillsFieldProps) => void;
 }) => {
+
+    const [searchValue, setSearchValue] = useState('');
+
     const screens = useBreakpoint();
 
     const skillsColSpan = screens.md ? 6 : 12;
@@ -77,12 +82,30 @@ export const SkillsField = ({
         ...fieldProps,
     };
 
-    const onChange = checkedSkills => {
-        localSkillsFieldProps.data.list = checkedSkills as string[];
+    const onChange = event => {
+        
+        const name = event.target.value;
+        const isChecked = event.target.checked;
+        let currentSkillsList = localSkillsFieldProps.data.list;
+        
+        if(isChecked) {
+            currentSkillsList.push(name); 
+        }
+        else { 
+            currentSkillsList = currentSkillsList.filter(skill => skill !== name); 
+        }
+
+        localSkillsFieldProps.data.list = currentSkillsList as string[];
+
         modifyField({
             ...localSkillsFieldProps,
         });
+
     };
+
+    const onSearch = value => {
+        setSearchValue(value);
+    }
 
     const changeSize = (size: typeof localSkillsFieldProps.options.size) => {
         const localProps = { ...localSkillsFieldProps };
@@ -107,40 +130,49 @@ export const SkillsField = ({
 
     return (
         <>
-            <Row justify="space-between" style={{ marginBottom: 10 }}>
-                <Row>
-                    <Col>
-                        <Dropdown overlay={sizeMenu}>
-                            <Tooltip placement="top" title={<span>Icon Size</span>}>
-                                <Button
-                                    style={{ paddingLeft: 5, paddingRight: 5, width: 50 }}
-                                    icon={
-                                        <>
-                                            <FontAwesomeIcon icon={faArrowsAltV} /> <DownOutlined />
-                                        </>
-                                    }
-                                />
-                            </Tooltip>
-                        </Dropdown>
-                    </Col>
-                </Row>
+            <Row justify="space-between" style={{ marginBottom: 30 }}>
+                <Col>
+                    <Search
+                        placeholder="Search Skills..."
+                        allowClear
+                        onSearch={onSearch}
+                        style={{ width: 180 }}
+                    />
+                </Col>
+                <Col>
+                    <Dropdown overlay={sizeMenu}>
+                        <Tooltip placement="top" title={<span>Icon Size</span>}>
+                            <Button
+                                style={{ paddingLeft: 5, paddingRight: 5, width: 50 }}
+                                icon={
+                                    <>
+                                        <FontAwesomeIcon icon={faArrowsAltV} /> <DownOutlined />
+                                    </>
+                                }
+                            />
+                        </Tooltip>
+                    </Dropdown>
+                </Col>
             </Row>
             <Checkbox.Group
                 defaultValue={localSkillsFieldProps.data.list}
                 style={{ width: '100%' }}
-                onChange={onChange}
             >
                 <Row>
-                    {Object.keys(SKILLS).map(skill => {
+                    {Object.values(SKILLS)
+                    .filter(
+                         skill => searchValue !== '' && searchValue !== undefined ? 
+                            skill.label.toLowerCase().indexOf(searchValue.toLowerCase()) > -1 : true                  
+                    )
+                    .map(skill => {
                         return (
-                            <Col span={skillsColSpan} key={SKILLS[skill].value}>
-                                <Checkbox value={SKILLS[skill].value}>{SKILLS[skill].label}</Checkbox>
+                            <Col span={skillsColSpan} key={skill.value}>
+                                <Checkbox onChange={onChange} value={skill.value}>{skill.label}</Checkbox>
                             </Col>
                         );
                     })}
                 </Row>
             </Checkbox.Group>
-            ,
         </>
     );
 };
