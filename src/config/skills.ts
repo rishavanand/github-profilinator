@@ -1,7 +1,9 @@
 /* eslint-disable prettier/prettier */
 const BASE_URL = typeof window !== 'undefined' ? window.location.href : '';
 
-export const SKILLS = {
+type Skill = { label: string; value: string; iconUrl: string };
+
+export const SKILLS: Record<string, Skill> = {
     vuejs: {
         label: 'Vue.js',
         value: 'vuejs',
