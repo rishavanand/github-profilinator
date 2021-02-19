@@ -14,16 +14,15 @@ export const SKILLS: Record<string, Skill> = {
         value: 'react',
         iconUrl: BASE_URL + 'skills-assets/react-original-wordmark.svg',
     },
-    angularjs: {
-        label: 'AngularJS',
-        value: 'angularjs',
+    angular: {
+        label: 'Angular',
+        value: 'angular',
         iconUrl: BASE_URL + 'skills-assets/angularjs-original.svg',
     },
     aws: {
         label: 'AWS',
         value: 'aws',
-        iconUrl:
-            BASE_URL + 'skills-assets/amazonwebservices-original-wordmark.svg',
+        iconUrl: BASE_URL + 'skills-assets/amazonwebservices-original-wordmark.svg',
     },
     android: {
         label: 'Android',
@@ -541,5 +540,35 @@ export const SKILLS: Record<string, Skill> = {
         label: 'Deno',
         value: 'deno',
         iconUrl: BASE_URL + 'skills-assets/deno.svg',
+    },
+    nestjs: {
+        label: 'NestJS',
+        value: 'nestjs',
+        iconUrl: BASE_URL + 'skills-assets/nestjs.svg',
+    },
+    bem: {
+        label: 'BEM',
+        value: 'bem',
+        iconUrl: BASE_URL + 'skills-assets/bem.svg',
+    },
+    powershell: {
+        label: 'PowerShell',
+        value: 'powershell',
+        iconUrl: BASE_URL + 'skills-assets/powershell.png',
+    },
+    gitlab: {
+        label: 'GitLab',
+        value: 'gitlab',
+        iconUrl: BASE_URL + 'skills-assets/gitlab.svg',
+    },
+    dotnetcore: {
+        label: '.Net Core',
+        value: 'dotnetcore',
+        iconUrl: BASE_URL + 'skills-assets/dotnetcore.png',
+    },
+    prisma: {
+        label: 'Prisma',
+        value: 'prisma',
+        iconUrl: BASE_URL + 'skills-assets/prisma.png',
     },
 };
