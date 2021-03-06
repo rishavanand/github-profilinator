@@ -148,7 +148,7 @@ export const Preview = ({ scrollRef }: { scrollRef: MutableRefObject<any> }) => 
             <Modal
                 title={
                     <>
-                        Generated Markdowns{' '}
+                        Generated Markdown{' '}
                         <CopyToClipboard
                             text={generateAdvertisedMarkdown(generateMarkdown().markdown)}
                             onCopy={showCopiedSuccessfullyMessage}
