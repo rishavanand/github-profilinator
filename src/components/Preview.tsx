@@ -1,34 +1,34 @@
-import React, { useContext, useState } from 'react';
-import { Row, Col, Divider, Typography, Button, Modal, Input, Card, Grid, Tooltip } from 'antd';
 import { FireOutlined } from '@ant-design/icons';
-import { globalContext } from '../context/GlobalContextProvider';
-import { FIELD_TYPES } from '../config/global';
-import { generateTextFieldMarkdown } from './Field/TextField';
+import { faStar } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Button, Col, Divider, Grid, Input, Modal, Row, Tooltip, Typography } from 'antd';
 import marked from 'marked';
+import React, { MutableRefObject, useContext, useState } from 'react';
+import { generateSectionTitleMarkdown } from '../components/Section';
+import { FIELD_TYPES } from '../config/global';
+import { globalContext } from '../context/GlobalContextProvider';
 import styles from '../styles/preview.module.scss';
-import { generateImageFieldMarkdown } from './Field/ImageField';
 import { FieldProps, generateFieldTitleMarkdown } from './Field';
-import {
-    SectionProps,
-    generateSectionMarkdown as generateSectionMarkdownExt,
-    generateColumnMarkdown as generateColumnMarkdownExt,
-} from './Section';
+import { generateBlogPostMarkdown } from './Field/BlogPostField';
 import { generateGithubReadmeStatsMarkdown } from './Field/GithubReadmeStatsField';
+import { generateImageFieldMarkdown } from './Field/ImageField';
+import { generateProfileVisitorCounterMarkdown } from './Field/ProfileVisitorCounterField';
 import { generateSkillsFieldMarkdown } from './Field/SkillsField';
 import { generateSocialFieldMarkdown } from './Field/SocialField';
-import { generateSectionTitleMarkdown } from '../components/Section';
-import { generateProfileVisitorCounterMarkdown } from './Field/ProfileVisitorCounterField';
-import { generateBlogPostMarkdown } from './Field/BlogPostField';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faStar } from '@fortawesome/free-solid-svg-icons';
 import { generateSpotifyListeningToMarkdown } from './Field/SpotifyListeningTo';
 import { generateSupportMeMarkdown } from './Field/SupportMeToField';
+import { generateTextFieldMarkdown } from './Field/TextField';
+import {
+    generateColumnMarkdown as generateColumnMarkdownExt,
+    generateSectionMarkdown as generateSectionMarkdownExt,
+    SectionProps,
+} from './Section';
 
 const { Title } = Typography;
 const { TextArea } = Input;
 const { useBreakpoint } = Grid;
 
-export const Preview = ({ scrollRef }: { scrollRef: string }) => {
+export const Preview = ({ scrollRef }: { scrollRef: MutableRefObject<any> }) => {
     const context = useContext(globalContext);
     const [showMarkdown, setShowMarkdown] = useState(false);
     const screens = useBreakpoint();
