@@ -1,9 +1,10 @@
-import { FireOutlined } from '@ant-design/icons';
+import { CopyOutlined, FireOutlined } from '@ant-design/icons';
 import { faStar } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Button, Col, Divider, Grid, Input, Modal, Row, Tooltip, Typography } from 'antd';
+import { Button, Col, Divider, Grid, Input, message, Modal, Row, Tooltip, Typography } from 'antd';
 import marked from 'marked';
 import React, { MutableRefObject, useContext, useState } from 'react';
+import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { generateSectionTitleMarkdown } from '../components/Section';
 import { FIELD_TYPES } from '../config/global';
 import { globalContext } from '../context/GlobalContextProvider';
@@ -120,6 +121,10 @@ export const Preview = ({ scrollRef }: { scrollRef: MutableRefObject<any> }) => 
         );
     };
 
+    const showCopiedSuccessfullyMessage = () => {
+        message.success('Markdown has been copied to your clipboard.');
+    };
+
     return (
         <div ref={scrollRef}>
             <Row justify="space-between">
@@ -141,10 +146,21 @@ export const Preview = ({ scrollRef }: { scrollRef: MutableRefObject<any> }) => 
                 dangerouslySetInnerHTML={{ __html: generateMarkdown().html }}
             />
             <Modal
-                title="Generated Markdown"
+                title={
+                    <>
+                        Generated Markdowns{' '}
+                        <CopyToClipboard
+                            text={generateAdvertisedMarkdown(generateMarkdown().markdown)}
+                            onCopy={showCopiedSuccessfullyMessage}
+                        >
+                            <Button type="primary" ghost>
+                                <CopyOutlined /> Copy
+                            </Button>
+                        </CopyToClipboard>
+                    </>
+                }
                 width="70vw"
                 visible={showMarkdown}
-                onCancel={toggleShowMarkdown}
                 onOk={toggleShowMarkdown}
             >
                 <h3
