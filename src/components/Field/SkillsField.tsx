@@ -65,7 +65,6 @@ export const SkillsField = ({
     fieldProps: SkillsFieldProps;
     modifyField: (filedProps: SkillsFieldProps) => void;
 }) => {
-
     const [searchValue, setSearchValue] = useState('');
 
     const screens = useBreakpoint();
@@ -83,16 +82,14 @@ export const SkillsField = ({
     };
 
     const onChange = event => {
-        
         const name = event.target.value;
         const isChecked = event.target.checked;
         let currentSkillsList = localSkillsFieldProps.data.list;
-        
-        if(isChecked) {
-            currentSkillsList.push(name); 
-        }
-        else { 
-            currentSkillsList = currentSkillsList.filter(skill => skill !== name); 
+
+        if (isChecked) {
+            currentSkillsList.push(name);
+        } else {
+            currentSkillsList = currentSkillsList.filter(skill => skill !== name);
         }
 
         localSkillsFieldProps.data.list = currentSkillsList as string[];
@@ -100,12 +97,11 @@ export const SkillsField = ({
         modifyField({
             ...localSkillsFieldProps,
         });
-
     };
 
     const onSearch = value => {
         setSearchValue(value);
-    }
+    };
 
     const changeSize = (size: typeof localSkillsFieldProps.options.size) => {
         const localProps = { ...localSkillsFieldProps };
@@ -132,12 +128,7 @@ export const SkillsField = ({
         <>
             <Row justify="space-between" style={{ marginBottom: 30 }}>
                 <Col>
-                    <Search
-                        placeholder="Search Skills..."
-                        allowClear
-                        onSearch={onSearch}
-                        style={{ width: 180 }}
-                    />
+                    <Search placeholder="Search Skills..." allowClear onSearch={onSearch} style={{ width: 180 }} />
                 </Col>
                 <Col>
                     <Dropdown overlay={sizeMenu}>
@@ -154,23 +145,23 @@ export const SkillsField = ({
                     </Dropdown>
                 </Col>
             </Row>
-            <Checkbox.Group
-                defaultValue={localSkillsFieldProps.data.list}
-                style={{ width: '100%' }}
-            >
+            <Checkbox.Group defaultValue={localSkillsFieldProps.data.list} style={{ width: '100%' }}>
                 <Row>
                     {Object.values(SKILLS)
-                    .filter(
-                         skill => searchValue !== '' && searchValue !== undefined ? 
-                            skill.label.toLowerCase().indexOf(searchValue.toLowerCase()) > -1 : true                  
-                    )
-                    .map(skill => {
-                        return (
-                            <Col span={skillsColSpan} key={skill.value}>
-                                <Checkbox onChange={onChange} value={skill.value}>{skill.label}</Checkbox>
-                            </Col>
-                        );
-                    })}
+                        .filter(skill =>
+                            searchValue !== '' && searchValue !== undefined
+                                ? skill.label.toLowerCase().indexOf(searchValue.toLowerCase()) > -1
+                                : true,
+                        )
+                        .map(skill => {
+                            return (
+                                <Col span={skillsColSpan} key={skill.value}>
+                                    <Checkbox onChange={onChange} value={skill.value}>
+                                        {skill.label}
+                                    </Checkbox>
+                                </Col>
+                            );
+                        })}
                 </Row>
             </Checkbox.Group>
         </>

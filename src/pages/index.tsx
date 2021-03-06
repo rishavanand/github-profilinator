@@ -1,13 +1,13 @@
-import React, { useContext, useState, useEffect, useRef } from 'react';
-import { Row, Col, Layout, Spin, BackTop, Grid } from 'antd';
-import styles from '../styles/index.module.scss';
-import Sidebar from '../components/Sidebar';
+import { faArrowUp } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { BackTop, Col, Grid, Layout, Row, Spin } from 'antd';
+import React, { useContext, useEffect, useRef, useState } from 'react';
+import { Helmet } from 'react-helmet';
 import Preview from '../components/Preview';
 import Section from '../components/Section';
+import Sidebar from '../components/Sidebar';
 import { globalContext, GlobalContext } from '../context/GlobalContextProvider';
-import { Helmet } from 'react-helmet';
-import { faEye, faArrowUp } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import styles from '../styles/index.module.scss';
 
 const { Content } = Layout;
 const { useBreakpoint } = Grid;
@@ -47,7 +47,7 @@ const IndexPage = () => {
     return (
         <>
             <Helmet>
-                <meta charset="utf-8" />
+                <meta charSet="utf-8" />
                 <title>Github Profilinator - GitHub Profile README Generator</title>
                 <meta property="og:title" content="Github Profilinator - GitHub Profile README Generator" />
                 <meta
@@ -71,7 +71,6 @@ const IndexPage = () => {
                         <Col md={12} sm={24}>
                             <Section
                                 {...context.sections[context.activeSectionIndex]}
-                                sectionIndex={context.activeSectionIndex}
                                 changeColumnCount={context.changeColumnCount}
                             />
                         </Col>

@@ -52,8 +52,27 @@ module.exports = {
         {
             resolve: `gatsby-plugin-google-analytics`,
             options: {
-                trackingId: "UA-174597578-1",
+                trackingId: 'UA-174597578-1',
                 head: false,
+            },
+        },
+        {
+            resolve: 'gatsby-plugin-antd',
+            options: {
+                style: true,
+            },
+        },
+        {
+            resolve: `gatsby-plugin-less`,
+            options: {
+                lessOptions: {
+                    modifyVars: {
+                        'primary-color': '#1853db',
+                        'link-color': '#1853db',
+                        'border-radius-base': '4px',
+                    },
+                    javascriptEnabled: true,
+                },
             },
         },
     ],
