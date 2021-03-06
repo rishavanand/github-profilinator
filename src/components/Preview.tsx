@@ -162,6 +162,7 @@ export const Preview = ({ scrollRef }: { scrollRef: MutableRefObject<any> }) => 
                 width="70vw"
                 visible={showMarkdown}
                 onOk={toggleShowMarkdown}
+                onCancel={toggleShowMarkdown}
             >
                 <h3
                     style={{
