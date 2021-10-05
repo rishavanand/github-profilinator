@@ -80,18 +80,8 @@ export const SkillsField = ({
 
     const skillsColSpan = screens.md ? 6 : 12;
 
-    const onChange = event => {
-        const name = event.target.value;
-        const isChecked = event.target.checked;
-        let currentSkillsList = localSkillsFieldProps.data.list;
-
-        if (isChecked) {
-            currentSkillsList.push(name);
-        } else {
-            currentSkillsList = currentSkillsList.filter(skill => skill !== name);
-        }
-
-        localSkillsFieldProps.data.list = currentSkillsList as string[];
+    const onChange = checkedValues => {
+        localSkillsFieldProps.data.list = checkedValues as string[];
 
         setLocalSkillsFieldProps(localSkillsFieldProps);
         modifyField(localSkillsFieldProps);
@@ -143,7 +133,11 @@ export const SkillsField = ({
                     </Dropdown>
                 </Col>
             </Row>
-            <Checkbox.Group defaultValue={localSkillsFieldProps.data.list} style={{ width: '100%' }}>
+            <Checkbox.Group
+                defaultValue={localSkillsFieldProps.data.list}
+                style={{ width: '100%' }}
+                onChange={onChange}
+            >
                 <Row>
                     {Object.values(SKILLS)
                         .filter(skill =>
@@ -154,9 +148,7 @@ export const SkillsField = ({
                         .map(skill => {
                             return (
                                 <Col span={skillsColSpan} key={skill.value}>
-                                    <Checkbox onChange={onChange} value={skill.value}>
-                                        {skill.label}
-                                    </Checkbox>
+                                    <Checkbox value={skill.value}>{skill.label}</Checkbox>
                                 </Col>
                             );
                         })}
