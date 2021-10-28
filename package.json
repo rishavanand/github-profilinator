@@ -10,7 +10,7 @@
     "@fortawesome/free-brands-svg-icons": "^5.14.0",
     "@fortawesome/free-solid-svg-icons": "^5.14.0",
     "@fortawesome/react-fontawesome": "^0.1.11",
-    "antd": "^4.5.1",
+    "antd": "^4.16.13",
     "emoji-mart": "^3.0.0",
     "gatsby": "^2.24.15",
     "gatsby-image": "^2.4.14",
