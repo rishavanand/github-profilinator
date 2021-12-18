@@ -41,7 +41,7 @@ export const generateImageTag = (data: SkillsFieldData, options: SkillsFieldOpti
         `<div align="center">  \n` +
         data.list
             .map(skill => {
-                return `<img style="margin: 10px" src="${SKILLS[skill].iconUrl}" alt="${SKILLS[skill].label}" height="${options.size}" />`;
+                return `<a href="${SKILLS[skill].companyUrl}" target="_blank"><img style="margin: 10px" src="${SKILLS[skill].iconUrl}" alt="${SKILLS[skill].label}" height="${options.size}" /></a>`;
             })
             .join('  \n') +
         '  \n</div>'
