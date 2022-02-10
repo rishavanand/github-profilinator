@@ -51,7 +51,7 @@
     "gatsby-source-filesystem": "^2.3.23",
     "gatsby-transformer-remark": "^2.8.27",
     "husky": "^4.2.5",
-    "node-sass": "^4.14.1",
+    "node-sass": "^7.0.0",
     "prettier": "^2.0.5",
     "react-refresh": "^0.8.3",
     "typescript": "^3.9.7"
