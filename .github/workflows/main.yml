@@ -23,7 +23,7 @@ jobs:
     # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
     - uses: actions/checkout@v3
       with:
-          node-version: '14.x'
+        node-version: '14.x'
 
     - name: Print versions
       run: npm run info
