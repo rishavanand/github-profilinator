@@ -126,7 +126,7 @@ export const SkillsField = ({
         <>
             <Row justify="space-between" style={{ marginBottom: 30 }}>
                 <Col>
-                    <Search placeholder="Search Skills..." allowClear onSearch={onSearch} style={{ width: 180 }} />
+                    <Search value={searchValue} onInput={(e) => setSearchValue(e.currentTarget.value)} placeholder="Search Skills..." allowClear onSearch={onSearch} style={{ width: 180 }} />
                 </Col>
                 <Col>
                     <Dropdown overlay={sizeMenu}>
