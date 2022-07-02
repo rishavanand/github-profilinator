@@ -73,7 +73,8 @@
     "serve": "gatsby serve",
     "clean": "gatsby clean",
     "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\" && exit 1",
-    "lint": "eslint '*/**/*.{js,ts,tsx}' --quiet --fix"
+    "lint": "eslint '*/**/*.{js,ts,tsx}' --quiet --fix",
+    "info": "echo \"Node version: $(node -v)\" && echo \"NPM version: $(npm -v)\""
   },
   "husky": {
     "hooks": {
