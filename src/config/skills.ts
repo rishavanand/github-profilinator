@@ -461,7 +461,7 @@ export const SKILLS: Record<string, Skill> = {
         iconUrl: BASE_URL + 'skills-assets/nuxt.png',
     },
     latex: {
-        label: 'Latex',
+        label: 'LaTeX',
         value: 'latex',
         iconUrl: BASE_URL + 'skills-assets/latex.png',
     },
