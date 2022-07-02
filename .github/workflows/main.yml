@@ -27,8 +27,8 @@ jobs:
             # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
             - uses: actions/checkout@v3
               with:
-                  node-version: ${{ matrix.node-version }}
-				  cache: 'npm'
+                node-version: ${{ matrix.node-version }}
+                cache: 'npm'
 
             - name: Print versions
               run: npm run info
