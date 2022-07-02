@@ -4,10 +4,15 @@ const BASE_URL = typeof window !== 'undefined' ? window.location.href : '';
 type Skill = { label: string; value: string; iconUrl: string };
 
 export const SKILLS: Record<string, Skill> = {
+    openui5: {
+        label: 'OpenUI5',
+        value: 'openui5',
+        iconUrl: BASE_URL + 'skills-assets/openui5.svg',
+    },
     terraform: {
         label: 'Terraform',
         value: 'terraform',
-        iconUrl: BASE_URL + 'skills-assets/terraformio-icon.svg'
+        iconUrl: BASE_URL + 'skills-assets/terraformio-icon.svg',
     },
     vuejs: {
         label: 'Vue.js',

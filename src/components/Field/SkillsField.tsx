@@ -66,12 +66,7 @@ export const SkillsField = ({
     modifyField: (filedProps: SkillsFieldProps) => void;
 }) => {
     const [searchValue, setSearchValue] = useState('');
-
-    const screens = useBreakpoint();
-
-    const skillsColSpan = screens.md ? 6 : 12;
-
-    const localSkillsFieldProps: typeof fieldProps = {
+    const [localSkillsFieldProps, setLocalSkillsFieldProps] = useState({
         options: {
             size: SIZE.MEDIUM,
         },
@@ -79,7 +74,11 @@ export const SkillsField = ({
             list: [],
         },
         ...fieldProps,
-    };
+    });
+
+    const screens = useBreakpoint();
+
+    const skillsColSpan = screens.md ? 6 : 12;
 
     const onChange = event => {
         const name = event.target.value;
@@ -94,9 +93,8 @@ export const SkillsField = ({
 
         localSkillsFieldProps.data.list = currentSkillsList as string[];
 
-        modifyField({
-            ...localSkillsFieldProps,
-        });
+        setLocalSkillsFieldProps(localSkillsFieldProps);
+        modifyField(localSkillsFieldProps);
     };
 
     const onSearch = value => {
@@ -145,7 +143,11 @@ export const SkillsField = ({
                     </Dropdown>
                 </Col>
             </Row>
-            <Checkbox.Group defaultValue={localSkillsFieldProps.data.list} style={{ width: '100%' }}>
+            <Checkbox.Group
+                defaultValue={localSkillsFieldProps.data.list}
+                value={localSkillsFieldProps.data.list}
+                style={{ width: '100%' }}
+            >
                 <Row>
                     {Object.values(SKILLS)
                         .filter(skill =>

@@ -17,7 +17,7 @@ jobs:
   build:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
-    
+
     strategy:
       matrix:
         node-version: [14.x]
@@ -25,13 +25,26 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
     # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
+      with:
+        node-version: '14.x'
+
+    - name: Print versions
+      run: npm run info
+      with:
+        node-version: '14.x'
 
     - name: Install dependencies
       run: npm i
+      with:
+        node-version: '14.x'
 
     - name: Run linter
       run: npm run lint
+      with:
+        node-version: '14.x'
     
     - name: Build 
       run: npm run build
+      with:
+        node-version: '14.x'
