@@ -551,7 +551,7 @@ export const SKILLS: Record<string, Skill> = {
         companyUrl:'https://nuxtjs.org/',
     },
     latex: {
-        label: 'Latex',
+        label: 'LaTeX',
         value: 'latex',
         iconUrl: BASE_URL + 'skills-assets/latex.png',
         companyUrl:'https://www.latex-project.org/',
