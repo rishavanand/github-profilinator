@@ -25,6 +25,16 @@ jobs:
       with:
           node-version: '14.x'
 
+    - name: Get NodeJS Version
+      id: nodeversion
+      run: |
+        echo "::set-output name=version::$(node --version)"
+
+    - name: Get NPM Version
+      id: npmversion
+      run: |
+        echo "::set-output name=version::$(npm --version)"
+
     - name: Install dependencies
       run: npm i
 
