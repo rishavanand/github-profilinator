@@ -12,6 +12,8 @@ export enum SOCIAL_SITE_IDS {
     BEHANCE = 'behance',
     MEDIUM = 'medium',
     YOUTUBE = 'youtube',
+    HASHNODE = 'hashnode',
+    GITLAB = 'gitlab',
 }
 
 export const SOCIAL_SITES: {
@@ -22,6 +24,12 @@ export const SOCIAL_SITES: {
             'https://img.shields.io/badge/github-%2324292e.svg?&style=for-the-badge&logo=github&logoColor=white',
         title: 'Github',
         href: (username: string) => `https://github.com/${username}`,
+    },
+    [SOCIAL_SITE_IDS.GITLAB]: {
+        shieldBadge:
+            'https://img.shields.io/badge/gitlab-330F63.svg?&style=for-the-badge&logo=gitlab&logoColor=white',
+        title: 'Gitlab',
+        href: (username: string) => `https://gitlab.com/${username}`,
     },
     [SOCIAL_SITE_IDS.TWITTER]: {
         shieldBadge:
@@ -34,6 +42,12 @@ export const SOCIAL_SITES: {
             'https://img.shields.io/badge/dev.to-%2308090A.svg?&style=for-the-badge&logo=dev.to&logoColor=white',
         title: 'DEV.TO',
         href: (username: string) => `https://dev.to/${username}`,
+    },
+    [SOCIAL_SITE_IDS.HASHNODE]: {
+        shieldBadge:
+            'https://img.shields.io/badge/hashnode-%232962FF.svg?&style=for-the-badge&logo=hashnode&logoColor=white',
+        title: 'Hashnode',
+        href: (username: string) => `https://hashnode.com/@${username}`,
     },
     [SOCIAL_SITE_IDS.CODEPEN]: {
         shieldBadge:
