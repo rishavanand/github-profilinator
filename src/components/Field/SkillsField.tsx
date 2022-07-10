@@ -143,11 +143,7 @@ export const SkillsField = ({
                     </Dropdown>
                 </Col>
             </Row>
-            <Checkbox.Group
-                defaultValue={localSkillsFieldProps.data.list}
-                value={localSkillsFieldProps.data.list}
-                style={{ width: '100%' }}
-            >
+            <Checkbox.Group defaultValue={localSkillsFieldProps.data.list} style={{ width: '100%' }}>
                 <Row>
                     {Object.values(SKILLS)
                         .filter(skill =>

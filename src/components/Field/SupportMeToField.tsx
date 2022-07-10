@@ -23,6 +23,8 @@ export interface SupportMeOptions {
 export interface SupportMeData {
     paypal?: string;
     buymeacoffee?: string;
+    liberapay?: string;
+    kofi?: string;
 }
 
 export interface SupportMeProps extends FieldProps {
@@ -42,13 +44,15 @@ export const generateImageTag = (data: SupportMeData, options: SupportMeOptions)
     const statsUrl = {
         paypal: `https://paypal.me/${data.paypal}`,
         buymeacoffee: `https://www.buymeacoffee.com/${data.buymeacoffee}`,
+        liberapay: `https://liberapay.com/${data.liberapay}`,
+        kofi: `https://ko-fi.com/${data.kofi}`,
     };
     let html = '';
     if (data.paypal)
         html += `
             <a href="${statsUrl.paypal}" target="_blank" style="display: inline-block;">
                 <img
-                    src="https://img.shields.io/badge/Donate-PayPal-blue.svg?style=flat-square" 
+                    src="https://img.shields.io/badge/Donate-PayPal-blue.svg?style=flat-square&logo=paypal" 
                     align="${options.alignment ? options.alignment : 'left'}"
                 />
             </a>`;
@@ -56,7 +60,23 @@ export const generateImageTag = (data: SupportMeData, options: SupportMeOptions)
         html += `
             <a href="${statsUrl.buymeacoffee}" target="_blank" style="display: inline-block;">
                 <img
-                    src="https://img.shields.io/badge/Donate-Buy%20Me%20A%20Coffee-orange.svg?style=flat-square" 
+                    src="https://img.shields.io/badge/Donate-Buy%20Me%20A%20Coffee-orange.svg?style=flat-square&logo=buymeacoffee" 
+                    align="${options.alignment ? options.alignment : 'left'}"
+                />
+            </a>`;
+    if (data.liberapay)
+        html += `
+                <a href="${statsUrl.liberapay}" target="_blank" style="display: inline-block;">
+                    <img
+                        src="https://img.shields.io/badge/Donate-Liberapay-f6c915.svg?style=flat-square&logo=liberapay" 
+                        align="${options.alignment ? options.alignment : 'left'}"
+                    />
+                </a>`;
+    if (data.kofi)
+        html += `
+            <a href="${statsUrl.kofi}" target="_blank" style="display: inline-block;">
+                <img
+                    src="https://img.shields.io/badge/Donate-Ko--fi-F16061.svg?style=flat-square&logo=ko-fi" 
                     align="${options.alignment ? options.alignment : 'left'}"
                 />
             </a>`;
@@ -69,6 +89,8 @@ export const generateSupportMeMarkdown = ({ data, options }: SupportMeProps) => 
         data = {
             paypal: '',
             buymeacoffee: '',
+            liberapay: '',
+            kofi: '',
         };
     return (
         `${generateAlignmentTags(options.alignment, 'start')}` +
@@ -101,16 +123,30 @@ export const SupportMeField = ({
                     paypal: value,
                 },
             });
-        } else {
-            if (name === 'buymeacoffee') {
-                modifyField({
-                    ...localSupportMeProps,
-                    data: {
-                        ...localSupportMeProps.data,
-                        buymeacoffee: value,
-                    },
-                });
-            }
+        } else if (name === 'buymeacoffee') {
+            modifyField({
+                ...localSupportMeProps,
+                data: {
+                    ...localSupportMeProps.data,
+                    buymeacoffee: value,
+                },
+            });
+        } else if (name === 'liberapay') {
+            modifyField({
+                ...localSupportMeProps,
+                data: {
+                    ...localSupportMeProps.data,
+                    liberapay: value,
+                },
+            });
+        } else if (name === 'kofi') {
+            modifyField({
+                ...localSupportMeProps,
+                data: {
+                    ...localSupportMeProps.data,
+                    kofi: value,
+                },
+            });
         }
     };
 
@@ -169,6 +205,24 @@ export const SupportMeField = ({
                         autoSize={true}
                         name="buymeacoffee"
                         value={localSupportMeProps.data.buymeacoffee}
+                        onChange={onChange}
+                    />
+                </Form.Item>
+                <Form.Item label="Liberapay username">
+                    <TextArea
+                        rows={1}
+                        autoSize={true}
+                        name="liberapay"
+                        value={localSupportMeProps.data.liberapay}
+                        onChange={onChange}
+                    />
+                </Form.Item>
+                <Form.Item label="Ko-fi username">
+                    <TextArea
+                        rows={1}
+                        autoSize={true}
+                        name="kofi"
+                        value={localSupportMeProps.data.kofi}
                         onChange={onChange}
                     />
                 </Form.Item>
