@@ -33,8 +33,7 @@ export interface SectionProps {
     name?: string;
     nameToMarkdown?: boolean;
     collapsable?: boolean;
-    fields?: Array<Array<FieldProps>>;
-    changeColumnCount?: (sectionIndex: number, columnCount: number) => void;
+    fields: Array<Array<FieldProps>>;
 }
 
 export const generateSectionMarkdown = ({ fields }: Partial<SectionProps>, type: 'start' | 'end') => {
@@ -69,7 +68,7 @@ const Section = (section: SectionProps) => {
     const buttonSize = screens.md ? 'middle' : 'small';
 
     const generateFields = (
-        fields: [Required<Pick<FieldProps, 'type'>> & FieldProps],
+        fields: [Required<Pick<FieldProps, 'type' | 'data'>> & FieldProps],
         sectionIndex: number,
         columnIndex: number,
     ) => {
@@ -144,8 +143,12 @@ const Section = (section: SectionProps) => {
         );
     };
 
-    const generateColumnCards = (fields: [[Required<Pick<FieldProps, 'type'>> & FieldProps]], sectionIndex: number) => {
-        if (!fields || !fields.length) fields = [([] as unknown) as [Required<Pick<FieldProps, 'type'>> & FieldProps]];
+    const generateColumnCards = (
+        fields: [[Required<Pick<FieldProps, 'type' | 'data'>> & FieldProps]],
+        sectionIndex: number,
+    ) => {
+        if (!fields || !fields.length)
+            fields = [([] as unknown) as [Required<Pick<FieldProps, 'type' | 'data'>> & FieldProps]];
         return (
             <div style={{ height: 'calc(100vh - 150px)', overflowY: 'scroll' }}>
                 {fields.map((field, columnIndex) => {
@@ -183,13 +186,13 @@ const Section = (section: SectionProps) => {
 
     const columnCountMenu = (
         <Menu>
-            <Menu.Item key="1" onClick={() => section.changeColumnCount(context.activeSectionIndex, 1)}>
+            <Menu.Item key="1" onClick={() => context.changeColumnCount(context.activeSectionIndex, 1)}>
                 1
             </Menu.Item>
-            <Menu.Item key="2" onClick={() => section.changeColumnCount(context.activeSectionIndex, 2)}>
+            <Menu.Item key="2" onClick={() => context.changeColumnCount(context.activeSectionIndex, 2)}>
                 2
             </Menu.Item>
-            <Menu.Item key="3" onClick={() => section.changeColumnCount(context.activeSectionIndex, 3)}>
+            <Menu.Item key="3" onClick={() => context.changeColumnCount(context.activeSectionIndex, 3)}>
                 3
             </Menu.Item>
         </Menu>
@@ -351,7 +354,7 @@ const Section = (section: SectionProps) => {
                 <Divider />
 
                 {generateColumnCards(
-                    section.fields as [[Required<Pick<FieldProps, 'type'>> & FieldProps]],
+                    section.fields as [[Required<Pick<FieldProps, 'type' | 'data'>> & FieldProps]],
                     context.activeSectionIndex,
                 )}
             </div>

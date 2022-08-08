@@ -16,6 +16,7 @@ export const Sidebar = () => {
     const addSection = (formValues: { name: string }) => {
         context.addSection({
             ...formValues,
+            fields: [],
         });
         setAddSectionVisibility(false);
     };

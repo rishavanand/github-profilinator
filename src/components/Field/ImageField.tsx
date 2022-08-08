@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import styles from '../../styles/fields.module.scss';
 import { faAlignLeft, faExpandArrowsAlt } from '@fortawesome/free-solid-svg-icons';
 import { FieldProps } from '.';
+import { STATS_ALIGNMENT } from './GithubReadmeStatsField';
 
 const { TextArea } = Input;
 
@@ -70,6 +71,7 @@ export const generateImageFieldMarkdown = ({ data, options }: ImageFieldProps) =
             alt: '',
             title: '',
         };
+    if (!options.alignment) options.alignment = IMAGE_ALIGNMENT.LEFT;
     return (
         `${generateAlignmentTags(options.alignment, 'start')}` +
         `${generateImageTag(data, options)}` +
@@ -133,15 +135,15 @@ export const ImageField = ({
             ...localImageFieldProps,
             options: {
                 ...localImageFieldProps.options,
-                fitImage: localImageFieldProps.options.fitImage ? false : true,
+                fitImage: localImageFieldProps?.options?.fitImage ? false : true,
             },
         });
     };
 
-    const changeAlignment = (aligment: typeof localImageFieldProps.options.alignment) => {
+    const changeAlignment = (alignment: IMAGE_ALIGNMENT) => {
         const localProps = { ...localImageFieldProps };
         if (!localProps.options) localProps.options = {};
-        localProps.options.alignment = aligment;
+        localProps.options.alignment = alignment;
         modifyField(localProps);
     };
 
@@ -199,7 +201,7 @@ export const ImageField = ({
                         rows={1}
                         autoSize={true}
                         name="alt"
-                        value={localImageFieldProps.data.alt}
+                        value={localImageFieldProps?.data?.alt}
                         onChange={onChange}
                     />
                 </Form.Item>
@@ -208,7 +210,7 @@ export const ImageField = ({
                         rows={1}
                         autoSize={true}
                         name="url"
-                        value={localImageFieldProps.data.url}
+                        value={localImageFieldProps?.data?.url}
                         onChange={onChange}
                     />
                 </Form.Item>
@@ -217,7 +219,7 @@ export const ImageField = ({
                         rows={1}
                         autoSize={true}
                         name="height"
-                        value={localImageFieldProps.options.height}
+                        value={localImageFieldProps?.options?.height}
                         onChange={onChange}
                     />
                 </Form.Item>
@@ -226,7 +228,7 @@ export const ImageField = ({
                         rows={1}
                         autoSize={true}
                         name="width"
-                        value={localImageFieldProps.options.width}
+                        value={localImageFieldProps?.options?.width}
                         onChange={onChange}
                     />
                 </Form.Item>
