@@ -88,7 +88,7 @@ export const ProfileVisitorCounterField = ({
             });
     };
 
-    const changeAlignment = (alignment: typeof localProps.options.alignment) => {
+    const changeAlignment = (alignment: STATS_ALIGNMENT) => {
         if (!localProps.options) localProps.options = {};
         localProps.options.alignment = alignment;
         modifyField(localProps);
@@ -132,7 +132,7 @@ export const ProfileVisitorCounterField = ({
                         rows={1}
                         autoSize={true}
                         name="username"
-                        value={localProps.data.username}
+                        value={localProps?.data?.username}
                         onChange={onChange}
                     />
                 </Form.Item>

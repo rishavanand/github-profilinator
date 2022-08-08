@@ -18,7 +18,7 @@ import { generateSkillsFieldMarkdown } from './Field/SkillsField';
 import { generateSocialFieldMarkdown } from './Field/SocialField';
 import { generateSpotifyListeningToMarkdown } from './Field/SpotifyListeningTo';
 import { generateSupportMeMarkdown } from './Field/SupportMeToField';
-import { generateTextFieldMarkdown } from './Field/TextField';
+import { generateTextFieldMarkdown, TextFieldData, TextFieldProps } from './Field/TextField';
 import {
     generateColumnMarkdown as generateColumnMarkdownExt,
     generateSectionMarkdown as generateSectionMarkdownExt,
@@ -44,7 +44,7 @@ export const Preview = ({ scrollRef }: { scrollRef: MutableRefObject<any> }) => 
                 let returnField: string = generateFieldTitleMarkdown(field);
                 switch (type) {
                     case FIELD_TYPES.TEXT:
-                        returnField += generateTextFieldMarkdown(field);
+                        returnField += generateTextFieldMarkdown(field as TextFieldProps);
                         break;
                     case FIELD_TYPES.IMAGE:
                         returnField += generateImageFieldMarkdown(field);

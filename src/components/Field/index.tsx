@@ -36,7 +36,7 @@ export const Field = ({
     columnIndex,
     fieldIndex,
 }: {
-    props: FieldProps & Required<Pick<FieldProps, 'type'>>;
+    props: FieldProps & Required<Pick<FieldProps, 'type' | 'data'>>;
     sectionIndex: number;
     columnIndex: number;
     fieldIndex: number;
@@ -78,7 +78,7 @@ export const Field = ({
         }
     };
 
-    const changeTitle = e => {
+    const changeTitle = (e: { target: { value: string } }) => {
         const value = e.target.value;
         context.modifyField(
             {

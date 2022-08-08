@@ -92,6 +92,7 @@ export const generateSupportMeMarkdown = ({ data, options }: SupportMeProps) => 
             liberapay: '',
             kofi: '',
         };
+    if (!options.alignment) options.alignment = STATS_ALIGNMENT.LEFT;
     return (
         `${generateAlignmentTags(options.alignment, 'start')}` +
         `${generateImageTag(data, options)}` +
@@ -150,7 +151,7 @@ export const SupportMeField = ({
         }
     };
 
-    const changeAlignment = (alignment: typeof localSupportMeProps.options.alignment) => {
+    const changeAlignment = (alignment: STATS_ALIGNMENT) => {
         const localProps = { ...localSupportMeProps };
         if (!localProps.options) localProps.options = {};
         localProps.options.alignment = alignment;
@@ -195,7 +196,7 @@ export const SupportMeField = ({
                         rows={1}
                         autoSize={true}
                         name="paypal"
-                        value={localSupportMeProps.data.paypal}
+                        value={localSupportMeProps?.data?.paypal}
                         onChange={onChange}
                     />
                 </Form.Item>
@@ -204,7 +205,7 @@ export const SupportMeField = ({
                         rows={1}
                         autoSize={true}
                         name="buymeacoffee"
-                        value={localSupportMeProps.data.buymeacoffee}
+                        value={localSupportMeProps?.data?.buymeacoffee}
                         onChange={onChange}
                     />
                 </Form.Item>

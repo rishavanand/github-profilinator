@@ -38,10 +38,14 @@ export const generateAlignmentTags = (alignment: ALIGNMENT, type: 'start' | 'end
 };
 
 export const generateSpotifyListeningToMarkdown = ({ data, options }: SpotifyListeningToProps) => {
-    const markdown = data.spotifyMarkdown
+    if (!options) options = {};
+
+    const markdown = data?.spotifyMarkdown
         ? data.spotifyMarkdown
         : '[spotify-github-profile](https://rishavanand.github.io/static/images/spotify-readme-example.svg)';
     const svgLink = markdown.substring(markdown.indexOf('(') + 1, markdown.indexOf(')'));
+
+    if (!options?.alignment) options.alignment = ALIGNMENT.LEFT;
 
     if (options.fitImage)
         return `<img src="${svgLink}" align="${options.alignment ? options.alignment : 'left'}" style="width: 100%" />`;
@@ -81,12 +85,12 @@ export const SpotifyListeningToField = ({
             ...localSpotifyListeningProps,
             options: {
                 ...localSpotifyListeningProps.options,
-                fitImage: localSpotifyListeningProps.options.fitImage ? false : true,
+                fitImage: localSpotifyListeningProps?.options?.fitImage ? false : true,
             },
         });
     };
 
-    const changeAlignment = (alignment: typeof localSpotifyListeningProps.options.alignment) => {
+    const changeAlignment = (alignment: ALIGNMENT) => {
         const localProps = { ...localSpotifyListeningProps };
         if (!localProps.options) localProps.options = {};
         localProps.options.alignment = alignment;
@@ -158,7 +162,7 @@ export const SpotifyListeningToField = ({
                         rows={1}
                         autoSize={true}
                         name="md-code"
-                        value={localSpotifyListeningProps.data.spotifyMarkdown}
+                        value={localSpotifyListeningProps?.data?.spotifyMarkdown}
                         onChange={onChange}
                         placeholder="Paste the generated code here"
                     />

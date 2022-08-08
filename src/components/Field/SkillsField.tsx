@@ -39,7 +39,7 @@ export interface SkillsFieldProps extends FieldProps {
 export const generateImageTag = (data: SkillsFieldData, options: SkillsFieldOptions) => {
     return (
         `<div align="center">  \n` +
-        data.list
+        (data.list || [])
             .map(skill => {
                 return `<a href="${SKILLS[skill].companyUrl}" target="_blank"><img style="margin: 10px" src="${SKILLS[skill].iconUrl}" alt="${SKILLS[skill].label}" height="${options.size}" /></a>`;
             })
@@ -80,24 +80,26 @@ export const SkillsField = ({
 
     const skillsColSpan = screens.md ? 6 : 12;
 
-    const onChange = event => {
+    const onChange = (event: { target: { value?: string; checked: boolean } }) => {
         const name = event.target.value;
-        const isChecked = event.target.checked;
-        let currentSkillsList = localSkillsFieldProps.data.list;
+        if (name) {
+            const isChecked = event.target.checked;
+            let currentSkillsList = localSkillsFieldProps.data.list || [];
 
-        if (isChecked) {
-            currentSkillsList.push(name);
-        } else {
-            currentSkillsList = currentSkillsList.filter(skill => skill !== name);
+            if (isChecked) {
+                currentSkillsList.push(name);
+            } else {
+                currentSkillsList = currentSkillsList.filter(skill => skill !== name);
+            }
+
+            localSkillsFieldProps.data.list = currentSkillsList as string[];
+
+            setLocalSkillsFieldProps(localSkillsFieldProps);
+            modifyField(localSkillsFieldProps);
         }
-
-        localSkillsFieldProps.data.list = currentSkillsList as string[];
-
-        setLocalSkillsFieldProps(localSkillsFieldProps);
-        modifyField(localSkillsFieldProps);
     };
 
-    const onSearch = value => {
+    const onSearch = (value: string) => {
         setSearchValue(value);
     };
 
@@ -126,7 +128,14 @@ export const SkillsField = ({
         <>
             <Row justify="space-between" style={{ marginBottom: 30 }}>
                 <Col>
-                    <Search value={searchValue} onInput={(e) => setSearchValue(e.currentTarget.value)} placeholder="Search Skills..." allowClear onSearch={onSearch} style={{ width: 180 }} />
+                    <Search
+                        value={searchValue}
+                        onInput={e => setSearchValue(e.currentTarget.value)}
+                        placeholder="Search Skills..."
+                        allowClear
+                        onSearch={onSearch}
+                        style={{ width: 180 }}
+                    />
                 </Col>
                 <Col>
                     <Dropdown overlay={sizeMenu}>
