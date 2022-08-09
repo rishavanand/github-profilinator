@@ -26,8 +26,7 @@ export const SOCIAL_SITES: {
         href: (username: string) => `https://github.com/${username}`,
     },
     [SOCIAL_SITE_IDS.GITLAB]: {
-        shieldBadge:
-            'https://img.shields.io/badge/gitlab-330F63.svg?&style=for-the-badge&logo=gitlab&logoColor=white',
+        shieldBadge: 'https://img.shields.io/badge/gitlab-330F63.svg?&style=for-the-badge&logo=gitlab&logoColor=white',
         title: 'Gitlab',
         href: (username: string) => `https://gitlab.com/${username}`,
     },
