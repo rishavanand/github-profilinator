@@ -4,30 +4,44 @@ import * as TEMPLATES from '../config/templates';
 import { FieldProps } from '../components/Field';
 
 export interface GlobalContext {
-    activeSectionIndex?: number;
-    sections?: SectionProps[];
-    changeActiveSection?: React.Dispatch<React.SetStateAction<number>>;
-    addSection?: (sectionProps: SectionProps) => void;
-    shiftSection?: (direction: 'up' | 'down', sectionIndex: number) => void;
-    resetSections?: () => void;
-    useTemplate?: (templateId?: string) => void;
-    deleteSection?: (sectionIndex: number) => void;
-    findSectionById?: (id: string) => SectionProps;
-    modifySection?: (sectionProps: SectionProps, sectionIndex: number) => void;
-    addField?: (
+    activeSectionIndex: number;
+    sections: SectionProps[];
+    changeActiveSection: React.Dispatch<React.SetStateAction<number>>;
+    addSection: (sectionProps: SectionProps) => void;
+    shiftSection: (direction: 'up' | 'down', sectionIndex: number) => void;
+    resetSections: () => void;
+    useTemplate: (templateId: string) => void;
+    deleteSection: (sectionIndex: number) => void;
+    modifySection: (sectionProps: SectionProps, sectionIndex: number) => void;
+    addField: (
         fieldProps: FieldProps & Required<Pick<FieldProps, 'type'>>,
         sectionIndex: number,
         columnIndex: number,
     ) => void;
-    modifyField?: (fieldProps: FieldProps, sectionIndex: number, columnIndex: number, fieldIndex: number) => void;
-    deleteField?: (sectionIndex: number, columnIndex: number, fieldIndex: number) => void;
-    shiftField?: (direction: 'up' | 'down', sectionIndex: number, columnIndex: number, fieldIndex: number) => void;
-    changeColumnCount?: (sectionIndex: number, columnCount: number) => void;
+    modifyField: (fieldProps: FieldProps, sectionIndex: number, columnIndex: number, fieldIndex: number) => void;
+    deleteField: (sectionIndex: number, columnIndex: number, fieldIndex: number) => void;
+    shiftField: (direction: 'up' | 'down', sectionIndex: number, columnIndex: number, fieldIndex: number) => void;
+    changeColumnCount: (sectionIndex: number, columnCount: number) => void;
 }
 
-export const globalContext = React.createContext<GlobalContext>({});
+export const globalContext = React.createContext<GlobalContext>({
+    activeSectionIndex: 0,
+    sections: [],
+    changeActiveSection: () => {},
+    addSection: () => {},
+    shiftSection: () => {},
+    resetSections: () => {},
+    useTemplate: () => {},
+    deleteSection: () => {},
+    modifySection: () => {},
+    addField: () => {},
+    modifyField: () => {},
+    deleteField: () => {},
+    shiftField: () => {},
+    changeColumnCount: () => {},
+});
 
-const Provider = (props: { children: React.ReactChildren }) => {
+const Provider = (props: { children: React.ReactNode }) => {
     const [activeSectionIndex, changeActiveSection] = useState(0);
     const [sections, modifySections] = useState(TEMPLATES['TEMPLATE_1'] as SectionProps[]);
 
@@ -61,13 +75,14 @@ const Provider = (props: { children: React.ReactChildren }) => {
         modifySections([
             {
                 name: 'Intro',
+                fields: [],
             },
         ]);
         changeActiveSection(0);
     };
 
-    const useTemplate = (templateId?: string) => {
-        modifySections(TEMPLATES[templateId]);
+    const useTemplate = (templateId: string) => {
+        modifySections((TEMPLATES as any)[templateId]);
         changeActiveSection(0);
     };
 
@@ -140,6 +155,6 @@ const Provider = (props: { children: React.ReactChildren }) => {
     return <globalContext.Provider value={globalContextData as GlobalContext}>{props.children}</globalContext.Provider>;
 };
 
-const wrapWithProvider = ({ element }: { element: React.ReactChildren }) => <Provider>{element}</Provider>;
+const wrapWithProvider = ({ element }: { element: React.ReactNode }) => <Provider>{element}</Provider>;
 
 export default wrapWithProvider;

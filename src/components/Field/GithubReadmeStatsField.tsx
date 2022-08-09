@@ -51,6 +51,7 @@ export const generateImageTag = (data: GithubReadmeStatsData, options: GithubRea
         statsUrl = `https://github-readme-stats.vercel.app/api?username=${data.username}&show_icons=true&count_private=true&hide_border=true`;
     else if (options.variant === VARIANT.LANGUAGE_STATS)
         statsUrl = `https://github-readme-stats.vercel.app/api/top-langs/?username=${data.username}&hide_border=true&layout=compact`;
+    else statsUrl = '#';
 
     if (options.fitImage)
         return `<img src="${statsUrl}" align="${
@@ -65,6 +66,7 @@ export const generateGithubReadmeStatsMarkdown = ({ data, options }: GithubReadm
         data = {
             username: '',
         };
+    if (!options.alignment) options.alignment = STATS_ALIGNMENT.LEFT;
     return (
         `${generateAlignmentTags(options.alignment, 'start')}` +
         `${generateImageTag(data, options)}` +
@@ -103,12 +105,12 @@ export const GithubReadmeStatsField = ({
             ...localGithubReadmeStatsProps,
             options: {
                 ...localGithubReadmeStatsProps.options,
-                fitImage: localGithubReadmeStatsProps.options.fitImage ? false : true,
+                fitImage: localGithubReadmeStatsProps?.options?.fitImage ? false : true,
             },
         });
     };
 
-    const changeAlignment = (alignment: typeof localGithubReadmeStatsProps.options.alignment) => {
+    const changeAlignment = (alignment: STATS_ALIGNMENT) => {
         const localProps = { ...localGithubReadmeStatsProps };
         if (!localProps.options) localProps.options = {};
         localProps.options.alignment = alignment;
@@ -194,7 +196,7 @@ export const GithubReadmeStatsField = ({
                         rows={1}
                         autoSize={true}
                         name="username"
-                        value={localGithubReadmeStatsProps.data.username}
+                        value={localGithubReadmeStatsProps?.data?.username}
                         onChange={onChange}
                     />
                 </Form.Item>

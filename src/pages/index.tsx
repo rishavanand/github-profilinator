@@ -11,7 +11,6 @@ import styles from '../styles/index.module.scss';
 
 const { Content } = Layout;
 const { useBreakpoint } = Grid;
-const scrollToRef = ref => window.scrollTo(0, ref.current.offsetTop);
 
 const IndexPage = () => {
     const context = useContext<GlobalContext>(globalContext);
@@ -69,10 +68,7 @@ const IndexPage = () => {
                 <Content style={{ padding: 16, height: '100vh' }}>
                     <Row gutter={[16, 16]}>
                         <Col md={12} sm={24}>
-                            <Section
-                                {...context.sections[context.activeSectionIndex]}
-                                changeColumnCount={context.changeColumnCount}
-                            />
+                            <Section {...context.sections[context.activeSectionIndex]} />
                         </Col>
                         <Col md={12} sm={24}>
                             <Preview scrollRef={previewRef} />
