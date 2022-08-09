@@ -15,7 +15,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { FieldProps } from '.';
 import 'emoji-mart/css/emoji-mart.css';
-import { Picker } from 'emoji-mart';
+import { BaseEmoji, Picker } from 'emoji-mart';
 
 const { TextArea } = Input;
 
@@ -45,11 +45,11 @@ export interface TextFieldOptions {
 }
 
 export interface TextFieldData {
-    value?: string;
+    value: string;
 }
 
 export interface TextFieldProps extends FieldProps {
-    data?: TextFieldData;
+    data: TextFieldData;
     options?: TextFieldOptions;
 }
 
@@ -61,7 +61,7 @@ export const generateAlignmentTags = (alignment: TEXT_ALIGNMENT, type: 'start' |
     else return '';
 };
 
-export const generateSizeTags = (size: TEXT_SIZE) => {
+export const generateSizeTags = (size?: TEXT_SIZE) => {
     switch (size) {
         case TEXT_SIZE.H1:
             return `# `;
@@ -86,6 +86,7 @@ export const generateTextFieldMarkdown = ({ options, data }: TextFieldProps) => 
         data = {
             value: '',
         };
+    if (!options.alignment) options.alignment = TEXT_ALIGNMENT.LEFT;
     return (
         `${options.isList ? '- ' : ''}` +
         `${generateSizeTags(options.size)}` +
@@ -109,11 +110,7 @@ export const TextField = ({
     fieldProps: TextFieldProps;
     modifyField: (fieldProps: TextFieldProps) => void;
 }) => {
-    const localTextFieldProps: typeof fieldProps = {
-        data: {},
-        options: {},
-        ...fieldProps,
-    };
+    const localTextFieldProps = fieldProps;
 
     const onChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
         const value = event.target.value;
@@ -126,14 +123,14 @@ export const TextField = ({
         });
     };
 
-    const changeFontSize = (size: typeof localTextFieldProps.options.size) => {
+    const changeFontSize = (size: TEXT_SIZE) => {
         const localProps = { ...localTextFieldProps };
         if (!localProps.options) localProps.options = {};
         localProps.options.size = size;
         modifyField(localProps);
     };
 
-    const changeAlignment = (aligment: typeof localTextFieldProps.options.alignment) => {
+    const changeAlignment = (aligment: TEXT_ALIGNMENT) => {
         const localProps = { ...localTextFieldProps };
         if (!localProps.options) localProps.options = {};
         localProps.options.alignment = aligment;
@@ -154,17 +151,10 @@ export const TextField = ({
         </Menu>
     );
 
-    const addEmoji = emoji => {
+    const addEmoji = (emoji: BaseEmoji) => {
         localTextFieldProps.data.value += emoji.native;
         modifyField(localTextFieldProps);
     };
-
-    const emojiMenu = (
-        <Button
-            icon={<Picker onSelect={addEmoji} native={true} />}
-            className={[styles.optionButton, localTextFieldProps.options && styles.unselected].join(' ')}
-        />
-    );
 
     const fontSizeMenu = (
         <Menu>
@@ -333,7 +323,7 @@ export const TextField = ({
                 rows={1}
                 autoSize={true}
                 name="input"
-                value={localTextFieldProps.data.value}
+                value={localTextFieldProps?.data?.value}
                 onChange={onChange}
             />
         </>

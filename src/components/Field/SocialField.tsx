@@ -26,7 +26,7 @@ export interface SocialFieldOptions {
 }
 
 export interface SocialFieldData {
-    sites?: {
+    sites: {
         [key: string]: {
             id?: SOCIAL_SITE_IDS;
             username?: string;
@@ -54,9 +54,10 @@ export const generateAlignmentTags = (alignment: SOCIAL_FIELD_ALIGNMENT, type: '
 export const generateSocialTags = (data: SocialFieldData = { sites: {} }, options: SocialFieldOptions = {}) => {
     const sites = data.sites ? Object.keys(data.sites) : [];
     return sites
+        .filter(siteId => data.sites[siteId]?.username)
         .map(
             siteId =>
-                `<a href="${SOCIAL_SITES[siteId].href(data.sites[siteId].username)}" target="_blank">\n<img src=${
+                `<a href="${SOCIAL_SITES[siteId].href(data.sites[siteId].username!)}" target="_blank">\n<img src=${
                     SOCIAL_SITES[siteId].shieldBadge
                 } alt=${siteId} style="margin-bottom: 5px;" />\n</a>`,
         )
@@ -64,6 +65,8 @@ export const generateSocialTags = (data: SocialFieldData = { sites: {} }, option
 };
 
 export const generateSocialFieldMarkdown = ({ data, options = {} }: SocialFieldProps) => {
+    if (!options) options = {};
+    if (!options.alignment) options.alignment = SOCIAL_FIELD_ALIGNMENT.LEFT;
     return (
         `${generateAlignmentTags(options.alignment, 'start')}` +
         `${generateSocialTags(data, options)}` +
@@ -90,19 +93,20 @@ export const SocialField = ({
     const onChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
         const id = event.target.name;
         const value = event.target.value;
-        if (!localSocialFieldProps.data.sites[id]) localSocialFieldProps.data.sites[id] = {};
-        if (value)
+        if (localSocialFieldProps?.data && !localSocialFieldProps?.data?.sites[id])
+            localSocialFieldProps.data.sites[id] = {};
+        if (localSocialFieldProps.data && value)
             localSocialFieldProps.data.sites[id] = {
                 ...localSocialFieldProps.data.sites[id],
                 username: value,
             };
-        else delete localSocialFieldProps.data.sites[id];
+        else if (localSocialFieldProps.data) delete localSocialFieldProps.data.sites[id];
         modifyField({
             ...localSocialFieldProps,
         });
     };
 
-    const changeAlignment = (alignment: typeof localSocialFieldProps.options.alignment) => {
+    const changeAlignment = (alignment: SOCIAL_FIELD_ALIGNMENT) => {
         const localProps = { ...localSocialFieldProps };
         if (!localProps.options) localProps.options = {};
         localProps.options.alignment = alignment;
@@ -118,10 +122,9 @@ export const SocialField = ({
                     <TextArea
                         rows={1}
                         autoSize={true}
-                        suffix={site.title}
                         name={siteId}
                         value={
-                            localSocialFieldProps.data.sites[siteId]
+                            localSocialFieldProps.data && localSocialFieldProps.data.sites[siteId]
                                 ? localSocialFieldProps.data.sites[siteId].username
                                 : ''
                         }
