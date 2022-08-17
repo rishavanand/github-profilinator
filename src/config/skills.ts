@@ -37,7 +37,7 @@ export const SKILLS: Record<string, Skill> = {
         label: 'AWS',
         value: 'aws',
         iconUrl: BASE_URL + 'skills-assets/amazonwebservices-original-wordmark.svg',
-        companyUrl:'https://angularjs.org/',
+        companyUrl:'https://aws.amazon.com/',
     },
     android: {
         label: 'Android',
