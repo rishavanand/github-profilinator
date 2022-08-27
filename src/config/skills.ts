@@ -8,6 +8,7 @@ export const SKILLS: Record<string, Skill> = {
         label: 'OpenUI5',
         value: 'openui5',
         iconUrl: BASE_URL + 'skills-assets/openui5.svg',
+        companyUrl: 'https://www.openui5.org/',
     },
     terraform: {
         label: 'Terraform',
@@ -695,5 +696,53 @@ export const SKILLS: Record<string, Skill> = {
         value: 'prisma',
         iconUrl: BASE_URL + 'skills-assets/prisma.png',
         companyUrl: 'https://www.prisma.io/',
+    },
+    strapi: {
+        label: 'Strapi',
+        value: 'strapi',
+        iconUrl: BASE_URL + 'skills-assets/strapi.svg',
+        companyUrl: 'https://www.strapi.io/',
+    },
+    jest: {
+        label: 'Jest',
+        value: 'jest',
+        iconUrl: BASE_URL + 'skills-assets/jest.svg',
+        companyUrl: 'https://www.jestjs.io/',
+    },
+    tailwindcss: {
+        label: 'Tailwind CSS',
+        value: 'tailwindcss',
+        iconUrl: BASE_URL + 'skills-assets/tailwindcss.svg',
+        companyUrl: 'https://www.tailwindcss.com/',
+    },
+    windicss: {
+        label: 'Windi CSS',
+        value: 'windicss',
+        iconUrl: BASE_URL + 'skills-assets/windicss.svg',
+        companyUrl: 'https://www.windicss.org/',
+    },
+    ionic: {
+        label: 'Ionic',
+        value: 'ionic',
+        iconUrl: BASE_URL + 'skills-assets/ionic.svg',
+        companyUrl: 'https://www.ionicframework.com/',
+    },
+    cordova: {
+        label: 'Cordova',
+        value: 'cordova',
+        iconUrl: BASE_URL + 'skills-assets/cordova.png',
+        companyUrl: 'https://www.cordova.apache.org/',
+    },
+    capacitor: {
+        label: 'Capacitor',
+        value: 'capacitor',
+        iconUrl: BASE_URL + 'skills-assets/capacitor.svg',
+        companyUrl: 'https://www.capacitorjs.com/',
+    },
+    astro: {
+        label: 'Astro',
+        value: 'astro',
+        iconUrl: BASE_URL + 'skills-assets/astro.svg',
+        companyUrl: 'https://www.astro.build/',
     },
 };
