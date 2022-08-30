@@ -1,6 +1,5 @@
 import React from 'react';
 import { Input, Row, Col, Button, Dropdown, Menu, Popover, Tooltip } from 'antd';
-import { DownOutlined } from '@ant-design/icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import styles from '../../styles/fields.module.scss';
 import {
@@ -281,7 +280,7 @@ export const TextField = ({
                                 style={{ paddingLeft: 5, paddingRight: 5, width: 50 }}
                                 icon={
                                     <>
-                                        <FontAwesomeIcon icon={faHeading} /> <DownOutlined />
+                                        <FontAwesomeIcon icon={faHeading} />
                                     </>
                                 }
                             />
@@ -293,7 +292,7 @@ export const TextField = ({
                                 style={{ paddingLeft: 5, paddingRight: 5, width: 50 }}
                                 icon={
                                     <>
-                                        <FontAwesomeIcon icon={faAlignLeft} /> <DownOutlined />
+                                        <FontAwesomeIcon icon={faAlignLeft} />
                                     </>
                                 }
                             />

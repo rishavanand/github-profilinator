@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { Row, Col, Button, Dropdown, Menu, Grid, Checkbox, Tooltip, Input } from 'antd';
-import { DownOutlined } from '@ant-design/icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowsAltV } from '@fortawesome/free-solid-svg-icons';
 import { FieldProps } from '.';
@@ -144,7 +143,7 @@ export const SkillsField = ({
                                 style={{ paddingLeft: 5, paddingRight: 5, width: 50 }}
                                 icon={
                                     <>
-                                        <FontAwesomeIcon icon={faArrowsAltV} /> <DownOutlined />
+                                        <FontAwesomeIcon icon={faArrowsAltV} />
                                     </>
                                 }
                             />
