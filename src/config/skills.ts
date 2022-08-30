@@ -528,12 +528,6 @@ export const SKILLS: Record<string, Skill> = {
         iconUrl: BASE_URL + 'skills-assets/chai.png',
         companyUrl: 'https://www.chaijs.com/',
     },
-    d3: {
-        label: 'D3.js',
-        value: 'd3',
-        iconUrl: BASE_URL + 'skills-assets/d3.png',
-        companyUrl: 'https://d3js.org/',
-    },
     firebase: {
         label: 'Firebase',
         value: 'firebase',
