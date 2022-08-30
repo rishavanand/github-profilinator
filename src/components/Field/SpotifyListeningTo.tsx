@@ -1,6 +1,5 @@
 import React from 'react';
 import { Input, Row, Col, Button, Dropdown, Menu, Form, Switch, Tooltip } from 'antd';
-import { DownOutlined } from '@ant-design/icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import styles from '../../styles/fields.module.scss';
 import { faAlignLeft, faExpandArrowsAlt } from '@fortawesome/free-solid-svg-icons';
@@ -121,7 +120,7 @@ export const SpotifyListeningToField = ({
                                 style={{ paddingLeft: 5, paddingRight: 5, width: 50 }}
                                 icon={
                                     <>
-                                        <FontAwesomeIcon icon={faAlignLeft} /> <DownOutlined />
+                                        <FontAwesomeIcon icon={faAlignLeft} />
                                     </>
                                 }
                             />

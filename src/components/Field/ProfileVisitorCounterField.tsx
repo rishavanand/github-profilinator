@@ -1,11 +1,9 @@
 import React, { useContext } from 'react';
 import { Input, Row, Col, Button, Dropdown, Menu, Form, Switch, Tooltip } from 'antd';
-import { DownOutlined } from '@ant-design/icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import styles from '../../styles/fields.module.scss';
 import { faAlignLeft } from '@fortawesome/free-solid-svg-icons';
 import { FieldProps } from '.';
-import { globalContext } from '../../context/GlobalContextProvider';
 
 const { TextArea } = Input;
 
@@ -118,7 +116,7 @@ export const ProfileVisitorCounterField = ({
                                 style={{ paddingLeft: 5, paddingRight: 5, width: 50 }}
                                 icon={
                                     <>
-                                        <FontAwesomeIcon icon={faAlignLeft} /> <DownOutlined />
+                                        <FontAwesomeIcon icon={faAlignLeft} />
                                     </>
                                 }
                             />

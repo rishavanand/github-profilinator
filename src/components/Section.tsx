@@ -17,7 +17,7 @@ import {
     Space,
     Tooltip,
 } from 'antd';
-import { PlusOutlined, FireOutlined, DownOutlined, RedoOutlined } from '@ant-design/icons';
+import { PlusOutlined, FireOutlined, RedoOutlined } from '@ant-design/icons';
 import { globalContext, GlobalContext } from '../context/GlobalContextProvider';
 import Field, { FieldProps } from '../components/Field';
 import { FIELD_TYPES } from '../config/global';
@@ -230,7 +230,7 @@ const Section = (section: SectionProps) => {
                                     style={{ paddingLeft: 5, paddingRight: 5, width: 50 }}
                                     icon={
                                         <>
-                                            <FontAwesomeIcon icon={faColumns} /> <DownOutlined />
+                                            <FontAwesomeIcon icon={faColumns} />
                                         </>
                                     }
                                     size={buttonSize}
