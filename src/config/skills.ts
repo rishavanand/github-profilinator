@@ -739,4 +739,28 @@ export const SKILLS: Record<string, Skill> = {
         iconUrl: BASE_URL + 'skills-assets/astro.svg',
         companyUrl: 'https://www.astro.build/',
     },
+    nextjs: {
+        label: 'NextJS',
+        value: 'nextjs',
+        iconUrl: BASE_URL + 'skills-assets/nextjs.png',
+        companyUrl: 'https://nextjs.org/',
+    },
+    chakraui: {
+        label: 'Chakra UI',
+        value: 'chakraui',
+        iconUrl: BASE_URL + 'skills-assets/chakraui.png',
+        companyUrl: 'https://chakra-ui.com/',
+    },
+    mui: {
+        label: 'Material UI',
+        value: 'mui',
+        iconUrl: BASE_URL + 'skills-assets/mui.png',
+        companyUrl: 'https://mui.com/',
+    },
+    styledcomponents: {
+        label: 'Styled Components',
+        value: 'styledcomponents',
+        iconUrl: BASE_URL + 'skills-assets/styled-components.png',
+        companyUrl: 'https://styled-components.com/',
+    },
 };
