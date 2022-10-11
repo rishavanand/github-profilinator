@@ -2,7 +2,7 @@
 
 <img src="src/images/logo.png" height="80" />
 
-# Github Profilinator
+# iceberg Profilinator
 
 Generate creative GitHub profile readmes in few click!
 
