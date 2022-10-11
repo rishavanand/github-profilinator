@@ -2,7 +2,7 @@
 
 <img src="src/images/logo.png" height="80" />
 
-# Github Profilinator
+# ogwus readme generator
 
 Generate creative GitHub profile readmes in few click!
 
