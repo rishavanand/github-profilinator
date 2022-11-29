@@ -1,6 +1,5 @@
 import React from 'react';
 import { Input, Row, Col, Button, Dropdown, Menu, Form, Switch, Tooltip } from 'antd';
-import { DownOutlined } from '@ant-design/icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import styles from '../../styles/fields.module.scss';
 import { faAlignLeft, faExpandArrowsAlt } from '@fortawesome/free-solid-svg-icons';
@@ -155,9 +154,7 @@ export const GithubReadmeStatsField = ({
                 <Col>
                     <Dropdown overlay={variantMenu}>
                         <Tooltip placement="top" title={<span>Variant</span>}>
-                            <Button style={{ paddingLeft: 5, paddingRight: 5 }}>
-                                Variant <DownOutlined />{' '}
-                            </Button>
+                            <Button style={{ paddingLeft: 5, paddingRight: 5 }}>Variant</Button>
                         </Tooltip>
                     </Dropdown>
                     <Dropdown overlay={alignmentMenu}>
@@ -166,7 +163,7 @@ export const GithubReadmeStatsField = ({
                                 style={{ paddingLeft: 5, paddingRight: 5, width: 50 }}
                                 icon={
                                     <>
-                                        <FontAwesomeIcon icon={faAlignLeft} /> <DownOutlined />
+                                        <FontAwesomeIcon icon={faAlignLeft} />
                                     </>
                                 }
                             />

@@ -1,6 +1,5 @@
 import React from 'react';
 import { Input, Row, Col, Button, Dropdown, Menu, Form, Tooltip } from 'antd';
-import { DownOutlined } from '@ant-design/icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAlignLeft } from '@fortawesome/free-solid-svg-icons';
 import { FieldProps } from '.';
@@ -159,7 +158,7 @@ export const SocialField = ({
                                 style={{ paddingLeft: 5, paddingRight: 5, width: 50 }}
                                 icon={
                                     <>
-                                        <FontAwesomeIcon icon={faAlignLeft} /> <DownOutlined />
+                                        <FontAwesomeIcon icon={faAlignLeft} />
                                     </>
                                 }
                             />
