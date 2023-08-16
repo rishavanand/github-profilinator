@@ -82,6 +82,12 @@ export const SKILLS: Record<string, Skill> = {
         iconUrl: BASE_URL + 'skills-assets/csharp-original.svg',
         companyUrl: 'https://docs.microsoft.com/en-us/dotnet/csharp/',
     },
+    cython: {
+        label: 'Cython',
+        value: 'cython',
+        iconUrl: BASE_URL + 'skills-assets/cython-original.svg',
+        companyUrl: 'https://cython.org/',
+    },
     d3js: {
         label: 'D3.js',
         value: 'd3js',
