@@ -1,0 +1,9 @@
+id,Large File,File URL,LOC,N_Components,N_Functions,N_Imports,"Em uma escala de 1 a 5, como você avalia a relevância desse smell?
+1 = smell não é importante e, provavelmente, não será refatorado
+5 = smell é muito importante e, provavelmente, será refatorado em breve.",Observação
+1,C:\Users\JL\Documents\GitHub\github-profilinator\src\components\Field\ImageField.tsx,C:\Users\JL\Documents\GitHub\github-profilinator\src\components\Field\ImageField.tsx,239,1,3,14,,
+2,C:\Users\JL\Documents\GitHub\github-profilinator\src\components\Field\index.tsx,C:\Users\JL\Documents\GitHub\github-profilinator\src\components\Field\index.tsx,176,1,1,23,,
+3,C:\Users\JL\Documents\GitHub\github-profilinator\src\components\Field\SupportMeToField.tsx,C:\Users\JL\Documents\GitHub\github-profilinator\src\components\Field\SupportMeToField.tsx,235,1,3,12,,
+4,C:\Users\JL\Documents\GitHub\github-profilinator\src\components\Field\TextField.tsx,C:\Users\JL\Documents\GitHub\github-profilinator\src\components\Field\TextField.tsx,333,1,3,21,,
+5,C:\Users\JL\Documents\GitHub\github-profilinator\src\components\Preview.tsx,C:\Users\JL\Documents\GitHub\github-profilinator\src\components\Preview.tsx,195,1,0,39,,
+6,C:\Users\JL\Documents\GitHub\github-profilinator\src\components\Section.tsx,C:\Users\JL\Documents\GitHub\github-profilinator\src\components\Section.tsx,365,1,3,32,,

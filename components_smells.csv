@@ -1,0 +1,16 @@
+id,file,Component,Smell,Details,"Em uma escala de 1 a 5, como você avalia a relevância desse smell?
+1 = smell não é importante e, provavelmente, não será refatorado
+5 = smell é muito importante e, provavelmente, será refatorado em breve.",Observação
+1,C:\Users\JL\Documents\GitHub\github-profilinator\src\components\Field\ImageField.tsx,ImageField,Large Component,LOC: 156; Number of props: 10; Number of attributes: 0; Number of methods: 3,,
+2,C:\Users\JL\Documents\GitHub\github-profilinator\src\components\Field\index.tsx,Field,Large Component,LOC: 141; Number of props: 8; Number of attributes: 0; Number of methods: 7,,
+3,C:\Users\JL\Documents\GitHub\github-profilinator\src\components\Field\SupportMeToField.tsx,SupportMeField,Large Component,LOC: 131; Number of props: 8; Number of attributes: 0; Number of methods: 2,,
+4,C:\Users\JL\Documents\GitHub\github-profilinator\src\components\Field\TextField.tsx,TextField,Large Component,LOC: 226; Number of props: 7; Number of attributes: 0; Number of methods: 9,,
+5,C:\Users\JL\Documents\GitHub\github-profilinator\src\components\Preview.tsx,Preview,Large Component,LOC: 161; Number of props: 13; Number of attributes: 0; Number of methods: 7,,
+6,C:\Users\JL\Documents\GitHub\github-profilinator\src\components\Preview.tsx,Preview,Any Type,"Line 32 - 32: 
+export const Preview = ({ scrollRef }: { scrollRef: MutableRefObject<any> }) => {",,
+7,C:\Users\JL\Documents\GitHub\github-profilinator\src\components\Section.tsx,Section,Large Component,LOC: 302; Number of props: 11; Number of attributes: 0; Number of methods: 8,,
+8,C:\Users\JL\Documents\GitHub\github-profilinator\src\context\GlobalContextProvider.tsx,Provider,Large Component,LOC: 113; Number of props: 17; Number of attributes: 0; Number of methods: 11,,
+9,C:\Users\JL\Documents\GitHub\github-profilinator\src\context\GlobalContextProvider.tsx,Provider,Too many props,"Number of props: 17; Props: name,fields,activeSectionIndex,changeActiveSection,sections,addSection,modifySection,resetSections,useTemplate,deleteSection,shiftSection,addField,modifyField,deleteField,shiftField,changeColumnCount,children",,
+10,C:\Users\JL\Documents\GitHub\github-profilinator\src\context\GlobalContextProvider.tsx,Provider,Missing Union Type,"Line 58 - 58: 
+const shiftSection = (direction: 'up' | 'down', sectionIndex: number): void => {Line 109 - 109: 
+const shiftField = (direction: 'up' | 'down', sectionIndex: number, columnIndex: number, fieldIndex: number) => {",,
