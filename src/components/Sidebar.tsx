@@ -92,6 +92,12 @@ export const Sidebar = () => {
                 </Tooltip>
             </div>
             {generateAddSectionModal()}
+            <div className={styles.moreFromCreator}>
+                <p>More tools:</p>
+                <a href="https://www.rewardmatrix.in/" target="_blank" rel="noreferrer">
+                    - RewardMatrix
+                </a>
+            </div>
         </Sider>
     );
 };
