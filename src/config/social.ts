@@ -106,6 +106,6 @@ export const SOCIAL_SITES: {
         shieldBadge:
             'https://img.shields.io/badge/youtube-%23EE4831.svg?&style=for-the-badge&logo=youtube&logoColor=white',
         title: 'YouTube',
-        href: (username: string) => `https://www.youtube.com/user/${username}`,
+        href: (username: string) => `https://www.youtube.com/@${username}`,
     },
 };
